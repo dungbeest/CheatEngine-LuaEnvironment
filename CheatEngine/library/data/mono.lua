@@ -1,5 +1,7 @@
 ---@meta
 
+---------------------- Aliases ----------------------
+
 ---@alias MonoCommand integer
 ---| 0 # MONOCMD_INITMONO ->
 ---| 1 # MONOCMD_OBJECT_GETCLASS ->
@@ -51,65 +53,65 @@
 
 
 ---@alias MonoType integer
----| 0x00 # MONO_TYPE_END -> End of List
----| 0x01 # MONO_TYPE_VOID ->
----| 0x02 # MONO_TYPE_BOOLEAN ->
----| 0x03 # MONO_TYPE_CHAR ->
----| 0x04 # MONO_TYPE_I1 ->
----| 0x05 # MONO_TYPE_U1 ->
----| 0x06 # MONO_TYPE_I2 ->
----| 0x07 # MONO_TYPE_U2 ->
----| 0x08 # MONO_TYPE_I4 ->
----| 0x09 # MONO_TYPE_U4 ->
----| 0x0a # MONO_TYPE_I8 ->
----| 0x0b # MONO_TYPE_U8 ->
----| 0x0c # MONO_TYPE_R4 ->
----| 0x0d # MONO_TYPE_R8 ->
----| 0x0e # MONO_TYPE_STRING ->
----| 0x0f # MONO_TYPE_PTR -> arg: <type> token
----| 0x10 # MONO_TYPE_BYREF -> arg: <type> token
----| 0x11 # MONO_TYPE_VALUETYPE -> arg: <type> token
----| 0x12 # MONO_TYPE_CLASS -> arg: <type> token
----| 0x13 # MONO_TYPE_VAR -> number
----| 0x14 # MONO_TYPE_ARRAY -> type, rank, boundsCount, bound1, loCount, lo1
----| 0x15 # MONO_TYPE_GENERICINST -> <type> <type-arg-count> <type-1> \x{2026} <type-n> */
----| 0x16 # MONO_TYPE_TYPEDBYREF ->
----| 0x18 # MONO_TYPE_I ->
----| 0x19 # MONO_TYPE_U ->
----| 0x1b # MONO_TYPE_FNPTR -> arg: full method signature */
----| 0x1c # MONO_TYPE_OBJECT ->
----| 0x1d # MONO_TYPE_SZARRAY -> 0-based one-dim-array */
----| 0x1e # MONO_TYPE_MVAR -> number */
----| 0x1f # MONO_TYPE_CMOD_REQD -> arg: typedef or typeref token */
----| 0x20 # MONO_TYPE_CMOD_OPT -> optional arg: typedef or typref token */
----| 0x21 # MONO_TYPE_INTERNAL -> CLR internal type */
----| 0x40 # MONO_TYPE_MODIFIER -> Or with the following types */
----| 0x41 # MONO_TYPE_SENTINEL -> Sentinel for varargs method signature */
----| 0x45 # MONO_TYPE_PINNED -> Local var that points to pinned object */
----| 0x55 # MONO_TYPE_ENUM -> An enumeration */
+---| 0 # MONO_TYPE_END -> End of List
+---| 1 # MONO_TYPE_VOID ->
+---| 2 # MONO_TYPE_BOOLEAN -> mono boolean
+---| 3 # MONO_TYPE_CHAR -> mono char pointer
+---| 4 # MONO_TYPE_I1 -> mono signed byte
+---| 5 # MONO_TYPE_U1 -> mono unsigned byte
+---| 6 # MONO_TYPE_I2 -> mono signed short
+---| 7 # MONO_TYPE_U2 -> mono unsigned short
+---| 8 # MONO_TYPE_I4 -> mono signed int
+---| 9 # MONO_TYPE_U4 -> mono unsigned int
+---| 10 # MONO_TYPE_I8 -> mono signed long
+---| 11 # MONO_TYPE_U8 -> mono unsigned long
+---| 12 # MONO_TYPE_R4 -> mono float
+---| 13 # MONO_TYPE_R8 -> mono double
+---| 14 # MONO_TYPE_STRING -> mono pointer to string
+---| 15 # MONO_TYPE_PTR -> arg: <type> token
+---| 16 # MONO_TYPE_BYREF -> arg: <type> token
+---| 17 # MONO_TYPE_VALUETYPE -> arg: <type> token
+---| 18 # MONO_TYPE_CLASS -> arg: <type> token
+---| 19 # MONO_TYPE_VAR -> number
+---| 20 # MONO_TYPE_ARRAY -> type, rank, boundsCount, bound1, loCount, lo1
+---| 21 # MONO_TYPE_GENERICINST -> <type> <type-arg-count> <type-1> \x{2026} <type-n> */
+---| 22 # MONO_TYPE_TYPEDBYREF ->
+---| 24 # MONO_TYPE_I -> mono signed int
+---| 25 # MONO_TYPE_U -> mono unsigned int
+---| 27 # MONO_TYPE_FNPTR -> arg: full method signature */
+---| 28 # MONO_TYPE_OBJECT ->
+---| 29 # MONO_TYPE_SZARRAY -> 0-based one-dim-array */
+---| 30 # MONO_TYPE_MVAR -> number */
+---| 31 # MONO_TYPE_CMOD_REQD -> arg: typedef or typeref token */
+---| 32 # MONO_TYPE_CMOD_OPT -> optional arg: typedef or typref token */
+---| 33 # MONO_TYPE_INTERNAL -> CLR internal type */
+---| 64 # MONO_TYPE_MODIFIER -> Or with the following types */
+---| 65 # MONO_TYPE_SENTINEL -> Sentinel for varargs method signature */
+---| 69 # MONO_TYPE_PINNED -> Local var that points to pinned object */
+---| 85 # MONO_TYPE_ENUM -> An enumeration */
 
 
 
 ---@alias MonoFieldAttribute integer
----| 0x0007 # FIELD_ATTRIBUTE_FIELD_ACCESS_MASK ->
----| 0x0000 # FIELD_ATTRIBUTE_COMPILER_CONTROLLED ->
----| 0x0001 # FIELD_ATTRIBUTE_PRIVATE ->
----| 0x0002 # FIELD_ATTRIBUTE_FAM_AND_ASSEM ->
----| 0x0003 # FIELD_ATTRIBUTE_ASSEMBLY ->
----| 0x0004 # FIELD_ATTRIBUTE_FAMILY ->
----| 0x0005 # FIELD_ATTRIBUTE_FAM_OR_ASSEM ->
----| 0x0006 # FIELD_ATTRIBUTE_PUBLIC ->
----| 0x0010 # FIELD_ATTRIBUTE_STATIC ->
----| 0x0020 # FIELD_ATTRIBUTE_INIT_ONLY ->
----| 0x0040 # FIELD_ATTRIBUTE_LITERAL ->
----| 0x0080 # FIELD_ATTRIBUTE_NOT_SERIALIZED ->
----| 0x0200 # FIELD_ATTRIBUTE_SPECIAL_NAME ->
----| 0x2000 # FIELD_ATTRIBUTE_PINVOKE_IMPL ->
----| 0x9500 # FIELD_ATTRIBUTE_RESERVED_MASK ->
----| 0x0400 # FIELD_ATTRIBUTE_RT_SPECIAL_NAME ->
----| 0x1000 # FIELD_ATTRIBUTE_HAS_FIELD_MARSHAL ->
----| 0x8000 # FIELD_ATTRIBUTE_HAS_DEFAULT ->
----| 0x0100 # FIELD_ATTRIBUTE_HAS_FIELD_RVA ->
+---| 7 # FIELD_ATTRIBUTE_FIELD_ACCESS_MASK ->
+---| 0 # FIELD_ATTRIBUTE_COMPILER_CONTROLLED ->
+---| 1 # FIELD_ATTRIBUTE_PRIVATE ->
+---| 2 # FIELD_ATTRIBUTE_FAM_AND_ASSEM ->
+---| 3 # FIELD_ATTRIBUTE_ASSEMBLY ->
+---| 4 # FIELD_ATTRIBUTE_FAMILY ->
+---| 5 # FIELD_ATTRIBUTE_FAM_OR_ASSEM ->
+---| 6 # FIELD_ATTRIBUTE_PUBLIC ->
+---| 16 # FIELD_ATTRIBUTE_STATIC ->
+---| 32 # FIELD_ATTRIBUTE_INIT_ONLY ->
+---| 64 # FIELD_ATTRIBUTE_LITERAL ->
+---| 128 # FIELD_ATTRIBUTE_NOT_SERIALIZED ->
+---| 512 # FIELD_ATTRIBUTE_SPECIAL_NAME ->
+---| 8192 # FIELD_ATTRIBUTE_PINVOKE_IMPL ->
+---| 38144 # FIELD_ATTRIBUTE_RESERVED_MASK ->
+---| 1024 # FIELD_ATTRIBUTE_RT_SPECIAL_NAME ->
+---| 4096 # FIELD_ATTRIBUTE_HAS_FIELD_MARSHAL ->
+---| 32768 # FIELD_ATTRIBUTE_HAS_DEFAULT ->
+---| 256 # FIELD_ATTRIBUTE_HAS_FIELD_RVA ->
 
 
 
@@ -121,13 +123,72 @@
 
 
 
+---@alias MonoTypesClassStrings string
+---| '"void"' #
+---| '"boolean"' #
+---| '"char"' #
+---| '"unsigned char"' #
+---| '"short"' #
+---| '"unsigned short"' #
+---| '"int"' #
+---| '"unsigned int"' #
+---| '"int64"' #
+---| '"unsigned int 64"' #
+---| '"single"' #
+---| '"double"' #
+---| '"String"' #
+---| '"Pointer"' # raw pointer
+---| '"Object"' #
+---| '"Function"' # 
+---| '"<Generic>"' #
+---| '"Array[]"' #
+---| '"String[]"' #
+
+---------------------- Classes ----------------------
+
+---@class MonoClass
+---@field class Address # The address of the class
+---@field classname string # The name of the class
+---@field namespace string # The namespace the class is in
+
+
+---@class MonoClassField
+---@field field Address # The address of the field
+---@field type VariableType # CE type autoguessed for field
+---@field monotype MonoType # The associated mono type for field
+---@field parent Address # The address of the object
+---@field offset integer # Offset from object start
+---@field flags integer # 
+---@field isStatic boolean # whether the field is static
+---@field isConst boolean # wheter the field is a constant
+---@field name string # The name of the field
+---@field typename string # The name of the type of the field
+
+---@class MonoClassMethod
+---@field method Address # The method's address
+---@field name string # The name of the method
+
+---@class MonoClassJitInfo
+---@field jitinfo Address #
+---@field method Address #
+---@field code_start Address #
+---@field code_size dword #
+
+---@class MonoParameterInfo
+---@field name string
+---@field type MonoType
+
+---@class MonoMethodParametersInfo
+---@field parameters MonoParameterInfo[]
+---@field returntype MonoType
+
+---------------------- Enums & Defines ----------------------
+
+
 ---Change to 0 to never timeout (meaning: 0 will freeze your face off if it breaks on a breakpoint, just saying ...)
 ---@type integer
 CE_defines.mono_timeout = 3000
 
----Change to 0 to never timeout (meaning: 0 will freeze your face off if it breaks on a breakpoint, just saying ...)
----@type integer
-mono_timeout = CE_defines.mono_timeout
 
 
 ---@enum MonoCommands
@@ -255,6 +316,94 @@ CE_defines.mono_types = {
   MONO_TYPE_ENUM       = 0x55,  -- An enumeration */
 }
 
+
+
+
+---@type table<integer, integer> #
+CE_defines.mono_type_to_var_type_lookups = {}
+
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_BOOLEAN]      = CE_defines.variable_types.vtByte
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_CHAR]         = CE_defines.variable_types.vtString
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_I1]           = CE_defines.variable_types.vtByte
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_U1]           = CE_defines.variable_types.vtByte
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_I2]           = CE_defines.variable_types.vtWord
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_U2]           = CE_defines.variable_types.vtWord
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_I4]           = CE_defines.variable_types.vtDword
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_U4]           = CE_defines.variable_types.vtDword
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_I8]           = CE_defines.variable_types.vtQword
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_U8]           = CE_defines.variable_types.vtQword
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_R4]           = CE_defines.variable_types.vtSingle
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_R8]           = CE_defines.variable_types.vtDouble
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_STRING]       = CE_defines.variable_types.vtPointer --pointer to a string object
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_PTR]          = CE_defines.variable_types.vtPointer
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_BYREF]        = CE_defines.variable_types.vtPointer
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_CLASS]        = CE_defines.variable_types.vtPointer
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_FNPTR]        = CE_defines.variable_types.vtPointer
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_GENERICINST]  = CE_defines.variable_types.vtPointer
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_ARRAY]        = CE_defines.variable_types.vtPointer
+CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_SZARRAY]      = CE_defines.variable_types.vtPointer
+
+
+---@type table<integer, string> #
+CE_defines.mono_type_to_CString_lookup={}
+
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_END]          = 'void'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_BOOLEAN]      = 'boolean'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_CHAR]         = 'char'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I1]           = 'char'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U1]           = 'unsigned char'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I2]           = 'short'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U2]           = 'unsigned short'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I4]           = 'int'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U4]           = 'unsigned int'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I8]           = 'int64'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U8]           = 'unsigned int 64'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_R4]           = 'single'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_R8]           = 'double'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_STRING]       = 'String'  --pointer to a string object
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_PTR]          = 'Pointer'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_BYREF]        = 'Object'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_CLASS]        = 'Object'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_FNPTR]        = 'Function'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_GENERICINST]  = '<Generic>'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_ARRAY]        = 'Array[]'
+CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_SZARRAY]      = 'String[]'
+
+
+---------------------- Globals ----------------------
+
+---@type LuaPipe
+monopipe = {
+  Connected = true,
+  lock = function () end,
+  unlock = function () end,
+  writeByte = function (_) return nil end,
+  writeBytes = function (_, _) return nil end,
+  writeWord = function (_) return nil end,
+  writeDword = function (_) return nil end,
+  writeQword = function (_) return nil end,
+  writeFloat = function (_) return nil end,
+  writeDouble = function (_) return nil end,
+  writeString = function (_, _) return nil end,
+  writeWideString = function (_, _) return nil end,
+  readByte = function() return nil end,
+  readBytes = function(_) return nil end,
+  readWord = function() return nil end,
+  readDword = function() return nil end,
+  readQword = function() return nil end,
+  readFloat = function() return nil end,
+  readDouble = function() return nil end,
+  readString = function(_) return nil end,
+  readWideString = function(_) return nil end
+}
+
+---@type integer
+mono_AttachedProcess = 0
+
+
+---Change to 0 to never timeout (meaning: 0 will freeze your face off if it breaks on a breakpoint, just saying ...)
+---@type integer
+mono_timeout = CE_defines.mono_timeout
 
 
 ---@type integer
@@ -480,29 +629,6 @@ FIELD_ATTRIBUTE_HAS_DEFAULT         = CE_defines.mono_field_attributes.FIELD_ATT
 ---@type integer
 FIELD_ATTRIBUTE_HAS_FIELD_RVA       = CE_defines.mono_field_attributes.FIELD_ATTRIBUTE_HAS_FIELD_RVA
 
----@type table<integer, integer> #
-CE_defines.mono_type_to_var_type_lookups = {}
-
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_BOOLEAN]      = CE_defines.variable_types.vtByte
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_CHAR]         = CE_defines.variable_types.vtString
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_I1]           = CE_defines.variable_types.vtByte
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_U1]           = CE_defines.variable_types.vtByte
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_I2]           = CE_defines.variable_types.vtWord
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_U2]           = CE_defines.variable_types.vtWord
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_I4]           = CE_defines.variable_types.vtDword
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_U4]           = CE_defines.variable_types.vtDword
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_I8]           = CE_defines.variable_types.vtQword
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_U8]           = CE_defines.variable_types.vtQword
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_R4]           = CE_defines.variable_types.vtSingle
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_R8]           = CE_defines.variable_types.vtDouble
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_STRING]       = CE_defines.variable_types.vtPointer --pointer to a string object
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_PTR]          = CE_defines.variable_types.vtPointer
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_BYREF]        = CE_defines.variable_types.vtPointer
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_CLASS]        = CE_defines.variable_types.vtPointer
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_FNPTR]        = CE_defines.variable_types.vtPointer
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_GENERICINST]  = CE_defines.variable_types.vtPointer
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_ARRAY]        = CE_defines.variable_types.vtPointer
-CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_SZARRAY]      = CE_defines.variable_types.vtPointer
 
 
 ---@type table<integer, integer> #
@@ -530,53 +656,7 @@ monoTypeToVartypeLookup[CE_defines.mono_types.MONO_TYPE_ARRAY]        = CE_defin
 monoTypeToVartypeLookup[CE_defines.mono_types.MONO_TYPE_SZARRAY]      = CE_defines.mono_type_to_var_type_lookups[CE_defines.mono_types.MONO_TYPE_SZARRAY]
 
 
----@alias MonoTypesClassStrings string
----| '"void"' #
----| '"boolean"' #
----| '"char"' #
----| '"unsigned char"' #
----| '"short"' #
----| '"unsigned short"' #
----| '"int"' #
----| '"unsigned int"' #
----| '"int64"' #
----| '"unsigned int 64"' #
----| '"single"' #
----| '"double"' #
----| '"String"' #
----| '"Pointer"' #
----| '"Object"' #
----| '"Function"' #
----| '"<Generic>"' #
----| '"Array[]"' #
----| '"String[]"' #
 
-
-
----@type table<integer, string> #
-CE_defines.mono_type_to_CString_lookup={}
-
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_END]          = 'void'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_BOOLEAN]      = 'boolean'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_CHAR]         = 'char'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I1]           = 'char'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U1]           = 'unsigned char'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I2]           = 'short'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U2]           = 'unsigned short'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I4]           = 'int'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U4]           = 'unsigned int'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I8]           = 'int64'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U8]           = 'unsigned int 64'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_R4]           = 'single'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_R8]           = 'double'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_STRING]       = 'String'  --pointer to a string object
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_PTR]          = 'Pointer'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_BYREF]        = 'Object'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_CLASS]        = 'Object'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_FNPTR]        = 'Function'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_GENERICINST]  = '<Generic>'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_ARRAY]        = 'Array[]'
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_SZARRAY]      = 'String[]'
 
 
 ---@type table<integer, string> #
