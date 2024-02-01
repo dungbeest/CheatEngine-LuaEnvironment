@@ -14,8 +14,7 @@ function getWindowList(strings) end
 ---@return WindowListInfo # A table with the windowlist (pid - window caption). The table is formatted as : {pid,{id,caption}} (ex. {6435 = { "Lua Engine", "Memory Viewer"}, ...})
 function getWindowList()
     local t = {}
-    t[634] = { "Lua Engine", "Memory Viewer" }
-    t[4243] = {}
+    t[6345] = { "Lua Engine", "Memory Viewer" }
     return t
 end
 

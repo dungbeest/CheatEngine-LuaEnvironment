@@ -1,15 +1,10 @@
 ---@meta
 
----@alias StringsSplit { [integer]: string, n: integer} 
 
 ---@param string string # String to split
 ---@param separator string # Characters to use as separator
----@return StringsSplit # Array of strings separated by the separator string supplied (instances of separator are removed) with total number of strings in a "n" key.
-function string.split(string, separator)
-    local t = { "", "", }
-    t.n = 2
-    return t
-end
+---@return string # A single string until the separator is found.
+function string.split(string, separator) return "" end
 
 ---@param string string # String to search
 ---@param endWith string # String to search for as suffix

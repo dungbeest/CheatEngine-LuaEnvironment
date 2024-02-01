@@ -42,14 +42,16 @@ function getThreadList(list) end
 ---@param filter? HandleFilter # Which class of handles to filter
 ---@return HandleInfo[] # A table with all the handles in the system
 function getHandleList(filter)
-  return { {
-    ProcessID = 0,
-    ObjectTypeIndex = 0,
-    Object = 0,
-    GrantedAccess = 0,
-    HandleValue = 0,
-    HandleAttributes = 0,
-  }, }
+  return {
+    {
+      ProcessID = 0,
+      ObjectTypeIndex = 0,
+      Object = 0,
+      GrantedAccess = 0,
+      HandleValue = 0,
+      HandleAttributes = 0,
+    },
+  }
 end
 
 
@@ -90,17 +92,6 @@ function duplicateHandle(handle, fromPID, toPID) end
 function onOpenProcess(processID) end
 
 
----Define this if you want to be notified when a new process has been opened.
----
----Called only once from the main thread.
----
----It is recommended to use this instead of onOpenProcess.
----@param processID integer # Process ID of the process that's been opened
----@param processHandle integer # Process Handle of the process that's been opened
----@param caption string # The process' associated name
-function MainForm.OnProcessOpened(
-  processID, processHandle, caption
-) end
 
 ---If defined this function will be called twice when a table gets loaded. Once before the loading, and once after.
 ---@param before boolean # Whether the function has been called before or after table load.

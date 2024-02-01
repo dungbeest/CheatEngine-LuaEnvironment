@@ -45,7 +45,7 @@
 
 
 ---Creates a menu item that gets added to the owner menu
----@param ownerMenu Menu
+---@param ownerMenu Menu | MenuItem
 ---@return MenuItem # A new menu item
 function createMenuItem(ownerMenu) return {} end
 

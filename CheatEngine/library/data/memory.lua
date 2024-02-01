@@ -38,6 +38,11 @@
 ---| "moAlwaysHideChildren" # Always hide child records
 
 
+---@alias MemRecActivationFn fun(memoryRecord: MemoryRecord, before: boolean, currentState: boolean): boolean
+---@alias MemRecDisplayFn fun(memoryRecord: MemoryRecord, value: string): boolean, string
+---@alias MemRecChangeValueFn fun(memoryRecord: MemoryRecord, oldValue: string, newValue: string)
+---@alias MemRecHotkeyFn fun(keys: VirtualKeyCodes[], action: MemoryRecordHotkeyAction, value?: string, description?: string): MemoryRecordHotkey
+
 ---The memory record objects are the entries you see in the address list.
 ---@class MemoryRecord
 ---@field ID integer # Unique ID, user definable
@@ -91,27 +96,27 @@
 ---@field AsyncProcessing boolean # True when async is true and it's being processed
 ---@field AsyncProcessingTime qword # The time that it has been processing in milliseconds
 ---@field HasMouseOver boolean # True if the mouse is currently over it
----@field OnActivate fun(memoryRecord: MemoryRecord, before: boolean, currentState: boolean): boolean # The function to call when the memory record will change (or changed) Active to true. If before is true, not returning true will cause the activation to stop.
----@field OnDeactivate fun(memoryRecord: MemoryRecord, before: boolean, currentState: boolean): boolean - The function to call when the memoryrecord will change (or changed) Active to false. If before is true, not returning true will cause the deactivation to stop.
+---@field OnActivate MemRecActivationFn # The function to call when the memory record will change (or changed) Active to true. If before is true, not returning true will cause the activation to stop.
+---@field OnDeactivate MemRecActivationFn - The function to call when the memoryrecord will change (or changed) Active to false. If before is true, not returning true will cause the deactivation to stop.
 ---@field OnDestroy fun() # Called when the memory record is destroyed.
----@field OnGetDisplayValue fun(memoryRecord: MemoryRecord, value: string): boolean, string # This function gets called when rendering the value of a memory record. Return true and a new string to override the value shown
----@field OnChangedValue fun(memoryRecord: MemoryRecord, oldValue: string, newValue: string) # This function gets called whenever the value of a memory record has changed
----@field OnChangedValueByUser fun(memoryRecord: MemoryRecord, oldValue: string, newValue: string) # This function gets called whenever the value of a memory record has changed by the user
+---@field OnGetDisplayValue MemRecDisplayFn # This function gets called when rendering the value of a memory record. Return true and a new string to override the value shown
+---@field OnChangedValue MemRecChangeValueFn # This function gets called whenever the value of a memory record has changed
+---@field OnChangedValueByUser MemRecChangeValueFn # This function gets called whenever the value of a memory record has changed by the user
 ---@field DontSave boolean # Don't save this memory record and it's children on table save
 ---@field getDescription fun(): string #
 ---@field setDescription fun(description: string) #
 ---@field getAddress fun(): string, Address[] | nil # Returns the interpretable address string of this record. If it is a pointer, it returns a second result as a table filled with the offsets
----@field setAddress fun(address: string) # Sets the interpretable address string, and if offsets are provided makes it a pointer
+---@field setAddress fun(address: SymbolAddress) # Sets the interpretable address string, and if offsets are provided makes it a pointer
 ---@field getOffsetCount fun(): integer # Returns the number of offsets for this memory record
----@field setOffsetCount fun(offests: integer) # Lets you set the number of offsets
----@field getOffset fun(index): integer # Gets the offset at the given index
+---@field setOffsetCount fun(offsets: integer) # Lets you set the number of offsets
+---@field getOffset fun(index: integer): integer # Gets the offset at the given index
 ---@field setOffset fun(index: integer, value: integer) # Sets the offset at the given index
 ---@field getCurrentAddress fun(): Address # Returns the current address as an integer (the final result of the interpretable address and pointer offsets)
 ---@field appendToEntry fun(memoryRecord: MemoryRecord) # Appends the current memory record to the given memory record
 ---@field getHotkey fun(index: integer): MemoryRecordHotkey # Returns the hotkey from the hotkey array
 ---@field getHotkeyByID fun(id: integer): MemoryRecordHotkey # Returns the hotkey with the given id
 ---@field reinterpret fun() #
----@field createHotkey fun(keys: VirtualKeyCodes[], action: MemoryRecordHotkeyAction, value?: string, description?: string): MemoryRecordHotkey # Returns a hotkey object 
+---@field createHotkey MemRecHotkeyFn  # Returns a hotkey object 
 ---@field disableWithoutExecute fun() # Sets the entry to disabled without executing the disable section
 ---@field beginEdit fun() # Call when you wish to take a long time to edit a record (e.g external editor). It prevents the record from getting deleted
 ---@field endEdit fun() # To mark the end of your long edit sequence

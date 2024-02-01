@@ -37,16 +37,17 @@ function disassemble(address) return "" end
 
 ---Splits a disassembled string into its 4 possible components.
 ---
----See disassemble
+---@see disassemble
 ---@param disassembledString string # A disassembled string in the format of "address - bytes - opcode : extra"
----@return string # The address of the instruction
----@return string # The bytes of the instruction
----@return string # The opcode of the instruction
 ---@return string # The extra field of the instruction
+---@return string # The opcode of the instruction
+---@return string # The bytes of the instruction
+---@return string # The address of the instruction
 ---@see disassemble
 function splitDisassembledString(disassembledString)
   return "", "", "", ""
 end
+
 
 ---Disassembles the instruction at the supplied address and returns the number of bytes.
 ---@param address SymbolAddress # Address to disassemble code
@@ -69,6 +70,7 @@ function getPreviousOpcode(address) return 0 end
 function autoAssemble(script, targetSelf, disableInfo)
   return true, {}
 end
+
 
 ---Checks the script for syntax errors.
 ---@param script string # AA Script to assemble

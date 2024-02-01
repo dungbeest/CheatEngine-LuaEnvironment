@@ -81,8 +81,7 @@
 ---@field getOnEnter fun(): function #
 ---@field setOnExit fun(onExit: function) # Sets an onExit event. (Triggered on lost focus)
 ---@field getOnExit fun(): function #
----@field setLayeredAttributes fun(key, alpha, flags) # Sets the layered state for the control if possible (Only Forms are supported in windows 7 and earlier). Flags can be a combination of LWA_ALPHA and/or LWA_COLORKEY
----@see # msdn SetLayeredWindowAttributes for more information     
+---@field setLayeredAttributes fun(key, alpha, flags) # Sets the layered state for the control if possible (Only Forms are supported in windows 7 and earlier). Flags can be a combination of LWA_ALPHA and/or LWA_COLORKEY. See msdn/SetLayeredWindowAttributes for more information     
 
 
 ---Inherits from WinControl (CustomControl->WinControl->Control->Component->Object)

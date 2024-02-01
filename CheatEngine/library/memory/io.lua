@@ -399,15 +399,17 @@ function writeStringLocal(address, string, wideChar) return true end
 
 ---@return MemoryRegion[] # An indexed table containing the  entire memory layout.
 function enumMemoryRegions()
-  return {{
-    BaseAddress = 0,
-    AllocationBase = 0,
-    AllocationProtect = 0,
-    RegionSize = 0,
-    State = 0,
-    Protect = 0,
-    Type = 0
-  }}
+  return {
+    {
+      BaseAddress = 0,
+      AllocationBase = 0,
+      AllocationProtect = 0,
+      RegionSize = 0,
+      State = 0,
+      Protect = 0,
+      Type = 0
+    }
+  }
 end
 
 ---Writes the given memory block to a file.
@@ -438,12 +440,14 @@ end
 ---@param processID? integer # The process ID to scan for modules. If not defined, defaults to current opened process
 ---@return ModuleInfo[] # The modules loaded by the process
 function enumModules(processID)
-  return {{
-    Name = "",
-    Address = 0,
-    Is64Bit = true,
-    PathToFile = ""
-  }}
+  return {
+    {
+      Name = "",
+      Address = 0,
+      Is64Bit = true,
+      PathToFile = ""
+    }
+  }
 end
 
 

@@ -24,6 +24,13 @@ function bAnd(int1, int2) end
 ---@return integer # The SHR result
 function bShr(int1, int2) end
 
+---Binary SHL (shift left).
+---@param int1 integer # Integer to shift
+---@param int2 integer # Number to shift by
+---@return integer # The SHL result
+function bShl(int1, int2) end
+
+
 ---Binary NOT.
 ---@param int integer # Integer to invert (2's-Complement)
 ---@return integer # The NOT result
