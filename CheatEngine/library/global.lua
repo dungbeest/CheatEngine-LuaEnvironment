@@ -15,48 +15,15 @@
 
 
 
----Inherits from Panel (Addresslist->Panel->WinControl->Control->Component->Object)
----@class Addresslist: Panel
---@operator index(integer): MemoryRecord # Default accessor
----@field LoadedTableVersion integer # Returns the tableVersion of the last loaded table
----@field Count integer # The number of records in the table
----@field SelCount integer # The number of records that are selected
----@field SelectedRecord MemoryRecord # The main selected record
----@field MemoryRecord MemoryRecord[] # Array to access the individual memory records
----@field CheckboxActiveSelectedColor Colors #
----@field CheckboxActiveColor Colors #
----@field CheckboxSelectedColor Colors #
----@field CheckboxColor Colors #
----@field SelectedBackgroundColor Colors #
----@field SelectedSecondaryBackgroundColor Colors #
----@field ExpandSignColor Colors #
----@field IncreaseArrowColor Colors #
----@field DecreaseArrowColor Colors #
----@field MouseHighlightedRecord fun(): MemoryRecord | nil # Returns the memoryrecord that the mouse points at. nil if nothing
----@field OnDescriptionChange fun(addresslist: Addresslist, memoryRecord: MemoryRecord): boolean # Called when the user initiates a description column change on a record. Return true if you handle it, false for normal behaviour
----@field OnAddressChange fun(addresslist: Addresslist, memoryRecord: MemoryRecord): boolean # Called when the user initiates an address column change on a record. Return true if you handle it, false for normal behaviour
----@field OnTypeChange fun(addresslist: Addresslist, memoryRecord: MemoryRecord): boolean # Called when the user initiates a type column change on a record. Return true if you handle it, false for normal behaviour
----@field OnValueChange fun(addresslist: Addresslist, memoryRecord: MemoryRecord): boolean # Called when the user initiates a value column change on a record. Return true if you handle it, false for normal behaviour
----@field OnAutoAssemblerEdit fun(addresslist: Addresslist, memoryRecord) # Called when the user initiates a memoryrecord AA script edit.  This function will be responsible for changing the memory record
----@field getCount fun(): integer #
----@field getMemoryRecord fun(index: integer): MemoryRecord #
----@field getMemoryRecordByDescription fun(description: string): MemoryRecord | nil # Returns a MemoryRecord object
----@field getMemoryRecordByID fun(ID: integer): MemoryRecord | nil #
----@field createMemoryRecord fun(): MemoryRecord # Creates an generic cheat table entry and add it to the list
----@field getSelectedRecords fun(): MemoryRecord[] # Returns a table containing all the selected records
----@field doDescriptionChange fun() # Will show the GUI window to change the description of the selected entry
----@field doAddressChange fun() # Will show the GUI window to change the address of the selected entry
----@field doTypeChange fun() # Will show the GUI window to change the type of the selected entries
----@field doValueChange fun() # Will show the GUI window to change the value of the selected entries
----@field getSelectedRecord fun(): MemoryRecord # Gets the main selected memory record
----@field setSelectedRecord fun(memoryRecord: MemoryRecord) # Sets the currently selected memory record. This will unselect all other entries
----@field disableAllWithoutExecute fun() # Disables all memory records without executing their [Disable] section
----@field rebuildDescriptionCache fun() # Rebuilds the description to record lookup table
 
-
----@class MainForm
+---@class MainForm: Form
 ---@field process string # A variable that contains the main modulename of the currently opened process
 ---@field AddressList Addresslist # The address list of the main Cheat Engine GUI
+---@field Menu Menu # The main menu behind the main GUI window
+---@field Splitter1 Control # Control for the first splitter separates the memory scan from addresslist
+---@field Panel4 Control # Control for the bottom panel that has table extras and advanced options
+---@field Panel5 Control # Control for the middle panel that has the memory scan and scan list
+---@field OnProcessOpened fun(processID: integer | nil, processHandle: integer | nil, caption: string | nil) # Define this if you want to be notified when a new process has been opened. Called only once from the main thread. It is recommended to use this instead of onOpenProcess. Takes a process ID of the process that's been opened, a process handle of the process that's been opened, the process' associated name.
 
 
 
@@ -75,7 +42,90 @@ process = ""
 ---@type MainForm
 MainForm = {
   process = "",
-  AddressList = {}
+  AddressList = AddressList,
+  Menu = {
+    ClassName = "",
+    Component = {},
+    ComponentByName = {},
+    ComponentCount = 0,
+    Items = {
+      Caption = "",
+      ClassName = "",
+      Component = {},
+      ComponentByName = {},
+      ComponentCount = 0,
+      Count = 0,
+      FontColor = 0,
+      ImageIndex = 0,
+      ImageList = {
+        Count = 0,
+        DrawingStyle = "dsFocus",
+        Height = 0,
+        Masked = false,
+        OnChange = function(_) end,
+        Scaled = false,
+        Width = 0,
+        add = function(_,_) return 0 end,
+        draw = function(_,_,_,_) end
+      },
+      Item = {},
+      Menu = MainForm.Menu,
+      MenuIndex = 0,
+      Name = "",
+      OnClick = function(_) end,
+      Owner = nil,
+      Parent = MainForm.Menu.Items,
+      Shortcut = "",
+      Tag = 0,
+      add = function(_) end,
+      clear = function() end,
+      delete = function(_) end,
+      destroy = function() end,
+      doClick = function() end,
+      fieldAddress = function(_) return 0 end,
+      findComponentByName = function(_) return MainForm.Menu end,
+      getCaption = function() return "" end,
+      getClassName = function() return "" end,
+      getComponent = function(_) return MainForm.Menu end,
+      getComponentCount = function() return 0 end,
+      getCount = function() return 0 end,
+      getItem = function(_) return MainForm.Menu.Items end,
+      getName = function() return "" end,
+      getOnClick = function() return function() end end,
+      getOwner = function() return MainForm.Menu end,
+      getShortcut = function() return "" end,
+      getTag = function() return 0 end,
+      insert = function(_, _) end,
+      methodAddress = function(_) return 0 end,
+      methodName = function(_) return "" end,
+      setCaption = function(_) end,
+      setName = function(_) end,
+      setOnClick = function(_) end,
+      setShortcut = function(_) end,
+      setTag = function(_) end,
+    },
+    Name = "",
+    Owner = nil,
+    Tag = 0,
+    destroy = function() end,
+    fieldAddress = function(_) return 0 end,
+    findComponentByName = function(_) return MainForm.Menu end,
+    getClassName = function() return "" end,
+    getComponent = function(_) return MainForm.Menu end,
+    getComponentCount = function() return 0 end,
+    getItems = function() return MainForm.Menu.Items end,
+    getName = function() return "" end,
+    getOwner = function() return MainForm.Menu end,
+    getTag = function() return 0 end,
+    methodAddress = function(_) return 0 end,
+    methodName = function(_) return "" end,
+    setName = function(_) end,
+    setTag = function(_) end,
+  },
+  Splitter1 = createSplitter(MainForm),
+  Panel4 = createPanel(MainForm),
+  Panel5 = createPanel(MainForm),
+  OnProcessOpened = function (processID, processHandle, caption) end
 }
 
 ---@param object Object # Object to operate on
@@ -129,7 +179,11 @@ function createClass(className) return {} end
 ---@param yourUrl? string # The url you want to show. When given instead of showing CE's ads 100% it will show your url up to 75%. You can use it for your own income, or for updating users about new versions of your trainer or whatever you feel like
 ---@param extraParameters? string # Url request parameters you can add to the default parameters (e.g trainername=mytrainer for tracking purposes)
 ---@param percentageShown? integer You can change the default of 75% to a smaller value like 50%
-function supportCheatEngine(attachWindow, hasCloseButton, width, height, position ,yourUrl, extraParameters, percentageShown) end
+function supportCheatEngine(
+  attachWindow, hasCloseButton, width,
+  height, position ,yourUrl, extraParameters,
+  percentageShown
+) end
 
 
 ---Removes the ad window if it was showing.
