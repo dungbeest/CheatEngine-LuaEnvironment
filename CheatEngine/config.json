@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/LLS-Addons/main/schemas/addon_config.schema.json",
+
+  "name": "Cheat Engine Environment",
+
+  "words": [
+    "[cC][hH][eE][aA][tT]%s+[eE][nN][gG][iI][nN][eE]",
+    "%w*_?_?[cC][eE]$",
+    "^[cC][eE]_?_?%w*"
+  ],
+
+  "files": [
+    "^.*[mM]ono.*%.lua$",
+    "^.*_?_?[cC][eE]_?_?.*%.lua$"
+  ],
+
+  "configs": []
+}
