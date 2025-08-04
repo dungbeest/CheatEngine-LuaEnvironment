@@ -462,23 +462,26 @@
 
 
 ---Package table to store all enums used with Cheat Engine.
+---This table is a virtual repository of all enums used in
+---Cheat Engine, but it does not actually exist in the
+---Cheat Engine Lua environment (USE AS REFERENCE ONLY)
 CE_defines = {}
 
 
 ---@enum WindowPositions
 CE_defines.window_positions = {
-  Top = 0,
-  Right = 1,
-  Bottom = 2,
-  Left = 3,
+  Top     = 0,
+  Right   = 1,
+  Bottom  = 2,
+  Left    = 3,
 }
 
 
 ---@enum CheckBoxStates
 CE_defines.check_box_states = {
   cbUnchecked = 0,
-  cbChecked = 1,
-  cbGrayed = 2,
+  cbChecked   = 1,
+  cbGrayed    = 2,
 }
 
 
@@ -494,45 +497,45 @@ CE_defines.mouse_event_buttons = {
 
 ---@enum ScrollStyles
 CE_defines.scroll_styles = {
-  ssNone = 0,
-  ssHorizontal = 1,
-  ssVertical = 2,
-  ssBoth = 3,
-  ssAutoHorizontal = 4,
-  ssAutoVertical = 5,
-  ssAutoBoth = 6,
+  ssNone            = 0,
+  ssHorizontal      = 1,
+  ssVertical        = 2,
+  ssBoth            = 3,
+  ssAutoHorizontal  = 4,
+  ssAutoVertical    = 5,
+  ssAutoBoth        = 6,
 }
 
 
 ---@enum MemFastScanMethods
 CE_defines.mem_fast_scan_methods = {
   fsmNotAligned = 0,
-  fsmAligned = 1,
+  fsmAligned    = 1,
   fsmLastDigits = 2,
 }
 
 
 ---@enum MemScanRoundingTypes
 CE_defines.mem_scan_rounding_types = {
-  rtRounded = 0,
-  rtExtremerounded = 1,
-  rtTruncated = 2,
+  rtRounded         = 0,
+  rtExtremerounded  = 1,
+  rtTruncated       = 2,
 }
 
 
 ---@enum MemScanOptions
 CE_defines.mem_scan_options = {
-  soUnknownValue = 0,
-  soExactValue = 1,
-  soValueBetween = 2,
-  soBiggerThan = 3,
-  soSmallerThan = 4,
-  soIncreasedValue = 5,
-  soIncreasedValueBy = 6,
-  soDecreasedValue = 7,
-  soDecreasedValueBy = 8,
-  soChanged = 9,
-  soUnchanged = 10,
+  soUnknownValue      = 0,
+  soExactValue        = 1,
+  soValueBetween      = 2,
+  soBiggerThan        = 3,
+  soSmallerThan       = 4,
+  soIncreasedValue    = 5,
+  soIncreasedValueBy  = 6,
+  soDecreasedValue    = 7,
+  soDecreasedValueBy  = 8,
+  soChanged           = 9,
+  soUnchanged         = 10,
 }
 
 ---@enum BreakpointMethods
@@ -567,12 +570,12 @@ CE_defines.close_actions = {
 
 ---@enum CAlignmentTypes
 CE_defines.alignment_types = {
-  alNone = 0,
-  alTop = 1,
-  alBottom = 2,
-  alLeft = 3,
-  alRight = 4,
-  alClient = 5,
+  alNone    = 0,
+  alTop     = 1,
+  alBottom  = 2,
+  alLeft    = 3,
+  alRight   = 4,
+  alClient  = 5,
 }
 
 
@@ -622,7 +625,7 @@ CE_defines.message_dialog_results = {
 CE_defines.duplicates_type = {
   dupIgnore = 0,
   dupAccept = 1,
-  dupError = 2,
+  dupError  = 2,
 }
 
 ---@enum VariableTypes
@@ -643,6 +646,17 @@ CE_defines.variable_types = {
   vtPointer       = 12,
   vtCustom        = 13,
   vtGrouped       = 14,
+}
+
+---@enum NativeVariableTypes
+CE_defines.native_variable_types = {
+  vtByte    = 0,
+  vtWord    = 1,
+  vtDword   = 2,
+  vtQword   = 3,
+  vtSingle  = 4,
+  vtDouble  = 5,
+  vtPointer = 12,
 }
 
 
@@ -782,54 +796,54 @@ CE_defines.file_stream_modes = {
 
 ---@enum Colors
 CE_defines.colors = {
-  CLR_NONE = 0xFFFFFFFF,
+  CLR_NONE    = 0xFFFFFFFF,
   CLR_DEFAULT = 0xFF000000,
   CLR_INVALID = 0xFFFFFFFF,
 
-  COLOR_SCROLLBAR = 0,
-  COLOR_BACKGROUND = 1,
-  COLOR_ACTIVECAPTION = 2,
-  COLOR_INACTIVECAPTION = 3,
-  COLOR_MENU = 4,
-  COLOR_WINDOW = 5,
-  COLOR_WINDOWFRAME = 6,
-  COLOR_MENUTEXT = 7,
-  COLOR_WINDOWTEXT = 8,
-  COLOR_CAPTIONTEXT = 9,
-  COLOR_ACTIVEBORDER = 10,
-  COLOR_INACTIVEBORDER = 11,
-  COLOR_APPWORKSPACE = 12,
-  COLOR_HIGHLIGHT = 13,
-  COLOR_HIGHLIGHTTEXT = 14,
-  COLOR_BTNFACE = 15,
-  COLOR_BTNSHADOW = 16,
-  COLOR_GRAYTEXT = 17,
-  COLOR_BTNTEXT = 18,
-  COLOR_INACTIVECAPTIONTEXT = 19,
-  COLOR_BTNHIGHLIGHT = 20,
-  COLOR_3DDKSHADOW = 21,
-  COLOR_3DLIGHT = 22,
-  COLOR_INFOTEXT = 23,
-  COLOR_INFOBK = 24,
-  COLOR_HOTLIGHT = 26,
-  COLOR_GRADIENTACTIVECAPTION = 27,
+  COLOR_SCROLLBAR               = 0,
+  COLOR_BACKGROUND              = 1,
+  COLOR_ACTIVECAPTION           = 2,
+  COLOR_INACTIVECAPTION         = 3,
+  COLOR_MENU                    = 4,
+  COLOR_WINDOW                  = 5,
+  COLOR_WINDOWFRAME             = 6,
+  COLOR_MENUTEXT                = 7,
+  COLOR_WINDOWTEXT              = 8,
+  COLOR_CAPTIONTEXT             = 9,
+  COLOR_ACTIVEBORDER            = 10,
+  COLOR_INACTIVEBORDER          = 11,
+  COLOR_APPWORKSPACE            = 12,
+  COLOR_HIGHLIGHT               = 13,
+  COLOR_HIGHLIGHTTEXT           = 14,
+  COLOR_BTNFACE                 = 15,
+  COLOR_BTNSHADOW               = 16,
+  COLOR_GRAYTEXT                = 17,
+  COLOR_BTNTEXT                 = 18,
+  COLOR_INACTIVECAPTIONTEXT     = 19,
+  COLOR_BTNHIGHLIGHT            = 20,
+  COLOR_3DDKSHADOW              = 21,
+  COLOR_3DLIGHT                 = 22,
+  COLOR_INFOTEXT                = 23,
+  COLOR_INFOBK                  = 24,
+  COLOR_HOTLIGHT                = 26,
+  COLOR_GRADIENTACTIVECAPTION   = 27,
   COLOR_GRADIENTINACTIVECAPTION = 28,
-  COLOR_MENUHILIGHT = 29,
-  COLOR_MENUBAR = 30,
+  COLOR_MENUHILIGHT             = 29,
+  COLOR_MENUBAR                 = 30,
 
-  COLOR_FORM = 31,
+  COLOR_FORM        = 31,
 
-  COLOR_ENDCOLORS = CE_defines.colors.COLOR_FORM,
+  COLOR_ENDCOLORS   = CE_defines.colors.COLOR_FORM,
 
-  COLOR_DESKTOP = CE_defines.colors.COLOR_BACKGROUND,
-  COLOR_3DFACE = CE_defines.colors.COLOR_BTNFACE,
-  COLOR_3DSHADOW = CE_defines.colors.COLOR_BTNSHADOW,
+  COLOR_DESKTOP     = CE_defines.colors.COLOR_BACKGROUND,
+  COLOR_3DFACE      = CE_defines.colors.COLOR_BTNFACE,
+  COLOR_3DSHADOW    = CE_defines.colors.COLOR_BTNSHADOW,
   COLOR_3DHIGHLIGHT = CE_defines.colors.COLOR_BTNHIGHLIGHT,
-  COLOR_3DHILIGHT = CE_defines.colors.COLOR_BTNHIGHLIGHT,
-  COLOR_BTNHILIGHT = CE_defines.colors.COLOR_BTNHIGHLIGHT,
+  COLOR_3DHILIGHT   = CE_defines.colors.COLOR_BTNHIGHLIGHT,
+  COLOR_BTNHILIGHT  = CE_defines.colors.COLOR_BTNHIGHLIGHT,
 
-  MAX_SYS_COLORS = CE_defines.colors.COLOR_ENDCOLORS,
-  SYS_COLOR_BASE = 0x80000000,
+  MAX_SYS_COLORS    = CE_defines.colors.COLOR_ENDCOLORS,
+  SYS_COLOR_BASE    = 0x80000000,
 
   clBlack   = 0x000000,
   clMaroon  = 0x000080,
@@ -849,12 +863,14 @@ CE_defines.colors = {
   clLtGray  = 0xC0C0C0,
   clDkGray  = 0x808080,
   clWhite   = 0xFFFFFF,
+
   StandardColorsCount = 16,
 
   clMoneyGreen = 0xC0DCC0,
   clSkyBlue    = 0xF0CAA6,
   clCream      = 0xF0FBFF,
   clMedGray    = 0xA4A0A0,
+
   ExtendedColorCount = 4,
 
   -- special colors
@@ -862,50 +878,50 @@ CE_defines.colors = {
   clDefault = 0x20000000,
 
   -- system colors
-  clScrollBar = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_SCROLLBAR,
-  clBackground = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_BACKGROUND,
-  clActiveCaption = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_ACTIVECAPTION,
-  clInactiveCaption = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_INACTIVECAPTION,
-  clMenu = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_MENU,
-  clWindow = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_WINDOW,
-  clWindowFrame = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_WINDOWFRAME,
-  clMenuText = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_MENUTEXT,
-  clWindowText = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_WINDOWTEXT,
-  clCaptionText = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_CAPTIONTEXT,
-  clActiveBorder = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_ACTIVEBORDER,
-  clInactiveBorder = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_INACTIVEBORDER,
-  clAppWorkspace = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_APPWORKSPACE,
-  clHighlight = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_HIGHLIGHT,
-  clHighlightText = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_HIGHLIGHTTEXT,
-  clBtnFace = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_BTNFACE,
-  clBtnShadow = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_BTNSHADOW,
-  clGrayText = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_GRAYTEXT,
-  clBtnText = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_BTNTEXT,
-  clInactiveCaptionText = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_INACTIVECAPTIONTEXT,
-  clBtnHighlight = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_BTNHIGHLIGHT,
-  cl3DDkShadow = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_3DDKSHADOW,
-  cl3DLight = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_3DLIGHT,
-  clInfoText = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_INFOTEXT,
-  clInfoBk = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_INFOBK,
+  clScrollBar               = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_SCROLLBAR,
+  clBackground              = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_BACKGROUND,
+  clActiveCaption           = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_ACTIVECAPTION,
+  clInactiveCaption         = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_INACTIVECAPTION,
+  clMenu                    = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_MENU,
+  clWindow                  = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_WINDOW,
+  clWindowFrame             = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_WINDOWFRAME,
+  clMenuText                = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_MENUTEXT,
+  clWindowText              = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_WINDOWTEXT,
+  clCaptionText             = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_CAPTIONTEXT,
+  clActiveBorder            = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_ACTIVEBORDER,
+  clInactiveBorder          = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_INACTIVEBORDER,
+  clAppWorkspace            = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_APPWORKSPACE,
+  clHighlight               = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_HIGHLIGHT,
+  clHighlightText           = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_HIGHLIGHTTEXT,
+  clBtnFace                 = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_BTNFACE,
+  clBtnShadow               = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_BTNSHADOW,
+  clGrayText                = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_GRAYTEXT,
+  clBtnText                 = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_BTNTEXT,
+  clInactiveCaptionText     = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_INACTIVECAPTIONTEXT,
+  clBtnHighlight            = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_BTNHIGHLIGHT,
+  cl3DDkShadow              = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_3DDKSHADOW,
+  cl3DLight                 = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_3DLIGHT,
+  clInfoText                = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_INFOTEXT,
+  clInfoBk                  = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_INFOBK,
 
-  clHotLight = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_HOTLIGHT,
-  clGradientActiveCaption = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_GRADIENTACTIVECAPTION,
-  clGradientInactiveCaption = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_GRADIENTINACTIVECAPTION,
-  clMenuHighlight = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_MENUHILIGHT,
-  clMenuBar = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_MENUBAR,
-  clForm = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_FORM,
+  clHotLight                = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_HOTLIGHT,
+  clGradientActiveCaption   = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_GRADIENTACTIVECAPTION,
+  clGradientInactiveCaption = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_GRADIENTINACTIVECAPTION,
+  clMenuHighlight           = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_MENUHILIGHT,
+  clMenuBar                 = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_MENUBAR,
+  clForm                    = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_FORM,
 
   -- synonyms: do not show them in color lists
-  clColorDesktop = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_DESKTOP,
-  cl3DFace = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_3DFACE,
-  cl3DShadow = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_3DSHADOW,
-  cl3DHiLight = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_3DHIGHLIGHT,
-  clBtnHiLight = CE_defines.colors.SYS_COLOR_BASE|CE_defines.colors.COLOR_BTNHILIGHT,
+  clColorDesktop            = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_DESKTOP,
+  cl3DFace                  = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_3DFACE,
+  cl3DShadow                = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_3DSHADOW,
+  cl3DHiLight               = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_3DHIGHLIGHT,
+  clBtnHiLight              = CE_defines.colors.SYS_COLOR_BASE | CE_defines.colors.COLOR_BTNHILIGHT,
 
-  clFirstSpecialColor = CE_defines.colors.clBtnHiLight,
+  clFirstSpecialColor       = CE_defines.colors.clBtnHiLight,
 
-  clMask = CE_defines.colors.clWhite,
-  clDontMask = CE_defines.colors.clBlack,
+  clMask                    = CE_defines.colors.clWhite,
+  clDontMask                = CE_defines.colors.clBlack,
 }
 
 
@@ -948,8 +964,8 @@ CE_defines.task_progress_states = {
 ----------------------------------- CheckBox States -----------------------------------
 
 cbUnchecked = CE_defines.check_box_states.cbUnchecked
-cbChecked = CE_defines.check_box_states.cbChecked
-cbGrayed = CE_defines.check_box_states.cbGrayed
+cbChecked   = CE_defines.check_box_states.cbChecked
+cbGrayed    = CE_defines.check_box_states.cbGrayed
 
 
 ----------------------------------- Mouse Button Events -----------------------------------
@@ -1312,19 +1328,19 @@ poOwnerFormCenter = 7
 
 ----------------------------------- ??? -----------------------------------
 
-asrTop = 0
+asrTop    = 0
 asrBottom = 1
 asrCenter = 2
-asrLeft = asrTop
-asrRight = asrBottom
+asrLeft   = asrTop
+asrRight  = asrBottom
 
 
 ----------------------------------- ??? -----------------------------------
 
-vsIcon = 0
+vsIcon      = 0
 vsSmallIcon = 1
-vsList = 2
-vsReport = 3
+vsList      = 2
+vsReport    = 3
 
 
 ----------------------------------- Layered Window Attributes -----------------------------------
@@ -1335,13 +1351,13 @@ LWA_ALPHA     = CE_defines.layered_window_attributes.LWA_ALPHA
 
 ----------------------------------- ??? -----------------------------------
 
-GW_HWNDFIRST = 0
-GW_HWNDLAST = 1
-GW_HWNDNEXT = 2
-GW_HWNDPREV = 3
-GW_HWNDOWNER = 4
-GW_OWNER = 4
-GW_CHILD = 5
+GW_HWNDFIRST    = 0
+GW_HWNDLAST     = 1
+GW_HWNDNEXT     = 2
+GW_HWNDPREV     = 3
+GW_HWNDOWNER    = 4
+GW_OWNER        = 4
+GW_CHILD        = 5
 GW_ENABLEDPOPUP = 6
 
 
@@ -1433,16 +1449,16 @@ drSelectBounds  = CE_defines.display_rectangle_codes.drSelectBounds
 
 ----------------------------------- File Stream Modes -----------------------------------
 
-fmCreate        = CE_defines.file_stream_modes.fmCreate
-fmOpenRead      = CE_defines.file_stream_modes.fmOpenRead
-fmOpenWrite     = CE_defines.file_stream_modes.fmOpenWrite
-fmOpenReadWrite = CE_defines.file_stream_modes.fmOpenReadWrite
+fmCreate          = CE_defines.file_stream_modes.fmCreate
+fmOpenRead        = CE_defines.file_stream_modes.fmOpenRead
+fmOpenWrite       = CE_defines.file_stream_modes.fmOpenWrite
+fmOpenReadWrite   = CE_defines.file_stream_modes.fmOpenReadWrite
 
-fmShareCompat   = CE_defines.file_stream_modes.fmShareCompat
-fmShareExclusive= CE_defines.file_stream_modes.fmShareExclusive
-fmShareDenyWrite= CE_defines.file_stream_modes.fmShareDenyWrite
-fmShareDenyRead = CE_defines.file_stream_modes.fmShareDenyRead
-fmShareDenyNone = CE_defines.file_stream_modes.fmShareDenyNone
+fmShareCompat     = CE_defines.file_stream_modes.fmShareCompat
+fmShareExclusive  = CE_defines.file_stream_modes.fmShareExclusive
+fmShareDenyWrite  = CE_defines.file_stream_modes.fmShareDenyWrite
+fmShareDenyRead   = CE_defines.file_stream_modes.fmShareDenyRead
+fmShareDenyNone   = CE_defines.file_stream_modes.fmShareDenyNone
 
 
 ----------------------------------- ??? -----------------------------------
