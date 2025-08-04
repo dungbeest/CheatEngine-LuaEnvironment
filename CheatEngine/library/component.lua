@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 
 ---@class Component: Object
@@ -8,14 +8,37 @@
 ---@field Name string # The name of the component
 ---@field Tag integer # Free to use storage space (Useful for id's)
 ---@field Owner Component | nil # The owner of this object. nil if it has none
----@field getComponentCount fun(): integer # Returns the number of components attached to this component
----@field getComponent fun(index: integer): Component # The specific component
----@field findComponentByName fun(name: string): Component # The component with this name
----@field getName fun(): string # The component's name
----@field setName fun(newName: string) # Changes the component's name
----@field getTag fun(): integer # Get the tag value
----@field setTag fun(tag: integer) # Sets an integer value. You can use this for IDs
----@field getOwner fun(): Component # Returns the owner of this component
+local Component = {}
+
+---The component with this name
+---@param name string
+---@return Component
+function Component.findComponentByName(name) end
+
+---@return integer # the number of components attached to this component
+function Component.getComponentCount() end
+
+---@param index integer
+---@return Component # The specific component
+function Component.getComponent(index) end
+
+---@return string # The component's name
+function Component.getName() end
+
+---Changes the component's name
+---@param newName string # New component's name
+function Component.setName(newName) end
+
+---Get the tag value
+---@return integer
+function Component.getTag() end
+
+---Sets a tag value. You can use this for IDs
+---@param tag integer
+function Component.setTag(tag) end
+
+---@return Component # the owner of this component
+function Component.getOwner() end
 
 
 ---Creates an object of the specified component inherited class 

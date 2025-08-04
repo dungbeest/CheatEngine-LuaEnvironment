@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---@class DotNetDomainInfo
 ---@field DomainHandle integer #
@@ -64,20 +64,58 @@
 
 
 ---@class DotNetDataCollector
----@field Attached boolean # Returns true if attached to a process
----@field enumDomains fun(): DotNetDomainInfo[] # Returns an index table containing all domains. Each entry is build up as {DomainHandle, Name}
----@field enumModuleList fun(domainHandle: integer): DotNetModuleInfo[] # Returns an indexed table containing information about all modules. Each module entry is build up as {ModuleHandle, BaseAddress, Name}
----@field enumTypeDefs fun(moduleHandle: integer): DotNetClassInfo[] # Returns an indexed table containing information about all TypeDefs (classes) . Each entry is build up as {TypeDefToken, Name, Flags, Extends}
----@field getTypeDefMethods fun(moduleHandle: integer, typedefToken: integer): DotNetClassMethodInfo[] # Returns a table containing all the methods in the specified typedef. Each entry is build up as {MethodToken, Name, Attributes, ImplementationFlags, ILCode, NativeCode, SecondaryNativeCode[]: Integer)
----@field getTypeDefParent fun(moduleHandle: integer, typedefToken: integer): DotNetClassReference #
----@field getTypeDefData fun(moduleHandle: integer, typedefToken: integer): DotNetClassData[] # Returns a table containing all the fields in the specified typedef.  {ObjectType, ElementType, CountOffset, ElementSize, FirstElementOffset, ClassName, Fields[]{Offset, FieldType, Name} }
----@field getMethodParameters fun(moduleHandle: integer, methodDefToken: integer): DotNetClassMethodParameter[] # Returns a table containing all the parameters of the method. {Name, CType}
----@field getAddressData fun(address: Address): DotNetAddressData # Queries a specific address and returns information about it, assuming it is a valid object. It contains the following data: {StartAddress, ObjectType, ElementType, CountOffset, ElementSize, FirstElementOffset, ClassName, Fields[]{Offset, FieldType, Name} }
----@field enumAllObjects fun(): DotNetObjectInfo # Queries ALL defined objects. {StartAddress, Size, TypeID{token1,token2}, ClassName}. WARNING: This will take a LOOOOOONG time and if done from the main thread will make it look like CE is frozen
----@field enumAllObjectsOfType fun(moduleHandle: integer, typedefToken: integer): Address[] # Returns a list of addresses that have this type
+---@field Attached boolean # true if attached to a process
+local DotNetDataCollector = {}
+
+---@return DotNetDomainInfo[] # An index table containing all domains.
+function DotNetDataCollector.enumDomains() end
+
+---@param domainHandle integer
+---@return DotNetModuleInfo[] # An indexed table containing information about all modules.
+function DotNetDataCollector.enumModuleList(domainHandle) end
+
+---@param moduleHandle integer
+---@return DotNetClassInfo[] # An indexed table containing information about all TypeDefs (classes)
+function DotNetDataCollector.enumTypeDefs(moduleHandle) end
 
 
+---@param moduleHandle integer
+---@param typedefToken integer
+---@return DotNetClassMethodInfo[] # A table containing all the methods in the specified typedef.
+function DotNetDataCollector.getTypeDefMethods(moduleHandle, typedefToken) end
 
+
+---@param moduleHandle integer
+---@param typedefToken integer
+---@return DotNetClassReference
+function DotNetDataCollector.getTypeDefParent(moduleHandle, typedefToken) end
+
+
+---@param moduleHandle integer
+---@param typedefToken integer
+---@return DotNetClassData[] # A table containing all the fields in the specified typedef.
+function DotNetDataCollector.getTypeDefData(moduleHandle, typedefToken) end
+
+---@param moduleHandle integer
+---@param methodDefToken integer
+---@return DotNetClassMethodParameter[] # A table containing all the parameters of the method.
+function DotNetDataCollector.getMethodParameters(moduleHandle, methodDefToken) end
+
+
+---Queries a specific address and returns information about it, assuming it is a valid object. 
+---@param address Address
+---@return DotNetAddressData
+function DotNetDataCollector.getAddressData(address) end
+
+
+---Queries ALL defined objects. WARNING: This will take a LOOOOOONG time and if done from the main thread will make it look like CE is frozen.
+---@return DotNetObjectInfo
+function DotNetDataCollector.enumAllObjects() end
+
+---@param moduleHandle integer
+---@param typedefToken integer
+---@return Address[] # a list of addresses that have this type
+function DotNetDataCollector.enumAllObjectsOfType(moduleHandle, typedefToken) end
 
 ---@return DotNetDataCollector # The current DotNetDataCollector object
-function getDotNetDataCollector() return {} end
+function getDotNetDataCollector() end

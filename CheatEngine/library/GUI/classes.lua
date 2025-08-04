@@ -1,16 +1,24 @@
----@meta
-
+---@meta _
 
 
 ---The xmplayer class has already been defined as xmplayer, no need to create it manually
 ---@class xmplayer
 ---@field IsPlaying boolean # Indicator that the xmplayer is currently playing a xm file
 ---@field Initialized boolean # Indicator that the xmplayer is actually actively loaded in memory
----@field setVolume fun(volume: integer) #
----@field playXM fun(fileToPlay: path | TableFile | Stream, noloop?: boolean) #
----@field pause fun() #
----@field resume fun() #
----@field stop fun() #
+local xmplayer = {}
+
+---@param volume integer
+function xmplayer.setVolume(volume) end
+
+---@param fileToPlay path | TableFile | Stream
+---@param noloop? boolean
+function xmplayer.playXM(fileToPlay, noloop) end
+
+function xmplayer.pause() end
+
+function xmplayer.resume() end
+
+function xmplayer.stop() end
 
 
 ---Inherits from Component (CustomApplication->Component->Object)
@@ -21,10 +29,16 @@
 ---@class Application: CustomApplication
 ---@field Title string # The title of cheat engine in the bar
 ---@field Icon Icon # The icon of Cheat Engine inn the bar
----@field bringToFront fun() # Shows the cheat engine app
----@field processMessages fun() #
----@field terminate fun() #
----@field minimize fun() #
+local Application = {}
+
+---Shows the cheat engine app
+function Application.bringToFront() end
+
+function Application.processMessages() end
+
+function Application.terminate() end
+
+function Application.minimize() end
 
 
 ---Inherits from Object (ControlScrollBar->Object)

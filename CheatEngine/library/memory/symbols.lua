@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Will download the PDB files of Windows and load them (Takes a long time the first time)
 function enableWindowsSymbols() end
@@ -10,14 +10,14 @@ function enableKernelSymbols() end
 ---@param string Symbol # The symbol to interpret. Can be a modulename or an export.
 ---@param localCE? boolean # Set to true if you wish to query the symbol table of the Cheat Engine process
 ---@return Address # The address of a symbol
-function getAddress(string, localCE) return 0 end
+function getAddress(string, localCE) end
 
 ---Similar to getAddress when errorOnLookup is false, but returns nil instead. 
 ---@param string Symbol # The symbol to interpret. Can be a modulename or an export.
 ---@param localCE? boolean # Set to true if you wish to query the symbol table of the Cheat Engine process
----@param shallow? boolean #
+---@param shallow? boolean # ???
 ---@return Address | nil # The address of a symbol, or nil if not found.
-function getAddressSafe(string, localCE, shallow) return 0 end
+function getAddressSafe(string, localCE, shallow) end
 
 
 ---The given address as a string. 
@@ -28,31 +28,31 @@ function getAddressSafe(string, localCE, shallow) return 0 end
 ---@param symbols? boolean # If symbols should be included in search and string. Defaults to true
 ---@param sections? boolean # If sections should be included in search and string. Defaults to false
 ---@return string # The address as a string interpretable by the symbol handler
-function getNameFromAddress(address, moduleNames, symbols, sections) return "" end
+function getNameFromAddress(address, moduleNames, symbols, sections) end
 
 ---@param address SymbolAddress # The address to check
 ---@return boolean # if the given address is inside a module
-function inModule(address) return true end
+function inModule(address) end
 
 ---@param address SymbolAddress # The address to check
 ---@return boolean # if the given address is inside a system module
-function inSystemModule(address) return true end
+function inSystemModule(address) end
 
 ---@return Stringlist # The common ModuleList stringlist. (Do not free this one)
-function getCommonModuleList() return {} end
+function getCommonModuleList() end
 
 
 ---@param symbolName Symbol # The symbol to interpret. Can be a modulename or an export.
 ---@return SymbolList # A table as defined by the SymbolList class object (modulename, searchkey, address, size)
-function getSymbolInfo(symbolName) return {} end
+function getSymbolInfo(symbolName) end
 
 ---@param moduleName SymbolAddress # The base address of a module (use getAddress to get the base address).
 ---@return integer # The size in bytes of a given module
-function getModuleSize(moduleName) return 0 end
+function getModuleSize(moduleName) end
 
 ---@param address SymbolAddress # The address of a RTTI structure
 ---@return string | nil # The classname of a given structure based on RTTI information (assuming it can be found, returns nil if not or unknown)
-function getRTTIClassName(address) return "" end
+function getRTTIClassName(address) end
 
 ---Reinitializes the symbolhandler. 
 ---
@@ -102,7 +102,7 @@ function searchPDBWhileLoading(state) end
 ---Starts set to true by default.
 ---@param state boolean # Whether to activate or deactivate
 ---@return boolean # The previous state
-function errorOnLookupFailure(state) return true end
+function errorOnLookupFailure(state) end
 
 ---Set whether looking up a symbol will wait for the symbol to be loaded.
 ---
@@ -123,7 +123,7 @@ function unregisterSymbol(symbolName) end
 ---@alias SymbolInfo { symbolname: string, address: SymbolAddress, OPTIONAL: {allocsize: integer, processid: integer, donotsave: boolean }}
 
 ---@return SymbolInfo # A table with elements containing {symbolname, address, OPTIONAL {allocsize, processid, donotsave}}
-function enumRegisteredSymbols() return {} end
+function enumRegisteredSymbols() end
 
 ---Deletes all symbols registered with registerSymbols, both in AA and Lua scripts (Does not remove registered symbolLists).
 function deleteAllRegisteredSymbols() end

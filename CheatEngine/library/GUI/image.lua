@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 
 
@@ -17,12 +17,31 @@
 ---@field Width integer
 ---@field Height integer
 ---@field Transparent boolean
----@field getWidth fun(): integer # Gets the current width in pixels of this graphics object
----@field setWidth fun(width): integer # Sets the width in pixels
----@field getHeight fun(): integer # Gets the current height in pixels of this graphics object
----@field setHeight fun(height: integer) # Sets the height in pixels
----@field loadFromFile fun(fileName: path) # Loads a graphic into this object from a file
----@field saveToFile fun(fileName: path) # Saves this graphic into a file
+local Graphic = {}
+
+---Gets the current width in pixels of this graphics object.
+---@return integer
+function Graphic.getWidth() end
+
+---Sets the width in pixels.
+---@param width integer
+function Graphic.setWidth(width) end
+
+---Gets the current height in pixels of this graphics object.
+---@return integer
+function Graphic.getHeight() end
+
+---Sets the height in pixels.
+---@param width integer
+function Graphic.setHeight(width) end
+
+---Loads a graphic into this object from a file.
+---@param fileName path
+function Graphic.loadFromFile(fileName) end
+
+---Saves this graphic into a file.
+---@param fileName path
+function Graphic.saveToFile(fileName) end
 
 
 ---List containing images.
@@ -35,9 +54,23 @@
 ---@field Width integer #
 ---@field Masked boolean #
 ---@field Scaled boolean #
----@field OnChange fun(sender: any)
----@field add fun(bitmap: Bitmap, bitmapmask?: integer): integer # Adds a new bitmap the list and returns the index of the newly added entry
----@field draw fun(canvas: Canvas, x: integer, y: integer, index: integer) # Draws the image at the index to the specific x, y coordinates on the canvas
+local ImageList = {}
+
+---@param sender any
+function ImageList.OnChange(sender) end
+
+---Adds a new bitmap to the list.
+---@param bitmap Bitmap
+---@param bitmapmask? integer
+---@return integer # the index of the newly added entry.
+function ImageList.add(bitmap, bitmapmask) end
+
+---Draws the image at the index to the specific x, y coordinates on the canvas.
+---@param canvas Canvas
+---@param x integer
+---@param y integer
+---@param index integer
+function ImageList.draw(canvas, x, y, index) end
 
 
 ---Inherits from GraphicControl (Image->GraphicControl->Control->Component->Object)
@@ -46,14 +79,32 @@
 ---@field Transparent boolean # Determines if some parts of the picture are see through (usually based on the bottomleft corner)
 ---@field Stretch boolean # Determines if the picture gets stretched when rendered in the image component
 ---@field Picture Picture # The picture to render
----@field loadImageFromFile fun(fileName: path) #
----@field getStretch fun(): boolean #
----@field setStretch fun(stretch: boolean) #
----@field getTransparent fun(): boolean #
----@field setTransparent fun(transparent: boolean) #
----@field getCanvas fun(): Canvas #
----@field setPicture fun(picture: Picture) #
----@field getPicture fun(): Picture # Returns the Picture object of this image
+local Image = {}
+
+---@param fileName path
+function Image.loadImageFromFile(fileName) end
+
+---@return Canvas
+function Image.getCanvas() end
+
+
+---@return boolean
+function Image.getStretch() end
+
+---@param stretch boolean
+function Image.setStretch(stretch) end
+
+---@return boolean
+function Image.getTransparent() end
+
+---@param transparent boolean
+function Image.setTransparent(transparent) end
+
+---@return Picture # the Picture object of this image
+function Image.getPicture() end
+
+---@param picture Picture
+function Image.setPicture(picture) end
 
 
 
@@ -66,10 +117,23 @@
 ---@field Bitmap Bitmap #
 ---@field Jpeg JpegImage #
 ---@field Icon Icon #
----@field loadFromFile fun(fileName: path) #
----@field saveToFile fun(fileName: path) #
----@field loadFromStream fun(stream: Stream, originalExtension?: string) # Loads a picture from a stream. Note that the stream position must be set to the start of the picture
----@field assign fun(sourcePicture: Picture) #
+local Picture = {}
+
+---@param fileName path
+function Picture.loadFromFile(fileName) end
+
+---@param fileName path
+function Picture.saveToFile(fileName) end
+
+---Loads a picture from a stream. 
+---
+---Note that the stream position must be set to the start of the picture.
+---@param stream Stream
+---@param originalExtension? string
+function Picture.loadFromStream(stream, originalExtension) end
+
+---@param sourcePicture Picture
+function Picture.assign(sourcePicture) end
 
 
 ---Base class for some graphical controls
@@ -79,13 +143,34 @@
 ---@field Canvas Canvas #
 ---@field PixelFormat PixelFormats # The pixel format for this image. Will clear the current image if it had one. 
 ---@field TransparentColor Colors #
----@field getCanvas fun(): Canvas # Returns the Canvas object for this image
----@field getPixelFormat fun(): PixelFormats # Returns the current pixelformat
----@field setPixelFormat fun(pixelFormat: PixelFormats) # Sets the pixelformat for this image. Will clear the current image if it had one
----@field setTransparentColor fun(color: Colors) # Sets the color that will be rendered as transparent when drawn
----@field getTransparentColor fun(): Colors # Returns the color set to be transparent
----@field saveToStream fun(stream: Stream) # Saves the image to a stream object
----@field loadFromStream fun(stream: Stream) # Loads the image from a stream object
+local RasterImage = {}
+
+---@return Canvas # The Canvas object for this image.
+function RasterImage.getCanvas() end
+
+---@return PixelFormats # The current pixel format.
+function RasterImage.getPixelFormat() end
+
+---Sets the pixelformat for this image. 
+---
+---Will clear the current image if it had one.
+---@param pixelFormat PixelFormats
+function RasterImage.setPixelFormat(pixelFormat) end
+
+---@return Colors # The color set to be transparent.
+function RasterImage.getTransparentColor() end
+
+---Sets the color that will be rendered as transparent when drawn.
+---@param color Colors
+function RasterImage.setTransparentColor(color) end
+
+---Saves the image to a stream object.
+---@param stream Stream
+function RasterImage.saveToStream(stream) end
+
+---Loads the image from a stream object.
+---@param stream Stream
+function RasterImage.loadFromStream(stream) end
 
 
 

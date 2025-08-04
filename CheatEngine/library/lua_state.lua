@@ -12,7 +12,7 @@ function resetLuaState() end
 ---Handy for new lua state threads.
 ---@param string string # The variable key
 ---@return any # The given variable from the main lua state
-function getGlobalVariable(string) return 0 end
+function getGlobalVariable(string) end
 
 ---Sets a global variable by key in the main lua state.
 ---
@@ -27,13 +27,13 @@ function setGlobalVariable(string, var) end
 ---@param object any # lua object to create a reference to
 ---@return integer # an integer reference that you can use with getRef.
 ---@see Component.Tag
-function createRef(object) return 0 end
+function createRef(object) end
 
 ---Retrieve a lua object by an integer reference created by createRef().
 ---@param ref integer # The reference integer created via createRef
 ---@return any # Whatever lua object the reference points to
 ---@see createRef
-function getRef(ref) return 0 end
+function getRef(ref) end
 
 ---Destroy a reference to a lua object created by createRef().
 ---@param ref integer # The reference integer created via createRef
@@ -44,7 +44,7 @@ function destroyRef(ref) end
 ---@param f fun() # The function to encode
 ---@return string # The function as an encoded string
 ---@see decodeFunction
-function encodeFunction(f) return "" end
+function encodeFunction(f) end
 
 ---Converts an encoded string back into a function.  
 ---
@@ -54,7 +54,7 @@ function encodeFunction(f) return "" end
 ---@param string string # The encoded function from encodeFunction()
 ---@return fun() # The decoded function
 ---@see encodeFunction
-function decodeFunction(string) return function() end end
+function decodeFunction(string) end
 
 ---Similar to encodeFunction but uses a script instead of 
 ---a function, and lets you specify which lua DLL to use.

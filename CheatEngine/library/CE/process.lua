@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Fills a Strings inherited object with the processlist of the system.
 ---
@@ -9,11 +9,7 @@ function getProcessList(strings) end
 ---@alias ProcessListInfo table<integer, string>
 
 ---@return ProcessListInfo # A table with the processlist (Format: {pid: integer = name: string})
-function getProcessList()
-  local t = {}
-  t[523] = ""
-  return t
-end
+function getProcessList() end
 
 
 ---Fills a List object with the thread list of the currently opened process. 
@@ -41,18 +37,7 @@ function getThreadList(list) end
 
 ---@param filter? HandleFilter # Which class of handles to filter
 ---@return HandleInfo[] # A table with all the handles in the system
-function getHandleList(filter)
-  return {
-    {
-      ProcessID = 0,
-      ObjectTypeIndex = 0,
-      Object = 0,
-      GrantedAccess = 0,
-      HandleValue = 0,
-      HandleAttributes = 0,
-    },
-  }
-end
+function getHandleList(filter) end
 
 
 
@@ -99,14 +84,14 @@ function onTableLoad(before) end
 
 
 ---@return integer # The currently opened process. If none is open, returns 0
-function getOpenedProcessID() return 0 end
+function getOpenedProcessID() end
 
 ---@return integer # The handle of the currently opened process
-function getOpenedProcessHandle() return 0 end
+function getOpenedProcessHandle() end
 
 ---@param name string # The process' name
 ---@return integer # The process ID for a process with the associated name. If no process with such a name exists returns 0
-function getProcessIDFromProcessName(name) return 0 end
+function getProcessIDFromProcessName(name) end
 
 ---Causes Cheat Engine to open the process with the supplied process ID.
 ---@param processID integer # The ID of the process to open
@@ -133,9 +118,7 @@ function shellExecute(
 ---@param pathToExecuteIn? path # The path will be the current working directory for command
 ---@return string # The output of the command as a string
 ---@return integer # The exit code as an integer
-function runCommand(exePath, parameters, pathToExecuteIn)
-  return "", 0
-end
+function runCommand(exePath, parameters, pathToExecuteIn) end
 
 ---Calls the given function from the main thread.
 ---@param callback fun(...: any): ...: any # The function to execute in the main thread

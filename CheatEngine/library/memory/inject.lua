@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Inside Cheat Engine, call a method in a .NET class declared as:
 ---
@@ -11,7 +11,7 @@
 ---@param methodName string # The method's name
 ---@param parameters string # The parameters to pass the method in a string
 ---@return integer # The result of the method invocation
-function dotNetExecuteClassMethod(pathToDLL, namespace, className, methodName, parameters) return 0 end
+function dotNetExecuteClassMethod(pathToDLL, namespace, className, methodName, parameters) end
 
 
 ---Injects a dll or dylib.
@@ -21,7 +21,7 @@ function dotNetExecuteClassMethod(pathToDLL, namespace, className, methodName, p
 ---@param skipSymbolReloadWait? boolean # Whether to skip waiting for symbol reload
 ---@return boolean # Whether injection was successful
 ---@see injectLibrary
-function injectDLL(fileName, skipSymbolReloadWait) return true end
+function injectDLL(fileName, skipSymbolReloadWait) end
 
 ---Injects a dll or dylib.
 ---
@@ -30,7 +30,7 @@ function injectDLL(fileName, skipSymbolReloadWait) return true end
 ---@param skipSymbolReloadWait? boolean # Whether to skip waiting for symbol reload
 ---@return boolean # Whether injection was successful
 ---@see injectDLL
-function injectLibrary(fileName, skipSymbolReloadWait) return true end
+function injectLibrary(fileName, skipSymbolReloadWait) end
 
 ---Injects a .Net DLL.
 ---
@@ -52,13 +52,13 @@ function injectDotNetDLL(
 ---@param parameter? any # A parameter to pass to stdcall function
 ---@param timeout? integer # Milliseconds to wait before timing out
 ---@return any # The result of the function that was called
-function executeCode(address, parameter, timeout) return 0 end
+function executeCode(address, parameter, timeout) end
 
 ---Executes a stdcall function with 1 parameter at the given address in the target process and wait for it to return.
 ---@param address SymbolAddress # Address to execute at
 ---@param parameter? any # A parameter to pass to stdcall function
 ---@return any # The result of the function that was called
-function executeCodeLocal(address, parameter) return 0 end
+function executeCodeLocal(address, parameter) end
 
 ---@alias CallMethod integer
 ---| 0 # stdcall
@@ -165,10 +165,10 @@ function executeMethod(
 ---@param address SymbolAddress # Address to execute
 ---@param params table<ParameterType, any> # Table containing the value type, and the value
 ---@return integer # The E/RAX value returned by the called function (if no timeout or other interruption)
-function executeCodeLocalEx(address, params) return 0 end
+function executeCodeLocalEx(address, params) end
 
 ---Executes a function call.
 ---@param address SymbolAddress # Address to execute
 ---@param ... any # If parameters are provided without types, CE will guess the type based on the provided type
 ---@return integer # The E/RAX value returned by the called function (if no timeout or other interruption)
-function executeCodeLocalEx(address, ...) return 0 end
+function executeCodeLocalEx(address, ...) end

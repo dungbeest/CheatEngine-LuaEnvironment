@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---If function is defined it will be called before an action has been performed.
 ---

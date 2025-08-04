@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 
 
@@ -6,10 +6,19 @@
 ---@class GenericHotkey: Object
 ---@field DelayBetweenActivate integer # Interval in milliseconds that determines the minimum time between hotkey activations. If 0, the global delay is used
 ---@field onHotkey function # The function to call when the hotkey is pressed
----@field getKeys fun(): ...: VirtualKeyCodes #
----@field setKeys fun(...: VirtualKeyCodes) #
----@field setOnHotkey fun(onHotkey: function) #
----@field getOnHotkey fun(): function #
+local GenericHotkey = {}
+
+---@return VirtualKeyCodes ...
+function GenericHotkey.getKeys() end
+
+---@param ... VirtualKeyCodes
+function GenericHotkey.setKeys(...) end
+
+---@param onHotkey function
+function GenericHotkey.setOnHotkey(onHotkey) end
+
+---@return function
+function GenericHotkey.getOnHotkey() end
 
 
 
@@ -28,16 +37,22 @@
 ---@field HotkeyString string # The hotkey formatted as a string (ReadOnly)
 ---@field ActivateSound string # Tablefile name of a WAV file inside the table which will get played on activate events
 ---@field DeactivateSound string # Tablefile name of a .WAV file inside the table which will get played on deactivate events
----@field OnHotkey fun(sender: any) # Function to be called when a hotkey has just been pressed
----@field OnPostHotkey fun(sender: any) # Function to be called when a hotkey has been pressed and the action has been performed
----@field doHotkey fun() # Executes the hotkey as if it got triggered by the keyboard
+local MemoryRecordHotkey = {}
+
+
+---Function to be called when a hotkey has been pressed and the action has been performed
+---@param sender any
+function MemoryRecordHotkey.OnHotkey(sender) end
+
+---Executes the hotkey as if it got triggered by the keyboard
+function MemoryRecordHotkey.doHotkey() end
 
 ---@enum HotkeyHandlerStates
 CE_defines.hotkey_handler_states = {
-  htsActive = 0,
+  htsActive     = 0,
   htsMemrecOnly = 1,
-  htsNoMemrec = 2,
-  htsDisabled = 3,
+  htsNoMemrec   = 2,
+  htsDisabled   = 3,
 }
 
 ---@alias HotkeyHandlerState integer

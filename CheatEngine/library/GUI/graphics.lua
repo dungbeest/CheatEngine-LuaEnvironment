@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 
 ---Can be one or more of the following between [ and ] 
@@ -68,13 +68,41 @@ CE_defines.block_side_type_definitions = {
 ---@field ArrowStyles DiagramArrowStyles # See diagram ArrowStyles
 ---@field Name string # Name of the link
 ---@field Tag integer # Use for whatever you like
----@field OnDblClick fun(sender: any) # Function to call when the link is double-clicked
----@field hasLinkToBlock fun(DiagramBlock): boolean # Returns true/false depending on if this link has a connection to the provided block
----@field reset fun() # Sets all custom colors sizes back to default
----@field updateSide fun(table: BlockSideDescriptorTable) # Updates the side of the block described by the BlockSideDescriptorTable   
----@field getPointIndexAt fun(x: integer, y: integer): integer # Returns the point index at the given x, y coordinate
----@field addPoint fun(x: integer, y: integer, index?: integer) # Creates a point. If no index is given if inside the line at that line index, else at the end of the list.  If a index is given at that specific index.
----@field removeAllPoints fun() # Removes all points
+local DiagramLink = {}
+
+---Function to call when the link is double-clicked.
+---@param sender any
+function DiagramLink.OnDblClick(sender) end
+
+---@param DiagramBlock DiagramBlock
+---@return boolean # whether this link has a connection to the provided block
+function DiagramLink.hasLinkToBlock(DiagramBlock) end
+
+---Sets all custom colors sizes back to default
+function DiagramLink.reset() end
+
+---@param table BlockSideDescriptorTable # Updates the side of the block described by the BlockSideDescriptorTable   
+function DiagramLink.updateSide(table) end
+
+---@param x integer
+---@param y integer
+---@return integer # The point index at the given x, y coordinates
+function DiagramLink.getPointIndexAt(x, y) end
+
+---Creates a point. 
+---
+---If no index is given:
+---1. If the point is inside a line, the point is added at that line's index. 
+---2. If the point is not inside a line, it's added at the end of the list.  
+---
+---If a index is given, the point is added at that specific index.
+---@param x integer
+---@param y integer
+---@param index? integer
+function DiagramLink.addPoint(x, y, index) end
+
+---Removes all points.
+function DiagramLink.removeAllPoints() end
 
 
 ---The diagram block is a block with a header and body which can contain text (ansi escape codes supported).
@@ -95,14 +123,57 @@ CE_defines.block_side_type_definitions = {
 ---@field ShowHeader boolean # If true show ther header. (default true)
 ---@field DragBody boolean # If true allows dragging of the body. Useful when there is no header (default false)
 ---@field Tag integer # Use for whatever you like
----@field OnDoubleClickHeader fun(block: DiagramBlock) # Function to call when the block's header is doubleclicked
----@field OnDoubleClickBody fun(block: DiagramBlock) # Function to call when the block's body is doubleclick
----@field OnRenderHeader fun(sender: any, rectangle: Rectangle, beforeOwnerDraw: boolean): boolean # Function to call when the header is being rendered. This is called twice, before and after the normal painting code. In case of before and the function returns nil or false, the original text will not be drawn
----@field OnRenderBody fun(sender: any, rectangle: Rectangle, beforeOwnerDraw: boolean): boolean - Function to call when the body is being rendered. This is called twice, before and after the normal painting code. In case of before and the function returns nil or false, the original text will not be drawn
----@field OnDragStart fun(block: DiagramBlock) # Called when a block starts getting dragged
----@field OnDrag fun(block: DiagramBlock) # Called when a block is dragged around
----@field OnDragEnd fun(block: DiagramBlock) # Called when a dragged block is released
----@field getLinks fun(): table # Returns a table two elements: 'asSource' and 'asDestination'. each of those will have a table with DiagramLinks linking with the box
----@field overlapsWith fun(block: DiagramBlock): boolean # Returns true if the two blocks overlap
----@field intersectsWithLine fun(pointA: Locations2D, pointB: Locations2D): boolean, intersectPoint: Locations2D | nil # Returns true and the point of intersection or false if no intersection
+local DiagramBlock = {}
+
+---Function to call when the block's header is double clicked
+---@param block DiagramBlock
+function DiagramBlock.OnDoubleClickHeader(block) end
+
+---Function to call when the block's body is double click
+---@param block DiagramBlock
+function DiagramBlock.OnDoubleClickBody(block) end
+
+---Function to call when the header is being rendered. 
+---
+---This is called twice, before and after the normal painting code. 
+---@param sender any
+---@param rectangle Rectangle
+---@param beforeOwnerDraw boolean # When before is true and the function returns nil or false, the original text will not be drawn.
+---@return boolean
+function DiagramBlock.OnRenderHeader(sender, rectangle, beforeOwnerDraw) end
+
+---Function to call when the body is being rendered. 
+---
+---This is called twice, before and after the normal painting code. 
+---@param sender any
+---@param rectangle Rectangle
+---@param beforeOwnerDraw boolean # When before is true and the function returns nil or false, the original text will not be drawn.
+---@return boolean
+function DiagramBlock.OnRenderBody(sender, rectangle, beforeOwnerDraw) end
+
+---Called when a block starts getting dragged.
+---@param block DiagramBlock
+function DiagramBlock.OnDragStart(block) end
+
+---Called when a block is dragged around
+---@param block DiagramBlock
+function DiagramBlock.OnDrag(block) end
+
+---Called when a dragged block is released
+---@param block DiagramBlock
+function DiagramBlock.OnDragEnd(block) end
+
+---@param block DiagramBlock
+---@return { asSource: DiagramLink[], asDestination: DiagramLink[] } # A table of two elements: 'asSource' and 'asDestination', each of those will have a table with DiagramLinks linking with the box.
+function DiagramBlock.getLinks(block) end
+
+---@param block DiagramBlock
+---@return boolean # Whether the two blocks overlap.
+function DiagramBlock.overlapsWith(block) end
+
+---@param pointA Locations2D
+---@param pointB Locations2D
+---@return boolean # Whether the diagram block is intersected by the line passed in via 2 points.
+---@return Locations2D | nil intersectPoint # When intersecting, the point of intersection, otherwise nil
+function DiagramBlock.intersectsWithLine(pointA, pointB) end
 

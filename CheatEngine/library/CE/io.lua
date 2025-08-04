@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Shows a message box with the given text
 ---@param text string # Text to show in the message box
@@ -9,7 +9,7 @@ function showMessage(text) end
 ---@param prompt string # The prompt for the dialog box to present the user
 ---@param initialString string # Default string for the input
 ---@return string | nil # The string supplied by the user, or nil on cancel
-function inputQuery(caption, prompt, initialString) return "" end
+function inputQuery(caption, prompt, initialString) end
 
 ---Shows a menu with the given list.
 ---@param title string # Menu title

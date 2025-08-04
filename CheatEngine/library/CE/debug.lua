@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Debug globals variables
 ---EFLAGS
@@ -174,7 +174,7 @@ FP7 = 0
 
 ---When a breaking breakpoint hits (that includes single stepping) and the lua function debugger_onBreakpoint() is defined it will be called and the global variables EAX, EBX, .... will be filled in.
 ---@return integer # Return 0 if you want the user interface to be updated and anything else if not (e.g: You continued from the breakpoint in your script)
-function debugger_onBreakpoint() return 0 end
+function debugger_onBreakpoint() end
 
 
 
@@ -198,23 +198,23 @@ function createProcess(
 function debugProcess(interface) end
 
 ---@return boolean # If the debugger has been started
-function debug_isDebugging() return true end
+function debug_isDebugging() end
 
 ---@return DebugInterface | nil # The current debuggerinterface used. nil means no debugging active
-function debug_getCurrentDebuggerInterface() return 0 end
+function debug_getCurrentDebuggerInterface() end
 
 ---@return boolean # If there is a possibility the target can stop on a breakpoint (Cheat Engine version 6.4+)
-function debug_canBreak() return true end
+function debug_canBreak() end
 
 
 ---@return boolean # If the debugger is currently halted on a thread
-function debug_isBroken() return true end
+function debug_isBroken() end
 
 ---@return boolean # If the debugger was single stepping an instruction earlier
-function debug_isStepping() return true end
+function debug_isStepping() end
 
 ---@return Address[] # A lua table containing all the breakpoint addresses
-function debug_getBreakpointList() return {} end
+function debug_getBreakpointList() end
 
 ---Breaks the thread with the specific threadID
 ---@param threadID integer # ThreadID for the thread to break (Note: The thread may not break instantly and may have to be awakened first)
@@ -285,7 +285,7 @@ function debug_continueFromBreakpoint(continueMethod) end
 
 ---@param xmmRegister XMMRegister # The xmm register to get
 ---@return Address # The address of the specified xmm register of the thread that is currently stopped. This is a LOCAL Cheat Engine address. Use Local memory access functions to read and modify
-function debug_getXMMPointer(xmmRegister) return 0 end
+function debug_getXMMPointer(xmmRegister) end
 
 
 ---The following routines describe last branch recording. These functions only work when kernelmode debugging is used and using windows XP (vista and later work less effective or not at all because the operating system interferes.  Might also be intel specific. A dbvm upgrade in the future might make this work for windows vista and later)
@@ -296,12 +296,12 @@ function debug_setLastBranchRecording(boolean) end
 
 
 ---@return integer # The maximum branch record your cpu can store (-1 if none)
-function debug_getMaxLastBranchRecord() return 0 end
+function debug_getMaxLastBranchRecord() end
 
 
 ---@param index integer # Index of last branch record to get
 ---@return integer # The value of the Last Branch Record at the given index (when handling a breakpoint)
-function debug_getLastBranchRecord(index) return 0 end
+function debug_getLastBranchRecord(index) end
 
 
 ---Defines a module load event handler.
@@ -312,7 +312,7 @@ function debug_getLastBranchRecord(index) return 0 end
 ---@param moduleName string # The module name of the module loaded for debug
 ---@param baseAddress Address # The base address of the module loaded
 ---@return integer # Return 1 if you want to cause the debugger to break
-function debugger_onModuleLoad(moduleName, baseAddress) return 0 end
+function debugger_onModuleLoad(moduleName, baseAddress) end
 
 
 ---Changing registers:

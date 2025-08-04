@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Most addresses can be strings, they will get interpreted by CE's symbolhandler
 ---@alias SymbolAddress string|integer
@@ -64,7 +64,7 @@
 ---@field Aob.Size integer | nil # Number of bytes
 ---@field CustomTypeName string | nil # If the type is vtCustom this will contain the name of the CustomType
 ---@field Script string | nil # If the type is vtAutoAssembler this will contain the auto assembler script
----@field Value string | nil # The value in stringform.
+---@field Value string | nil # The value in string form.
 ---@field NumericalValue number | nil - The value in numerical form or nil if it can not be parsed to a number
 ---@field Selected boolean # Set to true if selected (ReadOnly)
 ---@field Active boolean # Set to true to activate/freeze, false to deactivate/unfreeze
@@ -89,37 +89,115 @@
 ---@field DropDownDescription string[] : Array to access Descriptions in DropDownList (ReadOnly)
 ---@field Count integer # Number of child records
 ---@field Child MemoryRecord[] # Array to access the child records
----@field Parent MemoryRecord # The parent of the memory record
+---@field Parent MemoryRecord | nil # The parent of the memory record
 ---@field HotkeyCount integer # Number of hotkeys attached to this memory record
 ---@field Hotkey MemoryRecordHotkey[] # Array to index the hotkeys
----@field Async boolean # Set to true if activating this entry will be asynchronious. (only for AA/Lua scripts)
+---@field Async boolean # Set to true if activating this entry will be asynchronous. (only for AA/Lua scripts)
 ---@field AsyncProcessing boolean # True when async is true and it's being processed
 ---@field AsyncProcessingTime qword # The time that it has been processing in milliseconds
 ---@field HasMouseOver boolean # True if the mouse is currently over it
----@field OnActivate MemRecActivationFn # The function to call when the memory record will change (or changed) Active to true. If before is true, not returning true will cause the activation to stop.
----@field OnDeactivate MemRecActivationFn - The function to call when the memoryrecord will change (or changed) Active to false. If before is true, not returning true will cause the deactivation to stop.
----@field OnDestroy fun() # Called when the memory record is destroyed.
----@field OnGetDisplayValue MemRecDisplayFn # This function gets called when rendering the value of a memory record. Return true and a new string to override the value shown
----@field OnChangedValue MemRecChangeValueFn # This function gets called whenever the value of a memory record has changed
----@field OnChangedValueByUser MemRecChangeValueFn # This function gets called whenever the value of a memory record has changed by the user
 ---@field DontSave boolean # Don't save this memory record and it's children on table save
----@field getDescription fun(): string #
----@field setDescription fun(description: string) #
----@field getAddress fun(): string, Address[] | nil # Returns the interpretable address string of this record. If it is a pointer, it returns a second result as a table filled with the offsets
----@field setAddress fun(address: SymbolAddress) # Sets the interpretable address string, and if offsets are provided makes it a pointer
----@field getOffsetCount fun(): integer # Returns the number of offsets for this memory record
----@field setOffsetCount fun(offsets: integer) # Lets you set the number of offsets
----@field getOffset fun(index: integer): integer # Gets the offset at the given index
----@field setOffset fun(index: integer, value: integer) # Sets the offset at the given index
----@field getCurrentAddress fun(): Address # Returns the current address as an integer (the final result of the interpretable address and pointer offsets)
----@field appendToEntry fun(memoryRecord: MemoryRecord) # Appends the current memory record to the given memory record
----@field getHotkey fun(index: integer): MemoryRecordHotkey # Returns the hotkey from the hotkey array
----@field getHotkeyByID fun(id: integer): MemoryRecordHotkey # Returns the hotkey with the given id
----@field reinterpret fun() #
----@field createHotkey MemRecHotkeyFn  # Returns a hotkey object 
----@field disableWithoutExecute fun() # Sets the entry to disabled without executing the disable section
----@field beginEdit fun() # Call when you wish to take a long time to edit a record (e.g external editor). It prevents the record from getting deleted
----@field endEdit fun() # To mark the end of your long edit sequence
+local MemoryRecord = {}
+
+---The function to call when the memory record will change (or changed) Active to true. If before is true, not returning true will cause the activation to stop.
+---@param memoryRecord MemoryRecord
+---@param before boolean
+---@param currentState boolean
+---@return boolean
+function MemoryRecord.OnActivate(memoryRecord, before, currentState) end
+
+---The function to call when the memory record will change (or changed) Active to false. If before is true, not returning true will cause the deactivation to stop.
+---@param memoryRecord MemoryRecord
+---@param before boolean
+---@param currentState boolean
+---@return boolean
+function MemoryRecord.OnDeactivate(memoryRecord, before, currentState) end
+
+
+---Called when the memory record is destroyed.
+function MemoryRecord.OnDestroy() end
+
+---This function gets called when rendering the value of a memory record.
+---@param memoryRecord MemoryRecord
+---@param value string
+---@return boolean # true
+---@return string # A new string to override the value shown.
+function MemoryRecord.OnGetDisplayValue(memoryRecord, value) end
+
+---This function gets called whenever the value of a memory record has changed
+---@param memoryRecord MemoryRecord
+---@param oldValue string
+---@param newValue string
+function MemoryRecord.OnChangedValue(memoryRecord, oldValue, newValue) end
+
+---This function gets called whenever the value of a memory record has changed by the user
+---@param memoryRecord MemoryRecord
+---@param oldValue string
+---@param newValue string
+function MemoryRecord.OnChangedValueByUser(memoryRecord, oldValue, newValue) end
+
+---@return string
+function MemoryRecord.getDescription() end
+
+---@param description string
+function MemoryRecord.setDescription(description) end
+
+---@return SymbolAddress # The interpretable address string of this record.
+---@return Address[] | nil # If the memory record type is a pointer, it returns a second result as a table filled with its offsets.
+function MemoryRecord.getAddress() end
+
+---Sets the interpretable address string, and if offsets are provided makes it a pointer.
+---@param address SymbolAddress
+function MemoryRecord.setAddress(address) end
+
+---@return integer # The number of offsets for this memory record
+function MemoryRecord.getOffsetCount() end
+
+---@param offsets integer # The number of offsets to set for this memory record (Uninitialized offsets are set to 0)
+function MemoryRecord.setOffsetCount(offsets) end
+
+---@param index integer
+---@return integer # The offset at the given index
+function MemoryRecord.getOffset(index) end
+
+---Sets the offset at the given index
+---@param index integer The index of the offset
+---@param value integer The value to set at the given index
+function MemoryRecord.setOffset(index, value) end
+
+---@return Address # The current address as an integer (the final result of the interpretable address and pointer offsets).
+function MemoryRecord.getCurrentAddress() end
+
+---Appends the current memory record to the given memory record.
+---@param memoryRecord MemoryRecord # The memory record to append to.
+function MemoryRecord.appendToEntry(memoryRecord) end
+
+---@param index integer
+---@return MemoryRecordHotkey # The hotkey from the hotkey array
+function MemoryRecord.getHotkey(index) end
+
+---@param id integer
+---@return MemoryRecordHotkey # The hotkey with the given id
+function MemoryRecord.getHotkeyID(id) end
+
+function MemoryRecord.reinterpret() end
+
+---@param keys VirtualKeyCodes[]
+---@param action MemoryRecordHotkeyAction
+---@param value? string
+---@param description? string
+---@return MemoryRecordHotkey # A hotkey object
+function MemoryRecord.createHotkey(keys, action, value, description) end
+
+---Sets the entry to disabled without executing the disable section
+function MemoryRecord.disableWithoutExecute() end
+
+---Call when you wish to take a long time to edit a record (e.g external editor). 
+---It prevents the record from getting deleted
+function MemoryRecord.beginEdit() end
+
+---To mark the end of your long edit sequence
+function MemoryRecord.endEdit() end
 
 
 
@@ -141,31 +219,84 @@
 ---@field isRet boolean # Set to true if it's a Ret
 ---@field isRep boolean # Set to true if it's preceded by a Rep
 ---@field isConditionalJump boolean # Set to true if it's a conditional jump
+---@field syntaxhighlighting boolean # This property is set if the syntax highlighting codes are accepted or not
 
 
 ---Inherits from Object (Disassembler->Object)
 ---@class Disassembler: Object
 ---@field LastDisassembleData DisassemblerTable #
----@field OnDisassembleOverride fun(sender: Disassembler, address: integer, lastDisassembleData: DisassemblerTable): opcode: string, description: string #
----@field OnPostDisassemble fun(sender: Disassembler, address: integer, lastDisassembleData: DisassemblerTable, result: string, description: string): result: boolean, description: string
----@field syntaxhighlighting boolean # This property is set if the syntax highlighting codes are accepted or not
----@field disassemble fun(address: Address): opcode: string # Disassembles the given instruction and returns the opcode. It also fills in a LastDisassembleData record
----@field decodeLastParametersToString fun(): string # Returns the unedited "Comments" information. Does not display userdefined comments
----@field getLastDisassembleData fun(): DisassemblerTable # Returns the LastDisassembleData table.
+local Disassembler = {}
 
+---@param sender Disassembler
+---@param address Address
+---@param lastDisassembleData DisassemblerTable
+---@return string opcode
+---@return string description
+function Disassembler.OnDisassembleOverride(sender, address, lastDisassembleData) end
+
+---@param sender Disassembler
+---@param address Address
+---@param lastDisassembleData DisassemblerTable
+---@param result string
+---@param description string
+---@return boolean result
+---@return string description
+function Disassembler.OnPostDisassemble(sender, address, lastDisassembleData, result, description) end
+
+---Disassembles the given instruction and returns the opcode. It also fills in a LastDisassembleData record
+---@param address Address
+---@return string opcode
+function Disassembler.disassemble(address) end
+
+---@return string # The unedited "Comments" information. Does not display userdefined comments
+function Disassembler.decodeLastParametersToString() end
+
+---@return DisassemblerTable # The LastDisassembleData table.
+function Disassembler.getLastDisassembleData() end
 
 
 ---Inherits from Object (DissectCode->Object)
 ---@class DissectCode: Object (DissectCode->Object)
----@field clear fun() # Clears all data
----@field dissect fun(moduleName: string) | fun(base: Address, size: integer) # Dissects the memory of a module or a specified memory region
----@field addReference fun(fromAddress: Address, toAddress: Address, type: DissectCodeType, isString?: boolean) # Adds a reference
----@field deleteReference fun(fromAddress: Address, toAddress: Address) #
----@field getReferences fun(address: Address): table # Returns a table containing the addresses that reference this address and the type
----@field getReferencedStrings fun(): table  # Returns a table of addresses and their strings that have been referenced. Use getReferences to find out which addresses that are
----@field getReferencedFunctions fun(): table # Returns a table of functions that have been referenced. Use getReferences to find out which callers that are
----@field saveToFile fun(fileName: path) #
----@field loadFromFile fun(fileName: path) #
+local DissectCode = {}
+
+---Clears all data
+function DissectCode.clear() end
+
+---Dissects the memory of a module or a specified memory region
+---@param moduleName string
+function DissectCode.dissect(moduleName) end
+
+---Dissects the memory of a module or a specified memory region
+---@param base Address
+---@param size integer
+function DissectCode.dissect(base, size) end
+
+---Adds a reference
+---@param fromAddress Address
+---@param toAddress Address
+---@param type DissectCodeType
+---@param isString? boolean
+function DissectCode.addReference(fromAddress, toAddress, type, isString) end
+
+---@param fromAddress Address
+---@param toAddress Address
+function DissectCode.deleteReference(fromAddress, toAddress) end
+
+---@param address Address
+---@return table # A table containing the addresses that reference this address and the type
+function DissectCode.getReferences(address) end
+
+---@return table # A table of addresses and their strings that have been referenced. Use getReferences to find out which addresses those are.
+function DissectCode.getReferencedStrings() end
+
+---@return table # A table of functions that have been referenced. Use getReferences to find out which callers that are
+function DissectCode.getReferencedStrings() end
+
+---@param fileName path
+function DissectCode.saveToFile(fileName) end
+
+---@param fileName path
+function DissectCode.loadFromFile(fileName) end
 
 
 ---Inherits from Object (RIPRelativeScanner->Object)
@@ -186,8 +317,17 @@
 ---@field CustomTypeType CustomTypeType # The type of the script
 ---@field script string # The custom type auto assemble conversion script
 ---@field scriptUsesFloat boolean - True if this script interprets its user-side values as float
----@field byteTableToValue fun(bytes: ByteTable, address?: Address): integer #
----@field valueToByteTable fun(value: integer, address?: Address): ByteTable #
+local CustomType = {}
+
+---@param bytes ByteTable
+---@param address? Address
+---@return integer
+function CustomType.byteTableToValue(bytes, address) end
+
+---@param value integer
+---@param address? Address
+---@return ByteTable
+function CustomType.valueToByteTable(value, address) end
 
 
 ---@class ContextTable
@@ -260,13 +400,13 @@
 
 
 ---@return Disassembler # Creates a disassembler object that can be used to disassemble an instruction and at the same time get more data
-function createDisassembler() return {} end
+function createDisassembler() end
 
 ---@return Disassembler # Returns the default disassembler object used by a lot of ce's disassembler routines (Only use this from the main thread)
-function getDefaultDisassembler() return {} end
+function getDefaultDisassembler() end
 
 ---@return Disassembler # Deprecated. Returns a stub disassembler for backward compatability. It's function overrides are set the other visible disasemblers will use that if they themselves don't have an ovverride. Special codes are: {H}=Hex value {R}=Register {S}=Symbol {N}=Nothing special {C######}=RGB color , {B######}=Background RGB color were ###### is 0xBBGGRR
-function getVisibleDisassembler() return {} end
+function getVisibleDisassembler() end
 
 
 ---Same as Disassembler.OnDisassembleOverride, but does it for all disassemblers, including newly created ones.  Tip: Check the sender to see if you should use syntax highlighting codes or not.
@@ -274,7 +414,7 @@ function getVisibleDisassembler() return {} end
 ---(Requires Cheat Engine version 6.4+)
 ---@param disassembleOverride fun(sender: Disassembler, address: integer, lastDisassembleData: table): opcode: integer, description: string #
 ---@return integer # An ID you can pass on to unregisterGlobalDisassembleOverride()
-function registerGlobalDisassembleOverride(disassembleOverride) return 0 end
+function registerGlobalDisassembleOverride(disassembleOverride) end
 
 ---Unregisters a global disassemble override by id.
 ---@param id integer # Id from registerGlobalDisassembleOverride()
@@ -283,7 +423,7 @@ function unregisterGlobalDisassembleOverride(id) end
 
 
 ---@return DissectCode # Creates or returns the current code DissectCode object
-function getDissectCode() return {} end
+function getDissectCode() end
 
 
 ---Creates a RIP relative scanner.
@@ -293,7 +433,7 @@ function getDissectCode() return {} end
 ---@param stopAddress Address
 ---@param includeJumpsAndCalls? boolean
 ---@return RIPRelativeScanner
-function createRipRelativeScanner(startAddress, stopAddress, includeJumpsAndCalls) return {} end
+function createRipRelativeScanner(startAddress, stopAddress, includeJumpsAndCalls) end
 
 ---Creates a RIP relative scanner. 
 ---
@@ -301,7 +441,7 @@ function createRipRelativeScanner(startAddress, stopAddress, includeJumpsAndCall
 ---@param moduleName string #
 ---@param includeJumpsAndCalls? boolean #
 ---@return RIPRelativeScanner #
-function createRipRelativeScanner(moduleName, includeJumpsAndCalls) return {} end
+function createRipRelativeScanner(moduleName, includeJumpsAndCalls) end
 
 ---Registers a Custom type based on lua functions
 ---@param typename string
@@ -310,7 +450,7 @@ function createRipRelativeScanner(moduleName, includeJumpsAndCalls) return {} en
 ---@param valueToBytesFunction fun(value: integer): ...: byte #
 ---@param isFloat boolean
 ---@return CustomType # 
-function registerCustomTypeLua(typename, bytecount, bytesToValueFunction, valueToBytesFunction, isFloat) return {} end
+function registerCustomTypeLua(typename, bytecount, bytesToValueFunction, valueToBytesFunction, isFloat) end
 
 
 ---Registers a custom type based on an auto assembler script. 
@@ -318,11 +458,11 @@ function registerCustomTypeLua(typename, bytecount, bytesToValueFunction, valueT
 ---The script must allocate an "ConvertRoutine" and "ConvertBackRoutine".
 ---@param script string # A conversion auto assembler script
 ---@return CustomType # The Custom Type object
-function registerCustomTypeAutoAssembler(script) return {} end
+function registerCustomTypeAutoAssembler(script) end
 
 ---@param typeName string # The name of the type
 ---@return CustomType | nil # The custom type object, or nil if not found
-function getCustomType(typeName) return {} end
+function getCustomType(typeName) end
 
 
 ---Loads a module.
@@ -340,12 +480,12 @@ function memoryrecord_setDescription(memoryRecord, description) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return string # The memory record's description
-function memoryrecord_getDescription(memoryRecord) return memoryRecord.getDescription() end
+function memoryrecord_getDescription(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return string # The address as an interpretable address string
 ---@return Address[] | nil # The offsets of the pointer or nil if it's a direct address
-function memoryrecord_getAddress(memoryRecord) return memoryRecord.getAddress() end
+function memoryrecord_getAddress(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@param address SymbolAddress # Address to set memory record to
@@ -353,7 +493,7 @@ function memoryrecord_setAddress(memoryRecord, address) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return VariableType # The type of the memory record
-function memoryrecord_getType(memoryRecord) return memoryRecord.Type end
+function memoryrecord_getType(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@param type VariableType # The type to set memory record to
@@ -361,7 +501,7 @@ function memoryrecord_setType(memoryRecord, type) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return string | nil # The value of the memory record in string form
-function memoryrecord_getValue(memoryRecord) return memoryRecord.Value end
+function memoryrecord_getValue(memoryRecord) end
 
 ---Set memory record value to provided value
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
@@ -370,7 +510,7 @@ function memoryrecord_setValue(memoryRecord, value) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return string | nil # Auto assemble Script of memory record
-function memoryrecord_getScript(memoryRecord) return memoryRecord.Script end
+function memoryrecord_getScript(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@param script string # Auto Assemble script to set to memory record
@@ -378,11 +518,11 @@ function memoryrecord_setScript(memoryRecord, script) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return boolean # Whether memory record is activated
-function memoryrecord_isActive(memoryRecord) return memoryRecord.Active end
+function memoryrecord_isActive(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return boolean # Whether memory record is selected currently
-function memoryrecord_isSelected(memoryRecord) return memoryRecord.Selected end
+function memoryrecord_isSelected(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 function memoryrecord_freeze(memoryRecord) end
@@ -403,7 +543,7 @@ function memoryrecord_delete(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return integer | nil # Size of the string if memory record is string type, otherwise nil
-function memoryrecord_string_getSize(memoryRecord) return memoryRecord["String.Size"]end
+function memoryrecord_string_getSize(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@param size integer # Size to set string in memory record
@@ -411,7 +551,7 @@ function memoryrecord_string_setSize(memoryRecord, size) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return boolean | nil # Whether a memory record's string type is interpreted as Unicode
-function memoryrecord_string_getUnicode(memoryRecord) return memoryRecord["String.Unicode"] end
+function memoryrecord_string_getUnicode(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@param isUnicode boolean # Whether to treat memory record's string type as Unicode
@@ -419,7 +559,7 @@ function memoryrecord_string_setUnicode(memoryRecord, isUnicode) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return integer | nil # Start bit of the binary if memory record is binary type, otherwise nil
-function memoryrecord_binary_getStartbit(memoryRecord) return memoryRecord["Binary.Startbit"]end
+function memoryrecord_binary_getStartbit(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@param startBit integer # The start bit to set memory record's binary type
@@ -427,7 +567,7 @@ function memoryrecord_binary_setStartbit(memoryRecord, startBit) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return integer | nil # Size of the binary if memory record is binary type, otherwise nil
-function memoryrecord_binary_getSize(memoryRecord) return memoryRecord["Binary.Size"]end
+function memoryrecord_binary_getSize(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@param size integer # Size of the binary to set to memory record's binary type
@@ -435,7 +575,7 @@ function memoryrecord_binary_setSize(memoryRecord, size) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return integer | nil # Size of the array of bytes if memory record is array of bytes type, otherwise nil
-function memoryrecord_aob_getSize(memoryRecord) return memoryRecord["Aob.Size"]end
+function memoryrecord_aob_getSize(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@param size integer # Size of the array of bytes to set to memory record's array of bytes type
@@ -443,22 +583,22 @@ function memoryrecord_aob_setSize(memoryRecord, size) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return integer # ID of the memory record (ID is user definable)
-function memoryrecord_getID(memoryRecord) return memoryRecord.ID end
+function memoryrecord_getID(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@return integer # Number of hotkeys set in memory record
-function memoryrecord_getHotkeyCount(memoryRecord) return memoryRecord.HotkeyCount end
+function memoryrecord_getHotkeyCount(memoryRecord) end
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@param index integer # The hotkey's index
 ---@return MemoryRecordHotkey # The hotkey with the provided index
-function memoryrecord_getHotkey(memoryRecord, index) return memoryRecord.getHotkey(index) end
+function memoryrecord_getHotkey(memoryRecord, index) end
 
 
 ---@param memoryRecord MemoryRecord # The memory record to manipulate
 ---@param id integer # The hotkey's id
 ---@return MemoryRecordHotkey # The hotkey with the provided id
-function memoryrecord_getHotkeyByID(memoryRecord, id) return memoryRecord.getHotkeyByID(id) end
+function memoryrecord_getHotkeyByID(memoryRecord, id) end
 
 
 ---Set OnActivate event.

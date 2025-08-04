@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---@alias OpenDialogOption string
 ---| '"ofReadOnly"' #
@@ -48,10 +48,18 @@
 
 ---Inherits from Component (CommonDialog->Component->Object)
 ---@class CommonDialog: Component
----@field OnShow fun(sender: any) #
----@field OnClose fun(sender: any) #
 ---@field Title string # The caption at top of the dialog
----@field Execute fun(): boolean # Shows the dialog and return true/false depending on the dialog
+local CommonDialog = {}
+
+---@param sender any
+function CommonDialog.OnShow(sender) end
+
+---@param sender any
+function CommonDialog.OnClose(sender) end
+
+---Shows the dialog.
+---@return boolean # true/false depending on the dialog.
+function CommonDialog.Execute() end
 
 
 ---Inherits from CommonDialog (ColorDialog->CommonDialog->Component->Object)
@@ -68,8 +76,15 @@
 ---@field Height integer #
 ---@field FindText string # The text the user wishes to find
 ---@field Options FindDialogOption[] # Find Options
----@field OnFind fun(sender: any) # Called when the find button has been clicked
----@field OnHelp fun(sender: any) # Called when the help button is visible (see Options) and clicked
+local FindDialog = {}
+
+---Called when the find button has been clicked
+---@param sender any
+function FindDialog.OnFind(sender) end
+
+---Called when the help button is visible (see Options) and clicked
+---@param sender any
+function FindDialog.OnHelp(sender) end
 
 
 ---Inherits from CommonDialog (FileDialog->CommonDialog->Component->Object)

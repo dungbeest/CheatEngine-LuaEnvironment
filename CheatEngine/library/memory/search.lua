@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Flags that indicate memory protection status.
 ---> X = Executable memory
@@ -97,13 +97,13 @@
 ---@param address SymbolAddress # The address at which to start the search
 ---@return string # The AOB as a string
 ---@return integer # An offset (in bytes) applied in case the AOB returned doesn't start at the given address
-function getUniqueAOB(address) return "", 0 end
+function getUniqueAOB(address) end
 
 
 ---Scans the currently opened process.
 ---@param ... byte | any # Bytes to scan. Byte values of higher than 255 or anything not an integer will be seen as a wildcard
 ---@return Stringlist # A Stringlist object containing all the results. Don't forget to free this list when done
-function AOBScan(...) return {} end
+function AOBScan(...) end
 
 ---see above but here you just input one string
 ---@param aobString string # The AOB pattern to search for as a string

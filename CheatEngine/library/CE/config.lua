@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Causes cheat engine to open the file with memory access as if it's a process.
 ---@param fileName string # Name of the file 
@@ -7,7 +7,7 @@
 function openFileAsProcess(fileName, is64bit, startAddress) end
 
 ---@return integer # The size of the opened file
-function getOpenedFileSize() return 0 end
+function getOpenedFileSize() end
 
 ---Saves the changes of the opened file.
 ---@param fileName? string # set file name if you want a different file
@@ -17,13 +17,13 @@ function saveOpenedFile(fileName) end
 ---Loads the given plugin.
 ---@param dllNameOrPath path # Path to plugin
 ---@return integer | nil # nil on failure. On success returns a value of 0 or greater
-function loadPlugin(dllNameOrPath) return 0 end
+function loadPlugin(dllNameOrPath) end
 
 ---Loads a font from a memory stream.
 ---@param memoryStream Stream #
 ---@return integer # An id (handle) to the font for use with unloadLoadedFont
 ---@see unloadLoadedFont
-function loadFontFromStream(memoryStream) return 0 end
+function loadFontFromStream(memoryStream) end
 
 ---Unload a previously loaded font.
 ---@param id integer # An id (handle) to the font to unload
@@ -33,24 +33,24 @@ function unloadLoadedFont(id) end
 
 
 ---@return boolean # Whether Cheat Engine is 64-bit, false if 32-bit
-function cheatEngineIs64Bit() return true end
+function cheatEngineIs64Bit() end
 
 ---@return boolean # Whether the target process is 64-bit, false if 32-bit
-function targetIs64Bit() return true end
+function targetIs64Bit() end
 
 
 ---@return path # The folder Cheat Engine is located at
-function getCheatEngineDir() return "" end
+function getCheatEngineDir() end
 
 ---@return integer # The process ID of Cheat Engine
-function getCheatEngineProcessID() return 0 end
+function getCheatEngineProcessID() end
 
 ---@return path # The autorun path
-function getAutorunPath() return "" end
+function getAutorunPath() end
 
 
 ---@return integer # The process ID of the process that is currently on top
-function getForegroundProcess() return 0 end
+function getForegroundProcess() end
 
 
 
@@ -60,7 +60,7 @@ function setPointerSize(size) end
 
 ---Gets the current pointer size.
 ---@return integer # Pointer size used (either 32-bit or 64-bit unless custom size is set)
-function getPointerSize() return 0 end
+function getPointerSize() end
 
 ---@alias ASMMode integer
 ---| 0 # 32-bit
@@ -70,7 +70,7 @@ function getPointerSize() return 0 end
 function setAssemblerMode(mode) end
 
 ---@return integer # The number of CPUs
-function getCPUCount() return 0 end
+function getCPUCount() end
 
 ---@class CPUIDRegisterInfo
 ---@field EAX integer # The value of EAX register returned after a cpuid instruction
@@ -84,14 +84,7 @@ function getCPUCount() return 0 end
 ---@param EAX integer # Value to set to EAX register for cpuid instruction
 ---@param ECX integer # Value to set to ECX register for cpuid instruction
 ---@return CPUIDRegisterInfo # The values of registers for the cpuid instruction
-function cpuid(EAX,ECX)
-  return {
-    EAX = 0,
-    EBX = 0,
-    ECX = 0,
-    EDX = 0
-  }
-end
+function cpuid(EAX,ECX) end
 
 ---Enables/disables the passive garbage collector.
 ---@param state boolean # Whether to enable/disable the passive GC
@@ -110,40 +103,40 @@ function gc_setActive(state, interval, minSize) end
 ---@source https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getsystemmetrics
 ---@param index SystemMetricsIndex # The system metric or configuration to retrieve
 ---@return integer # The configuration value or 0 if not applicable
-function getSystemMetrics(index) return 0 end
+function getSystemMetrics(index) end
 
 ---@return integer # The Dots/Pixels Per Inch of the screen
-function getScreenDPI() return 0 end
+function getScreenDPI() end
 
 ---@return integer # The screen height
-function getScreenHeight() return 0 end
+function getScreenHeight() end
 
 ---@return integer # The screen width
-function getScreenWidth() return 0 end
+function getScreenWidth() end
 
 ---@return integer # The work area height
-function getWorkAreaHeight() return 0 end
+function getWorkAreaHeight() end
 
 
 ---@return integer # The work area width
-function getWorkAreaWidth() return 0 end
+function getWorkAreaWidth() end
 
 ---@return Canvas # A Canvas object you can use to write to the screen (Note: Not as useful as you may think)
-function getScreenCanvas() return {} end
+function getScreenCanvas() end
 
 ---@param x integer # Coordinate on the screen along the x axis
 ---@param y integer # Coordinate on the screen along the y axis
 ---@return integer # The rgb value of the pixel at the specific screen coordinate
-function getPixel(x,y) return 0 end
+function getPixel(x,y) end
 
 ---@return integer # The current tick count since OS was started. Each tick is one millisecond
-function getTickCount() return 0 end
+function getTickCount() end
 
 ---Lets the main event handler process the new messages (allows for new button clicks).
 function processMessages() end
 
 ---@return boolean # Whether the current code is running inside the main thread (CE version 6.4+)
-function inMainThread() return true end
+function inMainThread() end
 
 
 ---Enables the speed hack if needed and sets the specific speed.
@@ -152,7 +145,7 @@ function speedhack_setSpeed(speed) end
 
 ---Gets the last set speed hack speed.
 ---@return number # The last set speed hack speed
-function speedhack_getSpeed() return 0.0 end
+function speedhack_getSpeed() end
 
 
 ---Sets the state of the cheatengine task in the taskbar.
@@ -166,7 +159,7 @@ function setProgressValue(current, max) end
 
 ---@param name string # The user registry environment variable name 
 ---@return string # The environment variable stored in the user registry environment
-function getUserRegistryEnvironmentVariable(name) return "" end
+function getUserRegistryEnvironmentVariable(name) end
 
 ---Sets the environment variable stored in the user registry environment.
 ---

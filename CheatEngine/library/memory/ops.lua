@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Binary OR.
 ---@param int1 integer # First integer

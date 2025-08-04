@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Closes Cheat Engine completely.
 function closeCE() end
@@ -11,19 +11,19 @@ function unhideMainCEwindow() end
 
 
 ---@return float # A floating point value specifying the version of cheat engine
-function getCEVersion() return 0.0 end
+function getCEVersion() end
 
 
 ---@return integer # A raw integer that represents the full version data of the cheat engine version
 ---@return FullVersion # A table containing major, minor, release and build number of cheat engine version.
-function getCheatEngineFileVersion() return 0, { major = 0, minor = 0, release = 0, build = 0 } end
+function getCheatEngineFileVersion() end
 
 ---@alias OS integer
 ---| 0 # Windows
 ---| 1 # Mac
 
 ---@return OS
-function getOperatingSystem() return 0 end
+function getOperatingSystem() end
 
 ---@return boolean # True if CE is running in windows Dark Mode. Has no effect on mac
 function darkMode() end

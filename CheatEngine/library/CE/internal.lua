@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 
 ---Bitfield type. Use a bitwise or of any of the options to enable multiple ones at a time.
@@ -82,7 +82,7 @@
 
 
 ---@return boolean # True if the dbk driver is loaded in memory. False if it failed for whatever reason (e.g 64-bit and not booted with unsigned driver support)
-function dbk_initialize() return true end
+function dbk_initialize() end
 
 ---Switches the internal pointer of the OpenProcess api to dbk_OpenProcess.
 function dbk_useKernelmodeOpenProcess() end
@@ -102,20 +102,20 @@ function dbk_setSaferPhysicalMemoryScanning(state) end
 ---@param address Address #
 ---@param size integer #
 ---@return ByteTable #
-function dbk_readPhysicalMemory(address, size) return {} end
+function dbk_readPhysicalMemory(address, size) end
 
 ---@param address Address #
 ---@param byteTable ByteTable #
 ---@return boolean #
-function dbk_writePhysicalMemory(address, byteTable) return true end
+function dbk_writePhysicalMemory(address, byteTable) end
 
 ---@param processId integer
 ---@return integer # Returns the pointer of the EProcess structure of the selected processid
-function dbk_getPEProcess(processId) return 0 end
+function dbk_getPEProcess(processId) end
 
 ---@param threadId integer
 ---@return integer # Gets the pointer to the EThread structure
-function dbk_getPEThread(threadId) return 0 end 
+function dbk_getPEThread(threadId) end
 
 ---Reads the msr
 ---@param msr any # ???
@@ -124,7 +124,7 @@ function dbk_readMSR(msr) end
 ---Writes the msr
 ---@param msr any # ???
 ---@param msrvalue any # ???
-function dbk_writeMSR(msr, msrvalue) end 
+function dbk_writeMSR(msr, msrvalue) end
 
 ---Executes a routine from kernelmode (e.g a routine written there with auto assembler)
 ---@param address Address #
@@ -144,10 +144,10 @@ function dbvm_initialize(offloados, reason) end
 ---@param key2 integer #
 ---@param key3 pointer #
 ---@return boolean # True if DBVM is working, and automatically updates the current DBVM keys in CE and the driver if DBVM was already connected (e.g default keys)
-function dbvm_setKeys(key1, key2, key3) return true end
+function dbvm_setKeys(key1, key2, key3) end
 
 ---@return integer # The total memory free for DBVM, and the total number of full pages as secondary result
-function dbvm_getMemory() return 0 end
+function dbvm_getMemory() end
 
 ---Adds memory to DBVM (one page is 4096 bytes)
 ---@param pageCount integer #
@@ -168,7 +168,7 @@ function dbvm_getCR4() return 0 end
 ---@param address Address #
 ---@param size integer #
 ---@return ByteTable #
-function dbvm_readPhysicalMemory(address, size) return {} end
+function dbvm_readPhysicalMemory(address, size) end
 
 ---@param address Address #
 ---@param byteTable ByteTable #
@@ -222,7 +222,7 @@ function dbvm_watch_executes(
 
 ---@param id integer # A logging id for watch data. Returned by dbvm_watch_reads, dbvm_watch_executes or dbvm_watch_writes
 ---@return WatchEventData[] # An array of watch event data. (Context of the system at the time of the event, like registers)
-function dbvm_watch_retrievelog(id) return {} end
+function dbvm_watch_retrievelog(id) end
 
 ---Disables the watch operation
 ---@param id integer # A logging id for watch data. Returned by dbvm_watch_reads, dbvm_watch_executes or dbvm_watch_writes
@@ -243,7 +243,7 @@ function dbvm_cloak_deactivate(physicalBase) end
 ---Reads the memory that will get executed. 
 ---@param physicalBase Address
 ---@return ByteTable # On success returns a 4096 byte long byte table starting from the base of the page (remember, lua indexes start at 1, so offset 0 is index 1)
-function dbvm_cloak_readOriginal(physicalBase) return {} end
+function dbvm_cloak_readOriginal(physicalBase) end
 
 ---Writes the memory that will get executed. 
 ---@param physicalBase Address #
@@ -257,7 +257,7 @@ function dbvm_cloak_writeOriginal(physicalBase, byteTable) end
 ---@param changeRegisterInfo ChangeRegisterInfo
 ---@param virtualAddress? Address
 ---@return boolean #
-function dbvm_changeregonbp(physicalAddress, changeRegisterInfo, virtualAddress) return true end
+function dbvm_changeregonbp(physicalAddress, changeRegisterInfo, virtualAddress) end
 
 ---Disables the changeregonbp breakpoint on an address.
 ---@param physicalAddress Address
@@ -273,7 +273,7 @@ function dbvm_traceonbp(physicalAddress, stepCount, virtualAddress, secondaryOpt
 ---@return TraceStatus status # The trace status
 ---@return integer count # Number of steps the trace currently holds
 ---@return integer maxCount # The maximum number of steps to limit the trace
-function dbvm_traceonbp_getstatus() return 0, 0, 0 end
+function dbvm_traceonbp_getstatus() end
 
 ---Requests the trace to stop.
 function dbvm_traceonbp_stoptrace() end
@@ -285,18 +285,18 @@ function dbvm_traceonbp_remove(pa, force) end
 
 ---Retrieve the trace log for the current trace.
 ---@return TraceEntry[] # An array of trace entries. (Context of the system at the time of the event, like registers)
-function dbvm_traceonbp_retrievelog() return {} end
+function dbvm_traceonbp_retrievelog() end
 
 ---@return integer # The number of breakpoint slots currently available
-function dbvm_bp_getBrokenThreadListSize() return 0 end
+function dbvm_bp_getBrokenThreadListSize() end
 
 ---@param id integer # Event id
 ---@return BreakpointInfoShort # A table with information about the specific breakpoint
-function dbvm_bp_getBrokenThreadEventShort(id) return {} end
+function dbvm_bp_getBrokenThreadEventShort(id) end
 
 ---@param id integer # Event id
 ---@return BreakpointInfoFull # A bigger table with full information for a specific breakpoint (fpu and stack)
-function dbvm_bp_getBrokenThreadEventFull(id) return {} end
+function dbvm_bp_getBrokenThreadEventFull(id) end
 
 ---Sets the state of the frozen thread
 ---@param id integer # Event id
@@ -314,14 +314,14 @@ function dbvm_bp_resumeBrokenThread(id, continueMethod) end
 ---@param threadEvent ThreadEvent #
 ---@return integer | nil processId #
 ---@return integer | string threadId #
-function dbvm_bp_getProcessAndThreadIDFromEvent(threadEvent) return 0, 0 end
+function dbvm_bp_getProcessAndThreadIDFromEvent(threadEvent) end
 
 ---Tells DBVM to record (up to 512) unique CR3 values it encounters
 function dbvm_log_cr3_start() end
 
 ---Stops the logging.
 ---@return CR3Log # The results of CR3 logging as a table
-function dbvm_log_cr3_stop() return {} end
+function dbvm_log_cr3_stop() end
 
 ---Changes the speed the timestamp counter goes up (similar to speedhack in a process but affects the whole system including the clock)
 ---@param speed number # Timestamp counter multiplier
@@ -333,20 +333,20 @@ function dbvm_speedhack_setSpeed(speed) end
 ---@param enabled boolean # Whether to adjust TSC (default true with timeout 2000)
 ---@param timeout integer # The timeout is the number of actual TSC to watch else the actual time is given. 
 ---@return integer | nil # If enabled, will return a small(20-30) timestamp between multiple rdtsc/rdtscp instructions.
-function dbvm_setTSCAdjust(enabled, timeout) return 0 end
+function dbvm_setTSCAdjust(enabled, timeout) end
 
 ---@return integer # Control Register 0
-function dbk_getCR0() return 0 end
+function dbk_getCR0() end
 
 ---@return integer # Control Register 3 of the currently opened process (Note: This will also work without dbk when only dbvm is loaded)
-function dbk_getCR3() return 0 end
+function dbk_getCR3() end
 
 ---@return integer # Control Register 4
-function dbk_getCR4() return 0 end
+function dbk_getCR4() end
 
 ---@param address Address # A virtual address
 ---@return Address # The physical address of the given address
-function dbk_getPhysicalAddress(address) return 0 end
+function dbk_getPhysicalAddress(address) end
 
 ---@param state boolean # Set to true if you do not wish to initiate copy-on-write behaviour
 function dbk_writesIgnoreWriteProtection(state) end
@@ -356,14 +356,14 @@ function dbk_writesIgnoreWriteProtection(state) end
 ---@param CR3 integer # The CR3 register
 ---@param address Address # The virtual address
 ---@return Address | nil # The physical address or nil if not paged
-function getPhysicalAddressCR3(CR3, address) return 0 end
+function getPhysicalAddressCR3(CR3, address) end
 
 ---Reads the virtual memory of the given process's CR3 value. Returns a bytetable on success, nil if fail to read (paged out)
 ---@param CR3 integer # The CR3 register
 ---@param address Address # The virtual address
 ---@param size integer #
 ---@return ByteTable #
-function readProcessMemoryCR3(CR3, address, size) return {} end
+function readProcessMemoryCR3(CR3, address, size) end
 
 ---Reads the virtual memory of the given process's CR3 value
 ---@param CR3 integer # The CR3 register
@@ -375,7 +375,7 @@ function writeProcessMemoryCR3(CR3, address, bytetable) end
 ---Allocates a block of nonpaged memory and returns the address.
 ---@param size integer #
 ---@return Address #
-function allocateKernelMemory(size) return 0 end
+function allocateKernelMemory(size) end
 
 ---Frees the given memory region.
 ---@param address Address #
@@ -387,7 +387,7 @@ function freeKernelMemory(address) end
 ---@param fromPID? integer
 ---@param toPID? integer
 ---@return integer, MemoryDescriptorList #
-function mapMemory(address, size, fromPID, toPID) return 0, {}  end
+function mapMemory(address, size, fromPID, toPID) end
 
 ---@param address Address
 ---@param mdl MemoryDescriptorList

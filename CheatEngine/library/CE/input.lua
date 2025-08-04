@@ -1,9 +1,9 @@
----@meta
+---@meta _
 
 ---Gets the mouse position (x, y coordinates).
 ---@return integer # The x (width) coordinates of the mouse along the screen
 ---@return integer # The y (height) coordinates of the mouse along the screen
-function getMousePos() return 0, 0 end
+function getMousePos() end
 
 ---Sets the mouse position (x, y coordinates).
 ---@param x integer # The x (width) coordinates of the mouse along the screen
@@ -15,7 +15,7 @@ function setMousePos(x,y) end
 ---Checks if key is pressed.
 ---@param key VirtualKeyCodes # A key code to check
 ---@return boolean # Whether the specified key is currently pressed
-function isKeyPressed(key) return true end
+function isKeyPressed(key) end
 
 ---Causes the supplied key to go into held/down state.
 ---@param key VirtualKeyCodes # A key code to hold
@@ -43,18 +43,18 @@ function mouse_event(flags, x, y, data, extra) end
 ---Converts a shortcut to its textual representation.
 ---@param shortCut integer # A shortcut value
 ---@return string # The textual representation of the given shortut value (integer) (CE version 6.4+)
-function shortCutToText(shortCut) return "" end
+function shortCutToText(shortCut) end
 
 ---Converts a textual representation of shortcut to its integer value.
 ---@param shortCutString string
 ---@return integer # A shortcut integer that the given string represents.  (CE version 6.4+)
-function textToShortCut(shortCutString) return 0 end
+function textToShortCut(shortCutString) end
 
 ---Converts a key combo to its string representation.
 ---@param ... VirtualKeyCodes # A variable number of key codes to combine.
 ---@return string # A string representation of the given keys like the hotkey handler does
 ---@overload fun(keys: VirtualKeyCodes[]): string # A key table overload
-function convertKeyComboToString(...) return "" end
+function convertKeyComboToString(...) end
 
 ---Writes the given text to the clipboard.
 ---@param text string # Text to write
@@ -62,7 +62,7 @@ function writeToClipboard(text) end
 
 ---Reads the text from the clipboard.
 ---@return string # Text that was read from clipboard
-function readFromClipboard() return "" end
+function readFromClipboard() end
 
 ---@alias ControllerID byte
 ---| 0 # First Slot Controller
@@ -98,28 +98,17 @@ function readFromClipboard() return "" end
 ---@param controllerID? integer # A controller ID to specify to fetch a particular controller state
 ---@return XBoxControllerState # A table containing the XBox controller state
 function getXBox360ControllerState(controllerID) return {
-    ControllerID = 0,
-    PacketNumber = 0,
-    GAMEPAD_DPAD_UP = true,
-    GAMEPAD_DPAD_DOWN = true,
-    GAMEPAD_DPAD_LEFT = true,
-    GAMEPAD_DPAD_RIGHT = true,
-    GAMEPAD_START = true,
-    GAMEPAD_BACK = true,
-    GAMEPAD_LEFT_THUMB = true,
-    GAMEPAD_RIGHT_THUMB = true,
-    GAMEPAD_LEFT_SHOULDER = true,
-    GAMEPAD_RIGHT_SHOULDER = true,
-    GAMEPAD_A = true,
-    GAMEPAD_B = true,
-    GAMEPAD_X = true,
-    GAMEPAD_Y = true,
-    LeftTrigger = 0,
-    RightTrigger = 0,
-    ThumbLeftX = 0,
-    ThumbLeftY = 0,
-    ThumbRightX = 0,
-    ThumbRightY = 0,
+    ControllerID = 0, PacketNumber = 0,
+    GAMEPAD_DPAD_UP = true, GAMEPAD_DPAD_DOWN = true,
+    GAMEPAD_DPAD_LEFT = true, GAMEPAD_DPAD_RIGHT = true,
+    GAMEPAD_START = true, GAMEPAD_BACK = true,
+    GAMEPAD_LEFT_THUMB = true, GAMEPAD_RIGHT_THUMB = true,
+    GAMEPAD_LEFT_SHOULDER = true, GAMEPAD_RIGHT_SHOULDER = true,
+    GAMEPAD_A = true, GAMEPAD_B = true,
+    GAMEPAD_X = true, GAMEPAD_Y = true,
+    LeftTrigger = 0, RightTrigger = 0,
+    ThumbLeftX = 0, ThumbLeftY = 0,
+    ThumbRightX = 0, ThumbRightY = 0,
 } end
 
 ---Sets the speed of the left and right vibrating motor inside the controller. Range (0 to 65535 where 0 is off).

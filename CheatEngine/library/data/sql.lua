@@ -1,16 +1,24 @@
----@meta
+---@meta _
 
 
 ---Inherits from Component (CustomConnection->Component->Object)
 ---@class CustomConnection: Component (CustomConnection->Component->Object)
 ---@field Connected boolean # Gets the current connection state, and lets you connect as well
 ---@field LoginPrompt boolean #
----@field AfterConnect fun(sender) #
----@field AfterDisconnect fun(sender) #
----@field BeforeConnect fun(sender) #
----@field BeforeDisconnect fun(sender) #
----@field close fun(forceClose?: boolean) #
----@field open fun() #
+local CustomConnection = {}
+
+function CustomConnection.AfterConnect(sender) end
+
+function CustomConnection.AfterDisconnect(sender) end
+
+function CustomConnection.BeforeConnect(sender) end
+
+function CustomConnection.BeforeDisconnect(sender) end
+
+---@param forceClose? boolean
+function CustomConnection.close(forceClose) end
+
+function CustomConnection.open() end
 
 
 ---Inherits from CustomConnection (Database->CustomConnection->Component->Object)
@@ -36,17 +44,29 @@
 ---@field CharSet string #
 ---@field HostName string #
 ---@field Options SQLConnectionOptions #
----@field startTransaction fun() #
----@field endTransaction fun() #
----@field executeDirect fun(sql: string) #
----@field getTableNames fun(): string[] # Returns a counted table with all tablenames
+local SQLConnection = {}
+
+function SQLConnection.startTransaction() end
+
+function SQLConnection.endTransaction() end
+
+---@param sql string
+function SQLConnection.executeDirect(sql) end
+
+---@return string[] # A counted table with all tablenames
+function SQLConnection.getTableNames() end
 
 
 ---Inherits from SQLConnection (SQLite3Connection->SQLConnection->Database->CustomConnection->Component->Object)
 ---@class SQLite3Connection: SQLConnection
----@field createDB fun() #
----@field dropDB fun() #
----@field getInsertID fun(): integer #
+local SQLite3Connection = {}
+
+function SQLite3Connection.createDB() end
+
+function SQLite3Connection.dropDB() end
+
+---@return integer
+function SQLite3Connection.getInsertID() end
 
 ---Inherits from SQLConnection (ODBCConnection->SQLConnection->Database->CustomConnection->Component->Object)
 ---@class ODBCConnection: SQLConnection
@@ -59,7 +79,9 @@
 ---@class DBTransaction: Component
 ---@field Active boolean #
 ---@field DataBase Database #
----@field closeDataSets fun() #
+local DBTransaction = {}
+
+function DBTransaction.closeDataSets() end
 
 ---@alias SQLTransactionOptions string
 ---| '"stoUseImplicit"' # 
@@ -79,12 +101,19 @@
 ---@field Params Stringlist #
 ---@field Options SQLTransactionOptions # 
 ---@field Action SQLTransactionAction # 
----@field commit fun() #
----@field commitRetaining fun() #
----@field rollback fun() #
----@field rollbackRetaining fun() #
----@field startTransaction fun() #
----@field endTransaction fun() #
+local SQLTransaction = {}
+
+function SQLTransaction.commit() end
+
+function SQLTransaction.commitRetaining() end
+
+function SQLTransaction.rollback() end
+
+function SQLTransaction.rollbackRetaining() end
+
+function SQLTransaction.startTransaction() end
+
+function SQLTransaction.endTransaction() end
 
 
 ---Inherits from CollectionItem (Param->CollectionItem->Object)
@@ -107,8 +136,10 @@
 ---Inherits from Collection (Params->Collection->Object)
 ---@class Params: Collection
 ---@field Items Param[] #
----@field AddParam fun(param: Param) #
+local Params = {}
 
+---@param param Param
+function Params.AddParam(param) end
 
 ---Inherits from Component (Field->Component->Object)
 ---@class Field: Component
@@ -130,11 +161,24 @@
 ---@class Fields: Object
 ---@field Count integer #
 ---@field Fields Field[] #
----@field add fun(field: Field) #
----@field clear fun()
----@field fieldByName fun(name: string): Field
----@field fieldByNumber fun(number: integer): Field
----@field indexOf fun(field: Field): integer
+local Fields = {}
+
+---@param field Field
+function Fields.add(field) end
+
+function Fields.clear() end
+
+---@param name string
+---@return Field
+function Fields.fieldByName(name) end
+
+---@param number integer
+---@return Field
+function Fields.fieldByNumber(number) end
+
+---@param field Field
+---@return integer
+function Fields.indexOf(field) end
 
 
 ---@alias DatasetOptions string
@@ -167,38 +211,100 @@
 ---@field FilterOptions DatasetOptions #
 ---@field Active boolean #
 ---@field AutoCalcFields boolean #
----@field append fun() #
----@field appendRecord fun(values: any[]) #
----@field cancel fun() #
----@field checkBrowseMode fun() #
----@field clearFields fun() #
----@field close fun() #
----@field controlsDisabled fun(): boolean #
----@field cursorPosChanged fun() #
----@field delete fun() #
----@field disableControls fun() #
----@field edit fun()
----@field enableControls fun() #
----@field fieldByName fun(fieldName: string): Field #
----@field findField fun(fieldName: string): Field #
----@field findFirst fun(): Field #
----@field findLast fun(): Field #
----@field findNext fun(): Field #
----@field findPrior fun(): Field #
----@field first fun(): Field #
----@field insert function #
----@field isEmpty fun(): boolean #
----@field last fun(): Field #
----@field locate fun(KeyFields: string, KeyValues: string, options: string): boolean #
----@field lookup fun(keyFields: string, KeyValues: string, ResultFields: string): any #
----@field moveBy fun(distance: integer) #
----@field next function #
----@field open function #
----@field post function #
----@field prior function #
----@field refresh fun() #
----@field updateCursorPos function #
----@field updateRecord function #
+local Dataset = {}
+
+function Dataset.append() end
+
+---@param values any[]
+function Dataset.appendRecord(values) end
+
+function Dataset.cancel() end
+
+function Dataset.checkBrowseMode() end
+
+function Dataset.clearFields() end
+
+function Dataset.close() end
+
+---@return boolean
+function Dataset.controlsDisabled() end
+
+function Dataset.cursorPosChanged() end
+
+function Dataset.delete() end
+
+function Dataset.disableControls() end
+
+function Dataset.edit() end
+
+function Dataset.enableControls() end
+
+---@param fieldName string
+---@return Field #
+function Dataset.fieldByName(fieldName) end
+
+---@param fieldName string
+---@return Field
+function Dataset.findField(fieldName) end
+
+---@return Field
+function Dataset.findFirst() end
+
+---@return Field
+function Dataset.findLast() end
+
+---@return Field
+function Dataset.findNext() end
+
+---@return Field
+function Dataset.findPrior() end
+
+---@return Field
+function Dataset.first() end
+
+function Dataset.insert() end
+
+---@return boolean
+function Dataset.isEmpty() end
+
+---@return Field
+function Dataset.last() end
+
+---@param KeyFields string
+---@param KeyValues string
+---@param options string
+---@return boolean
+function Dataset.locate(KeyFields, KeyValues, options) end
+
+---@param keyFields string
+---@param KeyValues string
+---@param ResultFields string
+---@return any
+function Dataset.lookup(keyFields, KeyValues, ResultFields) end
+
+---@param distance integer
+function Dataset.moveBy(distance) end
+
+---???
+function Dataset.next() end
+
+---???
+function Dataset.open() end
+
+---???
+function Dataset.post() end
+
+---???
+function Dataset.prior() end
+
+---???
+function Dataset.refresh() end
+
+---???
+function Dataset.updateCursorPos() end
+
+---???
+function Dataset.updateRecord() end
 
 
 
@@ -217,13 +323,26 @@
 ---@field MaxIndexesCount integer #
 ---@field ChangeCount integer #
 ---@field ReadOnly boolean #
----@field applyUpdates fun(maxErrors?: integer) #
----@field cancelUpdates fun() #
----@field loadFromStream fun(stream: Stream) #
----@field saveToStream fun(stream: Stream) #
----@field loadFromFile fun(fileName: path) #
----@field saveToFile fun(fileName: path) #
----@field createDataset fun() #
+local CustomBufDataset = {}
+
+---@param maxErrors? integer
+function CustomBufDataset.applyUpdates(maxErrors) end
+
+function CustomBufDataset.cancelUpdates() end
+
+---@param stream Stream
+function CustomBufDataset.loadFromStream(stream) end
+
+---@param stream Stream
+function CustomBufDataset.saveToStream(stream) end
+
+---@param fileName path
+function CustomBufDataset.loadFromFile(fileName) end
+
+---@param fileName path
+function CustomBufDataset.saveToFile(fileName) end
+
+function CustomBufDataset.createDataset() end
 
 
 ---Inherits from CustomBufDataset (CustomSQLQuery->CustomBufDataset->DBDataset->Dataset->Component->Object)
@@ -231,11 +350,19 @@
 ---@field prepared boolean # READONLY
 ---@field SQLConnection SQLConnection #
 ---@field SQLTransaction SQLTransaction #
----@field prepare fun() #
----@field unprepare fun() #
----@field execSQL fun() #
----@field rowsAffected fun() #
----@field paramByName fun(paramName: string): Param #
+local CustomSQLQuery = {}
+
+function CustomSQLQuery.prepare() end
+
+function CustomSQLQuery.unprepare() end
+
+function CustomSQLQuery.execSQL() end
+
+function CustomSQLQuery.rowsAffected() end
+
+---@param paramName string
+---@return Param
+function CustomSQLQuery.paramByName(paramName) end
 
 
 ---@alias SQLQuerySchemaType string

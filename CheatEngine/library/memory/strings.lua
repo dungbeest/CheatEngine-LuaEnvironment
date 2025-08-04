@@ -1,20 +1,20 @@
----@meta
+---@meta _
 
 
 ---@param string string # String to split
 ---@param separator string # Characters to use as separator
 ---@return string # A single string until the separator is found.
-function string.split(string, separator) return "" end
+function string.split(string, separator) end
 
 ---@param string string # String to search
 ---@param endWith string # String to search for as suffix
 ---@return boolean # If the string ends with the given string.
-function string.endsWith(string, endWith) return true end
+function string.endsWith(string, endWith) end
 
 ---@param string string # String to search
 ---@param startsWith string # String to search for as prefix
 ---@return boolean # If the string starts with the given string
-function string.startsWith(string, startsWith) return true end
+function string.startsWith(string, startsWith) end
 
 
 ---@param strings Strings # Strings object to operate on
@@ -32,7 +32,7 @@ function strings_delete(strings, index) end
 
 ---@param strings Strings # Strings object to operate on
 ---@return string # Gets all the strings as a single text string from strings object
-function strings_getText(strings) return strings.getText() end
+function strings_getText(strings) end
 
 ---@param strings Strings # Strings object to operate on
 ---@param text string # Sets the strings object internal strings as a single text string
@@ -41,7 +41,7 @@ function strings_setText(strings, text) end
 ---@param strings Strings # Strings object to operate on
 ---@param string string # A string to search for
 ---@return integer # The index of the specified string. -1 if not found
-function strings_indexOf(strings, string) return strings.indexOf(string) end
+function strings_indexOf(strings, string) end
 
 ---@param strings Strings # Strings object to operate on
 ---@param index integer # Index to insert at
@@ -50,7 +50,7 @@ function strings_insert(strings, index, string) end
 
 ---@param strings Strings # Strings object to operate on
 ---@return integer # Number of strings in strings object
-function strings_getCount(strings) return strings.getCount() end
+function strings_getCount(strings) end
 
 ---Remove string from strings object. If string doesn't exist in strings object it's a no-op.
 ---@param strings Strings # Strings object to operate on
@@ -60,7 +60,7 @@ function strings_remove(strings, string) end
 ---@param strings Strings # Strings object to operate on
 ---@param index integer # Index of string to get
 ---@return string # The string at index supplied 
-function strings_getString(strings, index) return strings.getString(index) end
+function strings_getString(strings, index) end
 
 ---@param strings Strings # Strings object to operate on
 ---@param index integer # Index to set string at
@@ -78,15 +78,15 @@ function strings_saveToFile(strings, file) end
 
 ---Creates a stringlist class object (for whatever reason, lua strings are probably easier to use)
 ---@return Stringlist # A new empty stringlist object
-function createStringlist() return {} end
+function createStringlist() end
 
 ---Creates a stringlist class object (for whatever reason, lua strings are probably easier to use)
 ---@return Stringlist # A new empty stringlist object
-function createStringList() return {} end
+function createStringList() end
 
 ---@param stringlist Stringlist # Stringlist to operate on
 ---@return DuplicatesType # The type of handling of duplicates for this stringlist
-function stringlist_getDuplicates(stringlist) return stringlist.getDuplicates() end
+function stringlist_getDuplicates(stringlist) end
 
 ---@param stringlist Stringlist # Stringlist to operate on
 ---@param duplicates DuplicatesType # The type of handling of duplicates to set
@@ -94,7 +94,7 @@ function stringlist_setDuplicates(stringlist, duplicates) end
 
 ---@param stringlist Stringlist # Stringlist to operate on
 ---@return boolean # Whether the stringlist is sorted
-function stringlist_getSorted(stringlist) return stringlist.getSorted() end
+function stringlist_getSorted(stringlist) end
 
 ---@param stringlist Stringlist # Stringlist to operate on
 ---@param sorted boolean # Whether to set the stringlist as sorted
@@ -102,7 +102,7 @@ function stringlist_setSorted(stringlist, sorted) end
 
 ---@param stringlist Stringlist # Stringlist to operate on
 ---@return boolean # Whether the stringlist is case sensitive
-function stringlist_getCaseSensitive(stringlist) return stringlist.getCaseSensitive() end
+function stringlist_getCaseSensitive(stringlist) end
 
 ---@param stringlist Stringlist # Stringlist to operate on
 ---@param caseSensitive boolean # Whether to set the stringlist as case sensitive

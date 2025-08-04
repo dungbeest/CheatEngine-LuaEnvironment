@@ -13,25 +13,56 @@
 ---@field OnKeyPress function # The function to call for the KeyPress event.
 ---@field OnKeyUp function # The function to call for the KeyUp event.
 ---@field OnKeyDown function # The function to call for the KeyDown event.
----@field clear fun() #
----@field copyToClipboard fun() #
----@field cutToClipboard fun() #
----@field pasteFromClipboard fun() #
----@field selectAll fun() #
----@field select fun(start: integer, length?: integer) #
----@field selectText fun(start: integer, length?: integer) # Set the control's current selection. If no length is specified, selects everything after start.
----@field clearSelection fun() #
----@field getSelText fun() #
----@field getSelStart fun() #
----@field getSelLength fun() #
----@field getOnChange fun() #
----@field setOnChange fun(OnChange: function) #
----@field getOnKeyPress fun() #
----@field setOnKeyPress fun(OnKeyPress: function) #
----@field getOnKeyUp fun() #
----@field setOnKeyUp fun(OnKeyUp: function) #
----@field getOnKeyDown fun() #
----@field setOnKeyDown fun(OnKeyDown: function) #
+local Edit = {}
+
+function Edit.clear() end
+
+function Edit.copyToClipboard() end
+
+function Edit.cutToClipboard() end
+
+function Edit.pasteFromClipboard() end
+
+function Edit.selectAll() end
+
+---@param start integer
+---@param length? integer
+function Edit.select(start, length) end
+
+---Set the control's current selection.
+---
+---If no length is specified, selects everything after start.
+---@param start integer
+---@param length? integer
+function Edit.select(start, length) end
+
+function Edit.clearSelection() end
+
+function Edit.getSelText() end
+
+function Edit.getSelStart() end
+
+function Edit.getSelLength() end
+
+function Edit.getOnChange() end
+
+---@param OnChange function #
+function Edit.setOnChange(OnChange) end
+
+function Edit.getOnKeyPress() end
+
+---@param OnKeyPress function #
+function Edit.setOnKeyPress(OnKeyPress) end
+
+function Edit.getOnKeyUp() end
+
+---@param OnKeyUp function #
+function Edit.setOnKeyUp(OnKeyUp) end
+
+function Edit.getOnKeyDown() end
+
+---@param OnKeyDown function #
+function Edit.setOnKeyDown(OnKeyDown) end
 
 
 ---@alias SynEditMode integer
@@ -47,16 +78,40 @@
 ---@field WantTabs boolean # Set if tabs will add a tab to the memo. False if tab will go to the next control
 ---@field WantReturns boolean # Set if returns will send a event or not
 ---@field Scrollbars ScrollStyles # Set the type of the scrollbars to show
----@field append fun(line: string) #
----@field getLines fun(): Strings # Returns a Strings class with text lines
----@field getWordWrap fun(): boolean #
----@field setWordWrap fun(wordWrap: boolean) #
----@field getWantTabs fun(): boolean #
----@field setWantTabs fun(wantTabs: boolean) #
----@field getWantReturns fun(): boolean #
----@field setWantReturns fun(wantReturns: boolean) #
----@field getScrollbars fun(): ScrollStyles #
----@field setScrollbars fun(scrollStyle: ScrollStyles) # Sets the scrollbars. Horizontal only takes affect when wordwrap is disabled 
+local Memo = {}
+
+---@param line string
+function Memo.append(line) end
+
+---@return Strings # A Strings class with text lines.
+function Memo.getLines() end
+
+---@return boolean
+function Memo.getWordWrap() end
+
+---@param wordWrap boolean
+function Memo.setWordWrap(wordWrap) end
+
+---@return boolean
+function Memo.getWantTabs() end
+
+---@param wantTabs boolean
+function Memo.setWantTabs(wantTabs) end
+
+---@return boolean
+function Memo.getWantReturns() end
+
+---@param wantReturns boolean
+function Memo.setWantReturns(wantReturns) end
+
+---@return ScrollStyles
+function Memo.getScrollbars() end
+
+---Sets the scrollbars. 
+---
+---Horizontal only takes affect when wordwrap is disabled.
+---@param scrollStyle ScrollStyles
+function Memo.setScrollbars(scrollStyle) end
 
 
 ---???
@@ -74,15 +129,25 @@
 ---@field CanUndo boolean #
 ---@field CharWidth integer # READONLY
 ---@field LineHeight integer # READONLY
----@field CopyToClipboard fun() #
----@field CutToClipboard fun() #
----@field PasteFromClipboard fun() #
----@field ClearUndo fun() #
----@field Redo fun() #
----@field Undo fun() #
----@field MarkTextAsSaved fun() #
----@field ClearSelection fun() #
----@field SelectAll fun() #
+local SynEdit = {}
+
+function SynEdit.CopyToClipboard() end
+
+function SynEdit.CutToClipboard() end
+
+function SynEdit.PasteFromClipboard() end
+
+function SynEdit.ClearUndo() end
+
+function SynEdit.Redo() end
+
+function SynEdit.Undo() end
+
+function SynEdit.MarkTextAsSaved() end
+
+function SynEdit.ClearSelection() end
+
+function SynEdit.SelectAll() end
 
 
 ---Creates a Memo class object which belongs to the given owner. Owner can be any object inherited from WinControl

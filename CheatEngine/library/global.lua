@@ -1,21 +1,33 @@
----@meta
+---@meta _
 
----Regarding eventhandlers. You can initialize them using both a string of a functionName or the function itself.
+---Regarding event handlers. You can initialize them using both a string of a functionName or the function itself.
 ---
 ---If initialized using a function itself it won't be able to get saved in the table
 
 ---@class Object
 ---@field ClassName string # The name of class (Read only)
----@field getClassName fun(): string # returns the classname
----@field fieldAddress fun(fieldName: string): Address # returns the address of the specific field
----@field methodAddress fun(methodName: string): Address #
----@field methodName fun(address: Address): string #
----@field destroy fun() # Destroys the object
+local Object = {}
+
+---@return string # the classname
+function Object.getClassName() end
+
+---@param fieldName string
+---@return Address # the address of the specific field
+function Object.fieldAddress(fieldName) end
+
+---@param methodName string
+---@return Address
+function Object.methodAddress(methodName) end
+
+---@param address Address
+---@return string
+function Object.methodName(address) end
+
+---Destroys the object
+function Object.destroy() end
 
 
-
-
-
+---The main Cheat Engine GUI object
 ---@class MainForm: Form
 ---@field process string # A variable that contains the main modulename of the currently opened process
 ---@field AddressList Addresslist # The address list of the main Cheat Engine GUI
@@ -23,9 +35,16 @@
 ---@field Splitter1 Control # Control for the first splitter separates the memory scan from addresslist
 ---@field Panel4 Control # Control for the bottom panel that has table extras and advanced options
 ---@field Panel5 Control # Control for the middle panel that has the memory scan and scan list
----@field OnProcessOpened fun(processID: integer | nil, processHandle: integer | nil, caption: string | nil) # Define this if you want to be notified when a new process has been opened. Called only once from the main thread. It is recommended to use this instead of onOpenProcess. Takes a process ID of the process that's been opened, a process handle of the process that's been opened, the process' associated name.
+MainForm = {}
 
-
+---Define this if you want to be notified when a new process has been opened. 
+---Called only once from the main thread. 
+---It is recommended to use this instead of onOpenProcess. 
+---Takes a process ID of the process that's been opened, a process handle of the process that's been opened, the process' associated name.
+---@param processID integer | nil
+---@param processHandle integer | nil
+---@param caption string | nil
+function OnProcessOpened(processID, processHandle, caption) end
 
 
 ---A variable that contains the path of the trainer that launched cheat engine 
@@ -37,131 +56,40 @@ TrainerOrigin = ""
 ---@type string
 process = ""
 
-
----The main Cheat Engine GUI object
----@type MainForm
-MainForm = {
-  process = "",
-  AddressList = AddressList,
-  Menu = {
-    ClassName = "",
-    Component = {},
-    ComponentByName = {},
-    ComponentCount = 0,
-    Items = {
-      Caption = "",
-      ClassName = "",
-      Component = {},
-      ComponentByName = {},
-      ComponentCount = 0,
-      Count = 0,
-      FontColor = 0,
-      ImageIndex = 0,
-      ImageList = {
-        Count = 0,
-        DrawingStyle = "dsFocus",
-        Height = 0,
-        Masked = false,
-        OnChange = function(_) end,
-        Scaled = false,
-        Width = 0,
-        add = function(_,_) return 0 end,
-        draw = function(_,_,_,_) end
-      },
-      Item = {},
-      Menu = MainForm.Menu,
-      MenuIndex = 0,
-      Name = "",
-      OnClick = function(_) end,
-      Owner = nil,
-      Parent = MainForm.Menu.Items,
-      Shortcut = "",
-      Tag = 0,
-      add = function(_) end,
-      clear = function() end,
-      delete = function(_) end,
-      destroy = function() end,
-      doClick = function() end,
-      fieldAddress = function(_) return 0 end,
-      findComponentByName = function(_) return MainForm.Menu end,
-      getCaption = function() return "" end,
-      getClassName = function() return "" end,
-      getComponent = function(_) return MainForm.Menu end,
-      getComponentCount = function() return 0 end,
-      getCount = function() return 0 end,
-      getItem = function(_) return MainForm.Menu.Items end,
-      getName = function() return "" end,
-      getOnClick = function() return function() end end,
-      getOwner = function() return MainForm.Menu end,
-      getShortcut = function() return "" end,
-      getTag = function() return 0 end,
-      insert = function(_, _) end,
-      methodAddress = function(_) return 0 end,
-      methodName = function(_) return "" end,
-      setCaption = function(_) end,
-      setName = function(_) end,
-      setOnClick = function(_) end,
-      setShortcut = function(_) end,
-      setTag = function(_) end,
-    },
-    Name = "",
-    Owner = nil,
-    Tag = 0,
-    destroy = function() end,
-    fieldAddress = function(_) return 0 end,
-    findComponentByName = function(_) return MainForm.Menu end,
-    getClassName = function() return "" end,
-    getComponent = function(_) return MainForm.Menu end,
-    getComponentCount = function() return 0 end,
-    getItems = function() return MainForm.Menu.Items end,
-    getName = function() return "" end,
-    getOwner = function() return MainForm.Menu end,
-    getTag = function() return 0 end,
-    methodAddress = function(_) return 0 end,
-    methodName = function(_) return "" end,
-    setName = function(_) end,
-    setTag = function(_) end,
-  },
-  Splitter1 = createSplitter(MainForm),
-  Panel4 = createPanel(MainForm),
-  Panel5 = createPanel(MainForm),
-  OnProcessOpened = function (processID, processHandle, caption) end
-}
-
 ---@param object Object # Object to operate on
 ---@return string # The object's class name
-function object_getClassName(object) return object.ClassName end
+function object_getClassName(object) end
 
 ---Destroy the object.
 ---@param object Object # Object to operate on
 function object_destroy(object) end
 
 ---@return Timer # The freeze timer object
-function getFreezeTimer() return {} end
+function getFreezeTimer() end
 
 ---@return Timer # The update timer object
-function getUpdateTimer() return {} end
+function getUpdateTimer() end
 
----@param object any # Object to check
+---@param object Object # Object to check
 ---@return boolean # If object is of any Cheat Engine class
-function inheritsFromObject(object) return true end
+function inheritsFromObject(object) end
 
----@param object any # Object to check
+---@param object Object # Object to check
 ---@return boolean # If the given object inherits from the Component class
-function inheritsFromComponent(object) return true end
+function inheritsFromComponent(object) end
 
----@param object any # Object to check
+---@param object Object # Object to check
 ---@return boolean # If the given object inherits from the Control class
-function inheritsFromControl(object) return true end
+function inheritsFromControl(object) end
 
----@param object any # Object to check
+---@param object Object # Object to check
 ---@return boolean # If the given object inherits from the WinControl class
-function inheritsFromWinControl(object) return true end
+function inheritsFromWinControl(object) end
 
 ---@generic T: Object
 ---@param className string # The name of the class to create an object of
 ---@return T # Creates an object of the specified class (Assuming it's a registered class and has a default constructor)
-function createClass(className) return {} end
+function createClass(className) end
 
 
 

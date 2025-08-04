@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Fills a Strings inherited object with the top-window list of the system. 
 ---
@@ -12,35 +12,31 @@ function getWindowList(strings) end
 ---
 ---Every pid matches 0 or more windows, each with their own caption.
 ---@return WindowListInfo # A table with the windowlist (pid - window caption). The table is formatted as : {pid,{id,caption}} (ex. {6435 = { "Lua Engine", "Memory Viewer"}, ...})
-function getWindowList()
-    local t = {}
-    t[6345] = { "Lua Engine", "Memory Viewer" }
-    return t
-end
+function getWindowList() end
 
 ---Finds a window with the given class name and/or window name.
 ---@param className? string # The class name or window name for the window
 ---@param caption? string # A caption to supply for the window handle object
 ---@return integer WindowHandle #
-function findWindow(className, caption) return 0 end
+function findWindow(className, caption) end
 
 ---Gets a specific window based on the given window (Check MSDN getWindow for the command description)
 ---@param windowhandle any #
 ---@param command any #
 ---@return integer WindowHandle #
-function getWindow(windowhandle, command) return 0 end
+function getWindow(windowhandle, command) end
 
 ---@param windowhandle any #
 ---@return string # The caption of the window
-function getWindowCaption(windowhandle) return "" end
+function getWindowCaption(windowhandle) end
 
 ---@param windowhandle any
 ---@return string # The class name of the window
-function getWindowClassName(windowhandle) return "" end
+function getWindowClassName(windowhandle) end
 
 ---@param windowhandle any
 ---@return integer # The process ID of the process this window belongs to
-function getWindowProcessID(windowhandle) return 0 end
+function getWindowProcessID(windowhandle) end
 
 ---@return integer WindowHandle # The window handle of the topmost window
 function getForegroundWindow() return 0 end
@@ -52,7 +48,7 @@ function getForegroundWindow() return 0 end
 ---@param wparam any # ???
 ---@param lparam any # ???
 ---@return any # ???
-function sendMessage(hwnd, msg, wparam, lparam) return {} end
+function sendMessage(hwnd, msg, wparam, lparam) end
 
 ---Hooks a window's wndproc procedure. 
 ---

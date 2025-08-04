@@ -1,4 +1,4 @@
----@meta 
+---@meta _
 
 ---@class WriteLogEntry
 ---@field address Address #
@@ -9,4 +9,7 @@
 ---@class WriteLog
 ---@field status boolean
 ---@field logsize integer 
----@field getLog fun(): table # Returns an indexed table with the write logs. each entry has a table with the fields: address, original and new
+local WriteLog = {}
+
+---@return WriteLogEntry[] # An indexed table with the write logs
+function WriteLog.getLog() end

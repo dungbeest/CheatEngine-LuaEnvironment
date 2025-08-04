@@ -49,7 +49,24 @@ CE_defines.display_types = {
 ---@class DisassemblerviewLine: Object
 ---@field Address string # The current address of this line
 ---@field Owner Disassemblerview # The Disassembler View that owns this line
----@field OnDisassemblerViewOverride fun(address: Address, addressString: string, byteString: string, opcodeString: string, parameterString: string, specialString: string): addressString: string, byteString: string, opcodeString: string, parameterString: string, specialString: string # Called when a line is about to be rendered
+local DisassemblerviewLine = {}
+
+---Called when a line is about to be rendered.
+---@param address Address
+---@param addressString string
+---@param byteString string
+---@param opcodeString string
+---@param parameterString string
+---@param specialString string
+---@return string addressString
+---@return string byteString
+---@return string opcodeString
+---@return string parameterString
+---@return string specialString
+function DisassemblerviewLine.OnDisassemblerViewOverride(
+  address, addressString, byteString,
+  opcodeString, parameterString, specialString
+) return '','','','','' end
 
 
 ---The visual disassembler used on the memory view window properties.
@@ -63,9 +80,30 @@ CE_defines.display_types = {
 ---@field HideFocusRect boolean # If set to true the focus rectangle won't be shown
 ---@field SpaceAboveLines integer #
 ---@field SpaceBelowLines integer #
----@field OnSelectionChange fun(sender: any, address: Address, address2: Address) # Function to call when the selection has changed
----@field OnExtraLineRender fun(sender: DisassemblerviewLine, address: Address, aboveInstruction: boolean, selected: boolean): image: RasterImage | nil, x: integer | nil, y: integer | nil # Function to call when you wish to provide the disassembler view with an extra image containing data you wish to show. This function is called once to get an image to show above the instruction, and once to get an image to show under the instruction and optional comments. The image for both calls must be different objects as rendering will only be done when both calls have been completed. If no coordinates are given the image will be centered above/below the instruction
 ---@field Osb Bitmap # Background picture of the disassemblerview
+local Disassemblerview = {}
+
+---Function to call when the selection has changed.
+---@param sender any
+---@param address Address
+---@param address2 Address
+function Disassemblerview.OnSelectionChange(sender, address, address2) end
+
+---Function to call when you wish to provide the disassembler view with an extra image containing data you wish to show. 
+---
+---This function is called once to get an image to show above the instruction, and once to get an image to show under the instruction and optional comments. 
+---
+---The image for both calls must be different objects as rendering will only be done when both calls have been completed. 
+---If no coordinates are given the image will be centered above/below the instruction.
+---@param sender DisassemblerviewLine
+---@param address Address
+---@param aboveInstruction boolean
+---@param selected boolean
+---@return RasterImage | nil image
+---@return integer | nil x
+---@return integer | nil y
+function Disassemblerview.OnExtraLineRender(sender, address, aboveInstruction, selected) end
+
 
 
 ---The visual hexadecimal object used on the memory view window properties.
@@ -77,10 +115,34 @@ CE_defines.display_types = {
 ---@field SelectionStart integer #
 ---@field SelectionStop integer #
 ---@field DisplayType DisplayType # The type being shown
----@field OnAddressChange fun(hexView: Hexadecimal, address: Address) #
----@field OnByteSelect fun(hexView: Hexadecimal, address: Address, address2: Address) #
----@field OnCharacterRender fun(sender: any, address: Address, text: string): string # Called when a character is being rendered. Use this to change it or change the canvas fonts (Warning: slow)
----@field OnValueRender fun(sender: any, address: Address, text: string): string # Called when a value (depending on the display type) is being rendered. Use this to change it or change the canvas fonts (Warning: slow)
+local Hexadecimal = {}
+
+---@param hexView Hexadecimal
+---@param address Address
+function Hexadecimal.OnAddressChange(hexView, address) end
+
+---@param hexView Hexadecimal
+---@param address Address
+---@param address2 Address
+function Hexadecimal.OnByteSelect(hexView, address, address2) end
+
+---Called when a character is being rendered. 
+---
+---Use this to change it or change the canvas fonts (Warning: slow).
+---@param sender any
+---@param address Address
+---@param text string
+---@return string
+function Hexadecimal.OnCharacterRender(sender, address, text) end
+
+---Called when a value (depending on the display type) is being rendered. 
+---
+---Use this to change it or change the canvas fonts (Warning: slow)
+---@param sender any
+---@param address Address
+---@param text string
+---@return string
+function Hexadecimal.OnValueRender(sender, address, text) end
 
 
 ---Creates a new memory view window. 

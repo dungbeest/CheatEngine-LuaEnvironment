@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Undefined property functions. 
 ---Not all properties of all classes have been explicitly exposed to lua, but if you know the name of a property of a specific class you can still access them (assuming they are declared as published in the pascal class declaration)

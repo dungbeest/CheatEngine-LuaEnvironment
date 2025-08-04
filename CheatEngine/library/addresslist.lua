@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 
 
@@ -8,7 +8,7 @@
 ---@field LoadedTableVersion integer # Returns the tableVersion of the last loaded table
 ---@field Count integer # The number of records in the table
 ---@field SelCount integer # The number of records that are selected
----@field SelectedRecord MemoryRecord # The main selected record
+---@field SelectedRecord MemoryRecord | nil # The main selected record
 ---@field MemoryRecord MemoryRecord[] # Array to access the individual memory records
 ---@field CheckboxActiveSelectedColor Colors #
 ---@field CheckboxActiveColor Colors #
@@ -19,178 +19,90 @@
 ---@field ExpandSignColor Colors #
 ---@field IncreaseArrowColor Colors #
 ---@field DecreaseArrowColor Colors #
----@field MouseHighlightedRecord fun(): MemoryRecord | nil # Returns the memoryrecord that the mouse points at. nil if nothing
----@field OnDescriptionChange fun(addresslist: Addresslist, memoryRecord: MemoryRecord): boolean # Called when the user initiates a description column change on a record. Return true if you handle it, false for normal behaviour
----@field OnAddressChange fun(addresslist: Addresslist, memoryRecord: MemoryRecord): boolean # Called when the user initiates an address column change on a record. Return true if you handle it, false for normal behaviour
----@field OnTypeChange fun(addresslist: Addresslist, memoryRecord: MemoryRecord): boolean # Called when the user initiates a type column change on a record. Return true if you handle it, false for normal behaviour
----@field OnValueChange fun(addresslist: Addresslist, memoryRecord: MemoryRecord): boolean # Called when the user initiates a value column change on a record. Return true if you handle it, false for normal behaviour
----@field OnAutoAssemblerEdit fun(addresslist: Addresslist, memoryRecord) # Called when the user initiates a memoryrecord AA script edit.  This function will be responsible for changing the memory record
----@field getCount fun(): integer #
----@field getMemoryRecord fun(index: integer): MemoryRecord #
----@field getMemoryRecordByDescription fun(description: string): MemoryRecord | nil # Returns a MemoryRecord object
----@field getMemoryRecordByID fun(ID: integer): MemoryRecord | nil #
----@field createMemoryRecord fun(): MemoryRecord # Creates an generic cheat table entry and add it to the list
----@field getSelectedRecords fun(): MemoryRecord[] # Returns a table containing all the selected records
----@field doDescriptionChange fun() # Will show the GUI window to change the description of the selected entry
----@field doAddressChange fun() # Will show the GUI window to change the address of the selected entry
----@field doTypeChange fun() # Will show the GUI window to change the type of the selected entries
----@field doValueChange fun() # Will show the GUI window to change the value of the selected entries
----@field getSelectedRecord fun(): MemoryRecord # Gets the main selected memory record
----@field setSelectedRecord fun(memoryRecord: MemoryRecord) # Sets the currently selected memory record. This will unselect all other entries
----@field disableAllWithoutExecute fun() # Disables all memory records without executing their [Disable] section
----@field rebuildDescriptionCache fun() # Rebuilds the description to record lookup table
+AddressList = {}
 
+---@return MemoryRecord | nil # The memory record that the mouse points at. Nil if none is highlighted.
+function AddressList.MouseHighlightedRecord() end
 
----The address list of the main Cheat Engine GUI
----@type Addresslist
-AddressList = {
-  LoadedTableVersion = 0,
-  Count = 0,
-  SelCount = 0,
-  SelectedRecord = {
-    ID = 0,
-    Index = 0,
-    Description = "",
-    Address = "",
-    AddressString = "",
-    OffsetCount = 0,
-    Offset = {},
-    OffsetText = {},
-    CurrentAddress = 0,
-    VarType = "vtByte",
-    Type = vtByte,
-    String = {
-      Size = 0,
-      Unicode = true,
-      Codepage = true
-    },
-    Binary = {
-      Startbit = 0,
-      Size = 0
-    },
-    Aob = {
-      Size = 0,
-    },
-    CustomTypeName = "",
-    Script = "",
-    Value = "",
-    NumericalValue = 0,
-    Selected = true,
-    Active = true,
-    Color = 0,
-    ShowAsHex = true,
-    ShowAsSigned = true,
-    AllowIncrease = true,
-    AllowDecrease = true,
-    Collapsed = true,
-    IsGroupHeader = true,
-    IsAddressGroupHeader = true,
-    IsReadable = true,
-    Options = "moHideChildren",
-    DropDownLinked = true,
-    DropDownLinkedMemrec = "",
-    DropDownList = createStringList(),
-    DropDownReadOnly = true,
-    DropDownDescriptionOnly = true,
-    DisplayAsDropDownListItem = true,
-    DropDownCount = 0,
-    DropDownValue = {},
-    DropDownDescription = {},
-    Count = 0,
-    Child = {},
-    Parent = AddressList.createMemoryRecord(),
-    HotkeyCount = 0,
-    Hotkey = {},
-    Async = true,
-    AsyncProcessing = true,
-    AsyncProcessingTime = 0,
-    HasMouseOver = true,
-    OnActivate = function(memoryRecord, before, currentState) return true end,
-    OnDeactivate = function(memoryRecord, before, currentState)return true end, 
-    OnDestroy = function() end,
-    OnGetDisplayValue = function(memoryRecord, value) return true, "" end,
-    OnChangedValue = function(memoryRecord, oldValue, newValue) end,
-    OnChangedValueByUser = function(memoryRecord, oldValue, newValue) end,
-    DontSave = false,
-    getDescription = function() return "" end,
-    setDescription = function(description) end,
-    getAddress = function() return "", {} end,
-    setAddress = function(address) end,
-    getOffsetCount = function() return 0 end,
-    setOffsetCount = function(offsets) end,
-    getOffset = function(index) return 0 end,
-    setOffset = function(index, value) end,
-    getCurrentAddress = function() return 0 end,
-    appendToEntry = function(memoryRecord) end,
-    getHotkey = function(index) return {} end,
-    getHotkeyByID = function(id) return {} end,
-    reinterpret = function() end,
-    createHotkey = function(keys, action, value, description) return {} end,
-    disableWithoutExecute = function() end,
-    beginEdit = function() end,
-    endEdit = function() end,
-    MemoryRecord = {},
-    CheckboxActiveSelectedColor = clBlack,
-    CheckboxActiveColor = clBlack,
-    CheckboxSelectedColor = clBlack,
-    CheckboxColor = clBlack,
-    SelectedBackgroundColor = clBlack,
-    SelectedSecondaryBackgroundColor = clBlack,
-    ExpandSignColor = clBlack,
-    IncreaseArrowColor = clBlack,
-    DecreaseArrowColor = clBlack,
-    MouseHighlightedRecord = function() return nil end,
-    OnDescriptionChange = function(addresslist, memoryRecord) return true end,
-    OnAddressChange = function(addresslist, memoryRecord) return true end,
-    OnTypeChange = function(addresslist, memoryRecord) return true end,
-    OnValueChange = function(addresslist, memoryRecord) return true end,
-    OnAutoAssemblerEdit = function(addresslist, memoryRecord) end,
-    getCount = function() return 0 end,
-    getMemoryRecord = function(index) return AddressList.createMemoryRecord() end,
-    getMemoryRecordByDescription = function(description) return nil end,
-    getMemoryRecordByID = function(ID) return nil end,
-    createMemoryRecord = function() return AddressList.createMemoryRecord() end,
-    getSelectedRecords = function() return {} end,
-    doDescriptionChange = function() end,
-    doAddressChange = function() end,
-    doTypeChange = function() end,
-    doValueChange = function() end,
-    getSelectedRecord = function() return AddressList.createMemoryRecord() end,
-    setSelectedRecord = function(memoryRecord) end,
-    disableAllWithoutExecute = function() end,
-    rebuildDescriptionCache = function() end
-  },
-  MemoryRecord = {},
-  CheckboxActiveSelectedColor = clBlack,
-  CheckboxActiveColor = clBlack,
-  CheckboxSelectedColor = clBlack,
-  CheckboxColor = clBlack,
-  SelectedBackgroundColor = clBlack,
-  SelectedSecondaryBackgroundColor = clBlack,
-  ExpandSignColor = clBlack,
-  IncreaseArrowColor = clBlack,
-  DecreaseArrowColor = clBlack,
-  MouseHighlightedRecord = function() return nil end,
-  OnDescriptionChange = function(addresslist, memoryRecord) return true end,
-  OnAddressChange = function(addresslist, memoryRecord) return true end,
-  OnTypeChange = function(addresslist, memoryRecord) return true end,
-  OnValueChange = function(addresslist, memoryRecord) return true end,
-  OnAutoAssemblerEdit = function(addresslist, memoryRecord) end,
-  getCount = function() return 0 end,
-  getMemoryRecord = function(index) return AddressList.createMemoryRecord() end,
-  getMemoryRecordByDescription = function(description) return nil end,
-  getMemoryRecordByID = function(ID) return nil end,
-  createMemoryRecord = function() return AddressList.SelectedRecord end,
-  getSelectedRecords = function() return {} end,
-  doDescriptionChange = function() end,
-  doAddressChange = function() end,
-  doTypeChange = function() end,
-  doValueChange = function() end,
-  getSelectedRecord = function() return AddressList.createMemoryRecord() end,
-  setSelectedRecord = function(memoryRecord) end,
-  disableAllWithoutExecute = function() end,
-  rebuildDescriptionCache = function() end,
-}
+---Called when the user initiates a description column change on a record.
+---@param addresslist Addresslist
+---@param memoryRecord MemoryRecord
+---@return boolean # Return true if you handle it, false for normal behaviour
+function AddressList.OnDescriptionChange(addresslist, memoryRecord) end
+
+---Called when the user initiates an address column change on a record.
+---@param addresslist Addresslist
+---@param memoryRecord MemoryRecord
+---@return boolean # Return true if you handle it, false for normal behaviour
+function AddressList.OnAddressChange(addresslist, memoryRecord) end
+
+---Called when the user initiates a type column change on a record.
+---@param addresslist Addresslist
+---@param memoryRecord MemoryRecord
+---@return boolean # Return true if you handle it, false for normal behaviour
+function AddressList.OnTypeChange(addresslist, memoryRecord) end
+
+---Called when the user initiates a value column change on a record.
+---@param addresslist Addresslist
+---@param memoryRecord MemoryRecord
+---@return boolean # Return true if you handle it, false for normal behaviour
+function AddressList.OnValueChange(addresslist, memoryRecord) end
+
+---Called when the user initiates a memory record AA script edit. 
+---
+---This function will be responsible for changing the memory record
+---@param addresslist Addresslist
+---@param memoryRecord MemoryRecord
+function AddressList.OnAutoAssemblerEdit(addresslist, memoryRecord) end
+
+---@return integer
+function AddressList.getCount() end
+
+---@param index integer
+---@return MemoryRecord | nil
+function AddressList.getMemoryRecord(index) end
+
+---@param description string
+---@return MemoryRecord | nil # a MemoryRecord object
+function AddressList.getMemoryRecordByDescription(description) end
+
+---@param ID integer
+---@return MemoryRecord | nil
+function AddressList.getMemoryRecordByID(ID) end
+
+---Creates an generic cheat table entry and add it to the list
+---@return MemoryRecord
+function AddressList.createMemoryRecord() end
+
+---@return MemoryRecord[] # a table containing all the selected records
+function AddressList.getSelectedRecords() end
+
+---Will show the GUI window to change the description of the selected entry
+function AddressList.doDescriptionChange() end
+
+---Will show the GUI window to change the address of the selected entry
+function AddressList.doAddressChange() end
+
+---Will show the GUI window to change the type of the selected entries
+function AddressList.doTypeChange() end
+
+---Will show the GUI window to change the value of the selected entries
+function AddressList.doValueChange() end
+
+---Gets the main selected memory record 
+---@return MemoryRecord
+function AddressList.getSelectedRecord() end
+
+---Sets the currently selected memory record. This will unselect all other entries
+---@param memoryRecord MemoryRecord
+function AddressList.setSelectedRecord(memoryRecord) end
+
+---Disables all memory records without executing their [Disable] section
+function AddressList.disableAllWithoutExecute() end
+
+---Rebuilds the description to record lookup table
+function AddressList.rebuildDescriptionCache() end
+
 
 ---@return Addresslist # The cheat table addresslist object
 function getAddressList() return AddressList end

@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 -------------------------- Memory Ops -------------------------
 
@@ -30,9 +30,7 @@ function copyMemory(
 ---@param method CompareMethod # An enum defining the comparison semantics
 ---@return boolean # True if the memory blocks are the same
 ---@return integer # An index (number of bytes from the start addresses) where the first disparity is if the blocks are different
-function compareMemory(address1, address2, size, method)
-    return false, 0
-end
+function compareMemory(address1, address2, size, method) end
 
 --------------------------- Bytes -----------------------------
 
@@ -40,10 +38,13 @@ end
 ---@param address SymbolAddress # Address to read the bytes from
 ---@param byteCount integer # Number of bytes to read
 ---@param returnAsTable? boolean # If ReturnAsTable is true it will return a table instead of multiple bytes
----@return ByteTable | byte ... # The read out bytes at the given address
+---@return byte | nil | ByteTable # first byte or nil if byteCount is 0 or a ByteTable if return as table is true (can be empty).
+---@return byte | nil ... # The rest of read out bytes at the given address if ReturnAsTable is false
 function readBytes(address, byteCount, returnAsTable)
-  if returnAsTable then return 0, 0, 0, 0 else return {0, 0, 0, 0} end
+  if returnAsTable then return {0, 0, 0, 0} else return 0, 0, 0, 0 end
 end
+
+
 
 ---Similar to readBytes but applies to Cheat Engine process' own memory.
 ---
@@ -51,10 +52,11 @@ end
 ---@param address SymbolAddress # Address to read the bytes from
 ---@param byteCount integer # Number of bytes to read
 ---@param returnAsTable? boolean # If ReturnAsTable is true it will return a table instead of multiple bytes
----@return ByteTable | byte ... # The read out bytes at the given address
+---@return byte | nil | ByteTable # first byte or nil if byteCount is 0 or a ByteTable if return as table is true (can be empty).
+---@return byte | nil ... # The rest of read out bytes at the given address if ReturnAsTable is false
 ---@see readBytes
 function readBytesLocal(address, byteCount, returnAsTable)
-    if returnAsTable then return 0, 0, 0, 0 else return {0, 0, 0, 0} end
+  if returnAsTable then return {0, 0, 0, 0} else return 0, 0, 0, 0 end
 end
 
 ---Write the given bytes to the given address from variable argument bytes.
@@ -74,7 +76,7 @@ function writeBytes(address, table) end
 ---@param address SymbolAddress # Address to write the bytes to
 ---@param ... byte # Bytes to write
 ---@see writeBytes
-function writeBytesLocal(address, ...) return true end
+function writeBytesLocal(address, ...) end
 
 ---Similar to writeBytes but applies to Cheat Engine process' own memory.
 ---
@@ -82,7 +84,7 @@ function writeBytesLocal(address, ...) return true end
 ---@param address SymbolAddress # Address to write the bytes to
 ---@param table ByteTable # Bytes to write
 ---@see writeBytes
-function writeBytesLocal(address, table) return true end
+function writeBytesLocal(address, table) end
 
 
 ------------------- Numeric and String ------------------------
@@ -93,7 +95,7 @@ function writeBytesLocal(address, table) return true end
 ---@param address SymbolAddress # Address to read the byte from
 ---@param signed? boolean # whether to return the value as signed (e.g. 0xFE = 254 = -2)
 ---@return byte # The read out byte at the given address
-function readByte(address, signed) return 0 end
+function readByte(address, signed) end
 
 ---Similar to readByte but applies to Cheat Engine process' own memory.
 ---Reads a 8-bit integer from the specified address
@@ -101,14 +103,14 @@ function readByte(address, signed) return 0 end
 ---@param signed? boolean # whether to return the value as signed (e.g. 0xFE = 254 = -2)
 ---@return byte # The read out byte at the given address
 ---@see readByte
-function readByteLocal(address, signed) return 0 end
+function readByteLocal(address, signed) end
 
 
 ---Reads a 8-bit integer from the specified address
 ---@param address SymbolAddress # Address to read the byte from
 ---@param signed? boolean # whether to return the value as signed (e.g. 0xFE = 254 = -2)
 ---@return byte # The read out byte at the given address
-function readShortInteger(address, signed) return 0 end
+function readShortInteger(address, signed) end
 
 
 ---Similar to readShortInteger but applies to Cheat Engine process' own memory.
@@ -117,14 +119,14 @@ function readShortInteger(address, signed) return 0 end
 ---@param signed? boolean # whether to return the value as signed (e.g. 0xFE = 254 = -2)
 ---@return byte # The read out byte at the given address
 ---@see readShortInteger
-function readShortIntegerLocal(address, signed) return 0 end
+function readShortIntegerLocal(address, signed) end
 
 
 ---Reads a 16-bit integer from the specified address
 ---@param address SymbolAddress # Address to read the integer from
 ---@param signed? boolean # whether to return the value as signed (e.g. 0xFFFE = 65534 = -2)
 ---@return word # The read out integer (word in x86) at the given address
-function readSmallInteger(address, signed) return 0 end
+function readSmallInteger(address, signed) end
 
 ---Similar to readSmallInteger but applies to Cheat Engine process' own memory.
 ---Reads a 16-bit integer from the specified address
@@ -132,14 +134,14 @@ function readSmallInteger(address, signed) return 0 end
 ---@param signed? boolean # whether to return the value as signed (e.g. 0xFFFE = 65534 = -2)
 ---@return word # The read out integer (word in x86) at the given address
 ---@see readSmallInteger
-function readSmallIntegerLocal(address, signed) return 0 end
+function readSmallIntegerLocal(address, signed) end
 
 
 ---Reads a 32-bit integer from the specified address
 ---@param address SymbolAddress # Address to read the integer from
 ---@param signed? boolean # whether to return the value as signed (e.g. 0xFFFFFFFE = 4294967294 = -2)
 ---@return dword # The read out integer (dword in x86) at the given address
-function readInteger(address, signed) return 0 end
+function readInteger(address, signed) end
 
 ---Similar to readInteger but applies to Cheat Engine process' own memory.
 ---Reads a 32-bit integer from the specified address
@@ -147,7 +149,7 @@ function readInteger(address, signed) return 0 end
 ---@param signed? boolean # whether to return the value as signed (e.g. 0xFFFFFFFE = 4294967294 = -2)
 ---@return dword # The read out integer (dword in x86) at the given address
 ---@see readInteger
-function readIntegerLocal(address, signed) return 0 end
+function readIntegerLocal(address, signed) end
 
 
 ---Reads a 64-bit integer from the specified address
@@ -155,7 +157,7 @@ function readIntegerLocal(address, signed) return 0 end
 ---Qword cannot be returned as unsigned because it's the max native size for lua integer.
 ---@param address SymbolAddress # Address to read the integer from
 ---@return qword # The read out integer (qword in x86) at the given address
-function readQword(address) return 0 end
+function readQword(address) end
 
 
 ---Similar to readQword but applies to Cheat Engine process' own memory.
@@ -165,7 +167,7 @@ function readQword(address) return 0 end
 ---@param address SymbolAddress # Address to read the integer from
 ---@return qword # The read out integer (qword in x86) at the given address
 ---@see readQword
-function readQwordLocal(address) return 0 end
+function readQwordLocal(address) end
 
 
 ---Reads an integer pointer from the specified address
@@ -175,7 +177,7 @@ function readQwordLocal(address) return 0 end
 ---In a 32-bit target readInteger.
 ---@param address SymbolAddress # Address to read the integer from
 ---@return dword | qword # The read out integer (dword in x86 or qword in x64) at the given address
-function readPointer(address) return 0 end
+function readPointer(address) end
 
 ---Similar to readPointer but applies to Cheat Engine process' own memory.
 ---Reads an integer pointer from the specified address
@@ -186,13 +188,13 @@ function readPointer(address) return 0 end
 ---@param address SymbolAddress # Address to read the integer from
 ---@return dword | qword # The read out integer (dword in x86 or qword in x64) at the given address
 ---@see readPointer
-function readPointerLocal(address) return 0 end
+function readPointerLocal(address) end
 
 
 ---Reads a single precision floating point value from the specified address
 ---@param address SymbolAddress # Address to read the float from
 ---@return float # The read out single precision floating point value at the given address
-function readFloat(address) return 0.0 end
+function readFloat(address) end
 
 
 ---Similar to readFloat but applies to Cheat Engine process' own memory.
@@ -200,13 +202,13 @@ function readFloat(address) return 0.0 end
 ---@param address SymbolAddress # Address to read the float from
 ---@return float # The read out single precision floating point value at the given address
 ---@see readFloat
-function readFloatLocal(address) return 0.0 end
+function readFloatLocal(address) end
 
 
 ---Reads a double precision floating point value from the specified address
 ---@param address SymbolAddress # Address to read the double from
 ---@return double # The read out double precision floating point value at the given address
-function readDouble(address) return 0.0 end
+function readDouble(address) end
 
 
 ---Similar to readDouble but applies to Cheat Engine process' own memory.
@@ -214,7 +216,7 @@ function readDouble(address) return 0.0 end
 ---@param address SymbolAddress # Address to read the double from
 ---@return double # The read out double precision floating point value at the given address
 ---@see readDouble
-function readDoubleLocal(address) return 0.0 end
+function readDoubleLocal(address) end
 
 
 ---Reads a string till it encounters a 0-terminator.
@@ -222,7 +224,7 @@ function readDoubleLocal(address) return 0.0 end
 ---@param maxLength integer # maximum length of the string to read. Set low so you won't freeze for too long, set to 6000 if you don't care too much. 
 ---@param wideChar? boolean # Set to true if the text is encoded using a widechar formatting
 ---@return string # A null-terminated string.
-function readString(address, maxLength, wideChar) return "" end
+function readString(address, maxLength, wideChar) end
 
 ---Similar to readString but applies to Cheat Engine process' own memory.
 ---Reads a string till it encounters a 0-terminator.
@@ -231,7 +233,7 @@ function readString(address, maxLength, wideChar) return "" end
 ---@param wideChar? boolean # Set to true if the text is encoded using a widechar formatting
 ---@return string # A null-terminated string.
 ---@see readString
-function readStringLocal(address, maxLength, wideChar) return "" end
+function readStringLocal(address, maxLength, wideChar) end
 
 
 -------------------------- Writes -----------------------------
@@ -240,7 +242,7 @@ function readStringLocal(address, maxLength, wideChar) return "" end
 ---@param address SymbolAddress # Address to write the byte to
 ---@param value byte # Byte to write
 ---@return boolean # True on success
-function writeShortInteger(address, value) return true end
+function writeShortInteger(address, value) end
 
 ---Similar to writeShortInteger but applies to Cheat Engine process' own memory.
 ---Writes a 8-bit integer to the specified address.
@@ -248,14 +250,14 @@ function writeShortInteger(address, value) return true end
 ---@param value byte # Byte to write
 ---@return boolean # True on success
 ---@see writeShortInteger
-function writeShortIntegerLocal(address, value) return true end
+function writeShortIntegerLocal(address, value) end
 
 
 ---Writes a 8-bit integer to the specified address.
 ---@param address SymbolAddress # Address to write the byte to
 ---@param value byte # Byte to write
 ---@return boolean # True on success
-function writeByte(address, value) return true end
+function writeByte(address, value) end
 
 ---Similar to writeByte but applies to Cheat Engine process' own memory.
 ---Writes a 8-bit integer to the specified address.
@@ -263,14 +265,14 @@ function writeByte(address, value) return true end
 ---@param value byte # Byte to write
 ---@return boolean # True on success
 ---@see writeByte
-function writeByteLocal(address, value) return true end
+function writeByteLocal(address, value) end
 
 
 ---Writes a 16-bit integer to the specified address.
 ---@param address SymbolAddress # Address to write the word to
 ---@param value word # Word to write
 ---@return boolean # True on success
-function writeSmallInteger(address, value) return true end
+function writeSmallInteger(address, value) end
 
 ---Similar to writeSmallInteger but applies to Cheat Engine process' own memory.
 ---Writes a 16-bit integer to the specified address.
@@ -278,14 +280,14 @@ function writeSmallInteger(address, value) return true end
 ---@param value word # Word to write
 ---@return boolean # True on success
 ---@see writeSmallInteger
-function writeSmallIntegerLocal(address, value) return true end
+function writeSmallIntegerLocal(address, value) end
 
 
 ---Writes a 32-bit integer to the specified address.
 ---@param address SymbolAddress # Address to write the dword to
 ---@param value dword # Dword to write
 ---@return boolean # True on success
-function writeInteger(address, value) return true end
+function writeInteger(address, value) end
 
 ---Similar to writeInteger but applies to Cheat Engine process' own memory.
 ---Writes a 32-bit integer to the specified address.
@@ -293,14 +295,14 @@ function writeInteger(address, value) return true end
 ---@param value dword # Dword to write
 ---@return boolean # True on success
 ---@see writeInteger
-function writeIntegerLocal(address, value) return true end
+function writeIntegerLocal(address, value) end
 
 
 ---Writes a 64-bit integer to the specified address.
 ---@param address SymbolAddress # Address to write the qword to
 ---@param value qword # Qword to write
 ---@return boolean # True on success
-function writeQword(address, value) return true end
+function writeQword(address, value) end
 
 
 ---Similar to writeQword but applies to Cheat Engine process' own memory.
@@ -309,7 +311,7 @@ function writeQword(address, value) return true end
 ---@param value qword # Qword to write
 ---@return boolean # True on success
 ---@see writeQword
-function writeQwordLocal(address, value) return true end
+function writeQwordLocal(address, value) end
 
 
 ---Writes an integer pointer to the specified address.
@@ -320,7 +322,7 @@ function writeQwordLocal(address, value) return true end
 ---@param address SymbolAddress # Address to write the pointer (dword in x86 or qword in x64) to
 ---@param value dword | qword # The pointer (dword in x86 or qword in x64) to write
 ---@return boolean # True on success
-function writePointer(address, value) return true end
+function writePointer(address, value) end
 
 
 ---Similar to writePointer but applies to Cheat Engine process' own memory.
@@ -333,14 +335,14 @@ function writePointer(address, value) return true end
 ---@param value dword | qword # The pointer (dword in x86 or qword in x64) to write
 ---@return boolean # True on success
 ---@see writePointer
-function writePointerLocal(address, value) return true end
+function writePointerLocal(address, value) end
 
 
 ---Writes a single precision floating point to the specified address.
 ---@param address SymbolAddress # Address to write the float to
 ---@param value float # The single precision floating point value to write
 ---@return boolean # True on success
-function writeFloat(address, value) return true end
+function writeFloat(address, value) end
 
 ---Similar to writeFloat but applies to Cheat Engine process' own memory.
 ---Writes a single precision floating point to the specified address.
@@ -348,13 +350,13 @@ function writeFloat(address, value) return true end
 ---@param value float # The single precision floating point value to write
 ---@return boolean # True on success
 ---@see writeFloat
-function writeFloatLocal(address, value) return true end
+function writeFloatLocal(address, value) end
 
 ---Writes a double precision floating point to the specified address.
 ---@param address SymbolAddress # Address to write the double to
 ---@param value double # The double precision floating point value to write
 ---@return boolean # True on success
-function writeDouble(address, value) return true end
+function writeDouble(address, value) end
 
 ---Similar to writeDouble but applies to Cheat Engine process' own memory.
 ---Writes a double precision floating point to the specified address.
@@ -362,7 +364,7 @@ function writeDouble(address, value) return true end
 ---@param value double # The double precision floating point value to write
 ---@return boolean # True on success
 ---@see writeDouble
-function writeDoubleLocal(address, value) return true end
+function writeDoubleLocal(address, value) end
 
 
 ---Write a string to the specified address.
@@ -370,7 +372,7 @@ function writeDoubleLocal(address, value) return true end
 ---@param string string # The string to write
 ---@param wideChar? boolean # Set to true if the text is encoded using a widechar formatting
 ---@return boolean # True on success
-function writeString(address, string, wideChar) return true end
+function writeString(address, string, wideChar) end
 
 
 ---Similar to writeString but applies to Cheat Engine process' own memory.
@@ -380,7 +382,7 @@ function writeString(address, string, wideChar) return true end
 ---@param wideChar? boolean # Set to true if the text is encoded using a widechar formatting
 ---@return boolean # True on success
 ---@see writeString
-function writeStringLocal(address, string, wideChar) return true end
+function writeStringLocal(address, string, wideChar) end
 
 
 ------------------------Memory Regions-------------------------
@@ -398,36 +400,20 @@ function writeStringLocal(address, string, wideChar) return true end
 
 
 ---@return MemoryRegion[] # An indexed table containing the  entire memory layout.
-function enumMemoryRegions()
-  return {
-    {
-      BaseAddress = 0,
-      AllocationBase = 0,
-      AllocationProtect = 0,
-      RegionSize = 0,
-      State = 0,
-      Protect = 0,
-      Type = 0
-    }
-  }
-end
+function enumMemoryRegions() end
 
 ---Writes the given memory block to a file.
 ---@param fileName path # File path to write to
 ---@param sourceAddress SymbolAddress # Address to write from
 ---@param size integer # Size of the memory block
 ---@return integer # Number of bytes written
-function writeRegionToFile(fileName, sourceAddress, size)
-  return 0
-end
+function writeRegionToFile(fileName, sourceAddress, size) end
 
 ---Reads an entire memory block from a file to the given address.
 ---@param fileName path # File path to read from
 ---@param destinationAddress SymbolAddress # Address to read from
 ---@return integer # Number of bytes read
-function readRegionFromFile(fileName, destinationAddress)
-  return 0
-end
+function readRegionFromFile(fileName, destinationAddress) end
 
 ---A table containing information about each module in the current process, or the specified processid
 ---@class ModuleInfo
@@ -439,16 +425,7 @@ end
 ---Enumerates all modules loaded by a process.
 ---@param processID? integer # The process ID to scan for modules. If not defined, defaults to current opened process
 ---@return ModuleInfo[] # The modules loaded by the process
-function enumModules(processID)
-  return {
-    {
-      Name = "",
-      Address = 0,
-      Is64Bit = true,
-      PathToFile = ""
-    }
-  }
-end
+function enumModules(processID) end
 
 
 
@@ -456,21 +433,21 @@ end
 ---@param address SymbolAddress # The address to start from
 ---@param size integer # Size of block of memory
 ---@return string # MD5 digest string
-function md5memory(address, size) return "" end
+function md5memory(address, size) end
 
 ---MD5 digest of a file.
 ---@param pathToFile path # Path to file
 ---@return string # MD5 digest string
-function md5file(pathToFile) return "" end
+function md5file(pathToFile) end
 
 
 ---@param string string # The string to hash
 ---@return string # An md5 hash string from the provided string
-function stringToMD5String(string) return "" end
+function stringToMD5String(string) end
 
 ---@param address SymbolAddress # Address to get comment from
 ---@return string # The user defined comment at the specified address
-function getComment(address) return "" end
+function getComment(address) end
 
 ---Sets a userdefined comment at the specified address. %s is used to display the autoguess value if there is one
 ---@param address SymbolAddress # Address to set comment on
@@ -484,7 +461,7 @@ function setComment(address, text) end
 ---Gets the user defined header at the specified address.
 ---@param address SymbolAddress # Address to get header from
 ---@return Header # The user defined header at specified address
-function getHeader(address) return {} end
+function getHeader(address) end
 
 ---Sets the userdefined header at the specified address.
 ---@param address SymbolAddress # Address to set header to

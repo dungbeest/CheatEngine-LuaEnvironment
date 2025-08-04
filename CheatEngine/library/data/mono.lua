@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---------------------- Aliases ----------------------
 
@@ -374,28 +374,10 @@ CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_SZARRAY] 
 
 ---@type LuaPipe
 monopipe = {
+  ClassName = "",
   Connected = true,
-  lock = function () end,
-  unlock = function () end,
-  writeByte = function (_) return nil end,
-  writeBytes = function (_, _) return nil end,
-  writeWord = function (_) return nil end,
-  writeDword = function (_) return nil end,
-  writeQword = function (_) return nil end,
-  writeFloat = function (_) return nil end,
-  writeDouble = function (_) return nil end,
-  writeString = function (_, _) return nil end,
-  writeWideString = function (_, _) return nil end,
-  readByte = function() return nil end,
-  readBytes = function(_) return nil end,
-  readWord = function() return nil end,
-  readDword = function() return nil end,
-  readQword = function() return nil end,
-  readFloat = function() return nil end,
-  readDouble = function() return nil end,
-  readString = function(_) return nil end,
-  readWideString = function(_) return nil end
 }
+
 
 ---@type integer
 mono_AttachedProcess = 0
@@ -658,28 +640,27 @@ monoTypeToVartypeLookup[CE_defines.mono_types.MONO_TYPE_SZARRAY]      = CE_defin
 
 
 
-
 ---@type table<integer, string> #
 monoTypeToCStringLookup={}
 
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_END]          = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_END]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_BOOLEAN]      = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_BOOLEAN]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_CHAR]         = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_CHAR]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I1]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I1]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U1]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U1]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I2]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I2]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U2]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U2]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I4]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I4]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U4]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U4]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I8]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I8]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U8]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U8]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_R4]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_R4]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_R8]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_R8]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_STRING]       = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_STRING]  --pointer to a string object
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_PTR]          = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_PTR]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_BYREF]        = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_BYREF]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_CLASS]        = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_CLASS]
-CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_FNPTR]        = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_FNPTR]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_END]          = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_END]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_BOOLEAN]      = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_BOOLEAN]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_CHAR]         = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_CHAR]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_I1]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I1]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_U1]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U1]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_I2]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I2]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_U2]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U2]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_I4]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I4]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_U4]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U4]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_I8]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_I8]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_U8]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_U8]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_R4]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_R4]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_R8]           = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_R8]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_STRING]       = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_STRING]  --pointer to a string object
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_PTR]          = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_PTR]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_BYREF]        = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_BYREF]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_CLASS]        = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_CLASS]
+monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_FNPTR]        = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_FNPTR]
 monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_GENERICINST]  = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_GENERICINST]
 monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_ARRAY]        = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_ARRAY]
 monoTypeToCStringLookup[CE_defines.mono_types.MONO_TYPE_SZARRAY]      = CE_defines.mono_type_to_CString_lookup[CE_defines.mono_types.MONO_TYPE_SZARRAY]

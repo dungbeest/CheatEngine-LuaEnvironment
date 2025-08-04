@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 
 ---Abstract class that LuaPipeServer and LuaPipeclient inherit from. 
@@ -7,26 +7,101 @@
 ---Inherits from Object (LuaPipe->Object)
 ---@class LuaPipe: Object
 ---@field Connected boolean # True if the pipe is connected
----@field lock fun() # Acquire a re-entrant lock on this pipe until unlock is called. If lock can not be acquired, wait. Recursive calls are allowed
----@field unlock fun() # Release a re-entrant lock on this pipe
----@field writeBytes fun(bytes: ByteTable, size?: integer): integer | nil # Writes the provided byte table to the pipe. if size is not provided, the whole table is sent. Returns the number of bytes sent, or nil on failure
----@field readBytes fun(size: integer): ByteTable | nil # Teturns a byte table from the pipe, or nil on failure
----@field readDouble fun(): double | nil # Read a double from the pipe, nil on failure
----@field readFloat fun(): float | nil # Read a float from the pipe, nil on failure
----@field readQword fun(): qword | nil # Read an 8 byte value from the pipe, nil on failure
----@field readDword fun(): dword | nil # Read a 4 byte value from the pipe, nil on failure
----@field readWord fun(): word | nil # Read a 2 byte value from the pipe, nil on failure
----@field readByte fun(): byte | nil # Read a byte from the pipe, nil on failure
----@field readString fun(size: integer): string | nil # Reads a string from the pipe, nil on failure.  (Can support 0-byte chars)
----@field readWideString fun(size: integer): string | nil # Reads a widestring from the pipe, nil on failure
----@field writeDouble fun(v: double): integer | nil # Writes a double to the pipe. Returns the number of bytes sent, nil on failure
----@field writeFloat fun(v: float): integer | nil # Writes a float to the pipe. Returns the number of bytes sent, nil on failure
----@field writeQword fun(v: qword): integer | nil # Writes an 8 byte value to the pipe. Returns the number of bytes sent, nil on failure
----@field writeDword fun(v: dword): integer | nil # Writes a 4 byte value to the pipe. Returns the number of bytes sent, nil on failure
----@field writeWord fun(v: word): integer | nil # Writes a word to the pipe. Returns the number of bytes sent, nil on failure
----@field writeByte fun(v: byte): integer | nil # Writes a byte to the pipe. Returns the number of bytes sent, nil on failure
----@field writeString fun(str: string, include0Terminator?: boolean): integer | nil # Writes a string to the pipe. If include0Terminator is false or not provided it will not write the 0 terminator byte.  Returns the number of bytes written, or nil on failure
----@field writeWideString fun(str: string, include0terminator?: boolean): integer | nil # Writes a widestring to the pipe. If include0terminator is false or not provided it will not write the 0 terminator bytes. Returns the number of bytes written, or nil on failure
+local LuaPipe = {}
+
+---Acquire a re-entrant lock on this pipe until unlock is called. 
+---If lock can not be acquired, wait. Recursive calls are allowed.
+function LuaPipe.lock() end
+
+---Release a re-entrant lock on this pipe
+function LuaPipe.unlock() end
+
+---Writes the provided byte table to the pipe. 
+---If size is not provided, the whole table is sent. 
+---@param bytes ByteTable
+---@param size? integer
+---@return integer | nil # the number of bytes sent, or nil on failure
+function LuaPipe.writeBytes(bytes, size) end
+
+---@param size integer
+---@return ByteTable | nil # A byte table from the pipe, or nil on failure
+function LuaPipe.readBytes(size) end
+
+---Read a double from the pipe.
+---@return double | nil # A double from the pipe, nil on failure
+function LuaPipe.readDouble() end
+
+---Read a float from the pipe.
+---@return float | nil # A float from the pipe, nil on failure
+function LuaPipe.readFloat() end
+
+---Read a qword (8 byte value) from the pipe.
+---@return qword | nil # A qword from the pipe, nil on failure
+function LuaPipe.readQword() end
+
+---Read a dword (4 byte value) from the pipe.
+---@return dword | nil # A dword from the pipe, nil on failure
+function LuaPipe.readDword() end
+
+---Read a word (2 byte value) from the pipe.
+---@return word | nil # A word from the pipe, nil on failure
+function LuaPipe.readWord() end
+
+---Read a byte from the pipe.
+---@return byte | nil # A byte from the pipe, nil on failure
+function LuaPipe.readByte() end
+
+---Read a string from the pipe (Can support 0-byte chars).
+---@param size string # Size of the string.
+---@return string | nil # A string from the pipe, nil on failure.
+function LuaPipe.readString(size) end
+
+---Read a widestring (UCS-2) from the pipe (Can support 0-byte chars).
+---@param size string # Size of the string.
+---@return string | nil # A widestring (UCS-2) from the pipe, nil on failure.
+function LuaPipe.readWideString(size) end
+
+---Writes a double to the pipe.
+---@param v double
+---@return integer | nil # the number of bytes sent, nil on failure
+function LuaPipe.writeDouble(v) end
+
+---Writes a float to the pipe.
+---@param v float
+---@return integer | nil # the number of bytes sent, nil on failure
+function LuaPipe.writeFloat(v) end
+
+---Writes a qword (8 byte value) to the pipe.
+---@param v qword
+---@return integer | nil # the number of bytes sent, nil on failure
+function LuaPipe.writeQword(v) end
+
+---Writes a dword (4 byte value) to the pipe.
+---@param v dword
+---@return integer | nil # the number of bytes sent, nil on failure
+function LuaPipe.writeDword(v) end
+
+---Writes a word (2 byte value) to the pipe.
+---@param v word
+---@return integer | nil # the number of bytes sent, nil on failure
+function LuaPipe.writeWord(v) end
+
+---Writes a byte to the pipe.
+---@param v byte
+---@return integer | nil # the number of bytes sent, nil on failure
+function LuaPipe.writeWord(v) end
+
+---Writes a string to the pipe.
+---@param v string
+---@param include0Terminator? boolean # If include0Terminator is false or not provided it will not write the 0 terminator byte.
+---@return integer | nil # the number of bytes sent, nil on failure
+function LuaPipe.writeString(v, include0Terminator) end
+
+---Writes a widestring (UCS-2) to the pipe.
+---@param v widestring
+---@param include0Terminator? boolean # If include0Terminator is false or not provided it will not write the 0 terminator byte.
+---@return integer | nil # the number of bytes sent, nil on failure
+function LuaPipe.writeWideString(v, include0Terminator) end
 
 
 ---Class implementing a client that connects to a pipe.
@@ -41,20 +116,35 @@
 ---@class LuaPipeServer: LuaPipe
 ---@field valid boolean # Returns true if the pipe has been created properly. False on failure (e.g wrong pipename)
 ---@field handle integer # The handle of the pipe serverside (this can be used with duplicateHandle to get a handle into the target process)
----@field acceptConnection fun() # Waits for a client to connect to this pipe (Warning: Freezes the thread this is executed in)
+local LuaPipeServer = {}
 
+---Waits for a client to connect to this pipe (Warning: Freezes the thread this is executed in)
+function LuaPipeServer.acceptConnection() end
 
 ---Inherits from Object (Internet->Object)
 ---@class Internet: Object
 ---@field Header string # The additional header to be sent with the next getURL request
----@field getURL fun(path: path): string | nil # Returns a string containing the contents of the url. nil on failure
----@field postURL fun(path: path, urlEncodedData: string): string | nil # Posts the given data to the path and returns the results
+local Internet = {}
+
+---@param path path
+---@return string | nil # A string containing the contents of the url. nil on failure
+function Internet.getURL(path) end
+
+---Posts the given data to the path.
+---@param path path
+---@param urlEncodedData string
+---@return string | nil # A string containing the results of the post. nil on failure
+function Internet.postURL(path, urlEncodedData) end
 
 
 ---Inherits from Thread (RemoteThread->Thread)
 ---@class RemoteThread: Thread
 ---@field Result integer # The 32-bit value returned by the thread 
----@field waitForThread fun(timeout?: integer | nil) # Waits for the thread to finish. Timeout is time in milliseconds. If nil, the timeout is infinite. If 0, it returns without wait
+local RemoteThread = {}
+
+---Waits for the thread to finish.
+---@param timeout? integer # Timeout is time in milliseconds. If nil, the timeout is infinite. If 0, it returns without wait
+function RemoteThread.waitForThread(timeout) end
 
 
 ---@class ExecuteCodeExStub
@@ -63,7 +153,13 @@
 ---
 ---An executor can only run one piece of code at a time, but you can have more than one executor
 ---@class RemoteExecutor
----@field executeStub fun(stub: ExecuteCodeExStub, parameters: any[], timeout: integer, waitUntilDone: boolean) # 
+local RemoteExecutor = {}
+
+---@param stub ExecuteCodeExStub
+---@param parameters any[]
+---@param timeout integer
+---@param waitUntilDone boolean
+function RemoteExecutor.executeStub(stub, parameters, timeout, waitUntilDone) end
 
 
 

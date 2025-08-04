@@ -1,12 +1,19 @@
----@meta
+---@meta _
 
 
 
 ---Inherits from Object (Event->Object)
 ---@class Event: Object
----@field resetEvent fun() #
----@field setEvent fun() #
----@field waitFor fun(timeout: integer): EventWaitResult # Waits for the event to be set. Returns 
+local Event = {}
+
+function Event.resetEvent() end
+
+function Event.setEvent() end
+
+---Waits for the event to be set.
+---@param timeout integer
+---@return EventWaitResult
+function Event.waitFor(timeout) end
 
 
 ---Returns an event object

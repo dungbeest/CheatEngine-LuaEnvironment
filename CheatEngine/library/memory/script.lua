@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 
 ---Generates an auto assembler script which will hook the given address when executed.
@@ -79,7 +79,7 @@ function unregisterLuaFunctionHighlight(functionName) end
 ---@param location SymbolLookupStep # When in the symbol lookup process the callback is called
 ---@return integer # The callback ID to use with unregisterSymbolLookupCallback()
 ---@see unregisterSymbolLookupCallback
-function registerSymbolLookupCallback(callback, location) return 0 end
+function registerSymbolLookupCallback(callback, location) end
 
 ---Unregisters a previously registered callback.
 ---@param ID integer # ID of the callback to remove
@@ -90,7 +90,7 @@ function unregisterSymbolLookupCallback(ID) end
 ---@param callback fun(int: integer): Symbol | nil # The callback that will be registered. Return the corresponding symbol if you found it. nil if you didn't
 ---@return integer # The callback ID to use with unregisterAddressLookupCallback()
 ---@see unregisterAddressLookupCallback
-function registerAddressLookupCallback(callback) return 0 end
+function registerAddressLookupCallback(callback) end
 
 ---Unregisters a previously registered callback.
 ---@param ID integer # ID of the callback to remove
@@ -101,7 +101,7 @@ function unregisterAddressLookupCallback(ID) end
 ---@param callback fun(sender: any) # The callback that will be registered
 ---@return integer # The callback ID to use with unregisterGlobalStructureListUpdateNotification()
 ---@see unregisterGlobalStructureListUpdateNotification
-function registerGlobalStructureListUpdateNotification(callback) return 0 end
+function registerGlobalStructureListUpdateNotification(callback) end
 
 ---Unregisters a previously registered callback.
 ---@param ID integer # ID of the callback to remove
@@ -144,7 +144,7 @@ function unregisterStructureAndElementListCallback(ID) end
 ---@return integer # The callback ID to use with unregisterStructureDissectOverride()
 ---@see unregisterStructureDissectOverride
 ---@see onAutoGuess
-function registerStructureDissectOverride(callback) return 0 end
+function registerStructureDissectOverride(callback) end
 
 ---Unregisters a previously registered callback.
 ---@param ID integer # ID of the callback to remove
@@ -159,7 +159,7 @@ function unregisterStructureDissectOverride(ID) end
 ---@param address? Address # ???
 ---@return integer # The callback ID to use with unregisterStructureNameLookup()
 ---@see unregisterStructureNameLookup
-function registerStructureNameLookup(callback, address) return 0 end
+function registerStructureNameLookup(callback, address) end
 
 ---Unregisters a previously registered callback.
 ---@param ID integer # ID of the callback to remove
@@ -170,7 +170,7 @@ function unregisterStructureNameLookup(ID) end
 ---@param callback fun(address: Address, instruction: string): ByteTable # The callback which will handle the instruction. Return a byte table with the specific bytes, or nil if you wish to let another function, or the original x86 assembler to assemble it
 ---@return integer # The callback ID to use with unregisterAssembler()
 ---@see unregisterAssembler
-function registerAssembler(callback) return 0 end
+function registerAssembler(callback) end
 
 ---Unregisters the registered assembler
 ---@param ID integer # ID of the assembler to remove
@@ -185,7 +185,7 @@ function unregisterAssembler(ID) end
 ---@param postAOB? boolean # ???. Defaults to false
 ---@return integer # The callback ID to use with unregisterAutoAssemblerPrologue()
 ---@see unregisterAutoAssemblerPrologue
-function registerAutoAssemblerPrologue(callback, postAOB) return 0 end
+function registerAutoAssemblerPrologue(callback, postAOB) end
 
 
 ---Unregisters the registered callback
@@ -241,7 +241,7 @@ function generateFullInjectionScript(
 ---Scans the given script for alloc(newmem## and returns the next unused newmem number)
 ---@param script Strings # A template script object
 ---@return integer # The next unused alloc number
-function getNextAllocNumber(script) return 0 end
+function getNextAllocNumber(script) end
 
 ---creates a comment section for AA scripts that contains a snapshot of the original code
 ---@param script Strings # A template script object
@@ -255,4 +255,4 @@ function onAutoGuess(callback) end
 
 
 ---@return Stringlist # The AutoAttach StringList object. It can be controlled with the stringlist_ routines (it's not recommended to destroy this list object)
-function getAutoAttachList() return {} end
+function getAutoAttachList() end

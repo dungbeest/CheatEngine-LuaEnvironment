@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Allocates some memory into the target process.
 ---@param size integer # The size of the allocation
@@ -20,7 +20,7 @@ function deAlloc(address, size) end
 ---@param name string # A name for the shared memory block
 ---@param size integer? # If size is not given and there is no shared region with this name then the default size of 4096 is used.
 ---@return Address # The address of this mapped region in the target process.
-function allocateSharedMemory(name, size) return 0 end
+function allocateSharedMemory(name, size) end
 
 ---Same as allocateSharedMemory but for the Cheat Engine process itself.
 ---
@@ -31,12 +31,12 @@ function allocateSharedMemory(name, size) return 0 end
 ---@param size integer? # If size is not given and there is no shared region with this name then the default size of 4096 is used.
 ---@return Address # The address of this mapped region in the target process.
 ---@see allocateSharedMemory
-function allocateSharedMemoryLocal(name, size) return 0 end
+function allocateSharedMemoryLocal(name, size) end
 
 ---Creates a 'section' in memory.
 ---@param size integer
 ---@return Address #
-function createSection(size) return 0 end
+function createSection(size) end
 
 ---Maps the section to memory.
 ---@param section Address # ???

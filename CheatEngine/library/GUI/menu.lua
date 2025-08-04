@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 
 
@@ -15,27 +15,69 @@
 ---@field Item MenuItem[] # Array to access each child menu item
 ---@field OnClick function # Function to call when the menu item is activated
 ---@field FontColor Colors # Color of the font. (Only works when in dark mode)
----@field getCaption fun(): string # Gets the caption of the menu item
----@field setCaption fun(caption: string) # Sets the caption of the menu item
----@field getShortcut fun(): string # Returns the shortcut for this menu item
----@field setShortcut fun(shortcut: string) # Sets the shortcut for this menuitem. A shortcut is a string in the form of ("ctrl+x")
----@field getCount fun(): integer #
----@field getItem fun(index: integer): MenuItem # Returns the menu item object at the given index
----@field add fun(item: MenuItem) # Adds a menuItem as a submenu item
----@field insert fun(index: integer, item: MenuItem) # Adds a menuItem as a submenu item at the given index
----@field delete fun(index: integer) #
----@field clear fun() # Deletes all children under this menuitem (frees the menu item, so it's gone)
----@field setOnClick fun(onClick: function) # Sets an OnClick event
----@field getOnClick fun(): function #
----@field doClick fun() # Executes the OnClick method if one is assigned
+local MenuItem = {}
+
+---Gets the caption of the menu item
+---@return string
+function MenuItem.getCaption() end
+
+---Sets the caption of the menu item
+---@param caption string
+function MenuItem.setCaption(caption) end
+
+---Gets the caption of the menu item
+---@return string # the shortcut for this menu item
+function MenuItem.getShortcut() end
+
+---Sets the shortcut of the menu item.
+---
+---A shortcut is a string in the form of ("ctrl+x").
+---@param shortcut string
+function MenuItem.setShortcut(shortcut) end
+
+---@return function
+function MenuItem.getOnClick() end
+
+---Sets an OnClick event
+---@param onClick function
+function MenuItem.setOnClick(onClick) end
+
+
+---@return integer
+function MenuItem.getCount() end
+
+
+---@param index integer
+---@return MenuItem # the menu item object at the given index
+function MenuItem.getItem(index) end
+
+---Adds a menuItem as a submenu item.
+---@param item MenuItem
+function MenuItem.add(item) end
+
+---Adds a menuItem as a submenu item at the given index
+---@param index integer
+---@param item MenuItem
+function MenuItem.add(index, item) end
+
+---@param index integer
+function MenuItem.delete(index) end
+
+---Deletes all children under this menuitem (frees the menu item, so it's gone)
+function MenuItem.clear() end
+
+---Executes the OnClick method if one is assigned.
+function MenuItem.doClick() end
 
 
 
 ---Inherits from Component (Menu->Component->Object)
 ---@class Menu: Component
 ---@field Items MenuItem # The base MenuItem class of this menu (readonly)
----@field getItems fun(): MenuItem # Returns the main MenuItem of this Menu
+local Menu = {}
 
+---@return MenuItem # The main MenuItem of this Menu
+function Menu.getItems() end
 
 ---Inherits from Menu (MainMenu->Menu->Component->Object)
 ---@class MainMenu: Menu

@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 
 
@@ -9,16 +9,53 @@
 ---@field DisabledZBuffer boolean # Set this to true if you don't want previously rendered walls to overlap a newly rendered object (e.g map is rendered first, then the players are rendered)
 ---@field WireframeMode boolean # Set this to true if you don't want the faces of 3d objects to be filled
 ---@field MouseClip boolean # Set this if to true if you have one of those games where your mouse can go outside of the gamewindow and you don't want that
----@field OnClick fun(d3dhookSprite: D3DHookSprite, x: integer, y: integer) # A function to be called when clicked on an sprite (excluding the mouse). x and y are coordinates in the sprite object. If sprites overlap the highest zorder sprite will be given. It does NOT care if a transparent part is clicked or not. Note: If you set this it can cause a slowdown in the game if there are a lot of sprites and you press the left button a lot
----@field OnKeyDown fun(virtualKey: VirtualKeyCode, char: string): boolean # A function to be called when a key is pressed in the game window (Not compatible with DirectInput8). Return false if you do not wish this key event to pass down to the game
----@field beginUpdate fun() # Use this function when you intent to update multiple sprites, text containers or textures. Otherwise artifacts may occur (sprite 1 might be drawn at the new location while sprite 2 might still be at the old location when a frame is rendered)
----@field endUpdate fun() # When done updating, call this function to apply the changes
----@field enableConsole fun(virtualkey: VirtualKeyCode) # Adds a (lua) console to the specific game. The given key will bring it up (0xc0=tilde(`~))
----@field createTexture fun(fileName: path) | fun(picture: Picture, transparentColor?: Colors): D3DHookTexture # Returns a d3dhook texture object. If the picture is not a transparent image the transparentcolor parameter can be used to make one of it's colors transparent
----@field createFontmap fun(font: Font): D3DHookFontMap # Returns a d3dhook fontmap object created from the given font
----@field createSprite fun(d3dhookTexture: D3DHookTexture): D3DHookSprite # returns a d3dhook sprite object that uses the given texture for rendering
----@field createTextContainer fun(d3dhookFontMap: D3DHookFontMap, x: integer, y: integer, text: string): D3DHookTextContainer # Returns a d3dhook text container object
+local D3DHook = {}
 
+---A function to be called when a sprite is clicked on (excluding the mouse). x and y are coordinates in the sprite object. If sprites overlap the highest zorder sprite will be given. It does NOT care if a transparent part is clicked or not. Note: If you set this it can cause a slowdown in the game if there are a lot of sprites and you press the left button a lot
+---@param d3dhookSprite D3DHookSprite
+---@param x integer
+---@param y integer
+function D3DHook.OnClick(d3dhookSprite, x, y) end
+
+---A function to be called when a key is pressed in the game window (Not compatible with DirectInput8).
+---@param virtualKey VirtualKeyCode
+---@param char string
+---@return boolean # false if you do not wish this key event to pass down to the game
+function D3DHook.OnKeyDown(virtualKey, char) end
+
+---Use this function when you intent to update multiple sprites, text containers or textures. Otherwise artifacts may occur (sprite 1 might be drawn at the new location while sprite 2 might still be at the old location when a frame is rendered)
+function D3DHook.beginUpdate() end
+
+---When done updating, call this function to apply the changes
+function D3DHook.endUpdate() end
+
+---Adds a (lua) console to the specific game. The given key will bring it up (0xc0=tilde(`~))
+---@param virtualKey VirtualKeyCode
+function D3DHook.enableConsole(virtualKey) end
+
+---@param fileName path
+---@return D3DHookTexture # A d3dhook texture object.
+function D3DHook.createTexture(fileName) end
+
+---@param picture Picture
+---@param transparentColor? Colors If the picture is not a transparent image the transparentColor parameter can be used to make one of it's colors transparent.
+---@return D3DHookTexture # A d3dhook texture object.
+function D3DHook.createTexture(picture, transparentColor) end
+
+---@param font Font
+---@return D3DHookFontMap # A d3dhook fontmap object created from the given font.
+function D3DHook.createFontmap(font) end
+
+---@param d3dhookTexture D3DHookTexture
+---@return D3DHookSprite # A d3dhook sprite object that uses the given texture for rendering
+function D3DHook.createSprite(d3dhookTexture) end
+
+---@param d3dhookFontMap D3DHookFontMap
+---@param x integer
+---@param y integer
+---@param text string
+---@return D3DHookTextContainer # A d3dhook text container object
+function D3DHook.createTextContainer(d3dhookFontMap, x, y, text) end
 
 ---This class controls the texture in memory. 
 ---
@@ -28,9 +65,10 @@
 ---@class D3DHookTexture: Object
 ---@field Height integer # (ReadOnly)
 ---@field Width integer # (ReadOnly)
----@field loadTextureByPicture fun(picture: Picture) #
+local D3DHookTexture = {}
 
-
+---@param picture Picture
+function D3DHookTexture.loadTextureByPicture(picture) end
 
 ---A fontmap is a texture that contains extra data regarding the characters. 
 ---
@@ -40,8 +78,14 @@
 ---
 ---Inherits from D3DHookTexture (D3DHookFontMap->D3DHookTexture->Object)
 ---@class D3DHookFontMap: D3DHookTexture
----@field changeFont fun(font: Font) # Changes the fontmap to the selected font
----@field getTextWidth fun(string: string): integer # Returns the width of the given string in pixels
+local D3DHookFontMap = {}
+
+---@param font Font # Changes the fontmap to the selected font
+function D3DHookFontMap.changeFont(font) end
+
+---@param string string
+---@return integer # The width of the given string in pixels
+function D3DHookFontMap.getTextWidth(string) end
 
 
 ---The render object is the abstract class used to control in what manner objects are rendered.

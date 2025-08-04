@@ -1,4 +1,4 @@
----@meta
+---@meta _
 
 ---Inherits from Object (Strings->Object) (Mostly an abstract class)
 ---@class Strings: Object
@@ -7,24 +7,82 @@
 ---@field Count integer # The number of strings in this list
 ---@field String string[] # Array to access one specific string in the list
 ---@field Data integer[] - Array to access the data of a specific string in the list
----@field clear fun() # Deletes all strings in the list
----@field add fun(string: string, data?: integer): integer # Adds a string to the list. Returns the index
----@field addText fun(strings: string) # Adds multiple strings at once
----@field delete fun(index: integer) # Deletes a string from the list
----@field getText fun(): string # Returns all the strings as one big string
----@field setText fun(string: string) # Sets the strings of the given strings object to the given text (can be multiline)
----@field indexOf fun(string: string): integer # Returns the index of the specified string. Returns -1 if not found
----@field insert fun(index: integer, string: string) # Inserts a string at a specific spot moving the items after it
----@field getCount fun(): integer # Returns the number is strings in the list
----@field remove fun(string: string) # Removes the given string from the list
----@field loadFromFile fun(fileName: path, ignoreEncoding?: boolean) # Load the strings from a textfile. If ignoreEncoding is false then the file will be loaded with the best encoding the loader can guess. ignoreEncoding defaults to true
----@field saveToFile fun(fileName: path) # Save the strings to a textfile
----@field getString fun(index: integer): string # Gets the string at the given index
----@field setString fun(index: integer, string: string) # Replaces the string at the given index
----@field getData fun(index: integer) # Returns the integer value stored in the string
----@field setData fun(index: integer, data: integer) # Sets the integer value stored in the string
----@field beginUpdate fun() # Stops updates from triggering other events (prevents flashing)
----@field endUpdate fun() # Call after beginUpdate
+local Strings = {}
+
+---Deletes all strings in the list
+function Strings.clear() end
+
+---Adds a string to the list.
+---@param string string
+---@param data? integer
+---@return integer # The index of the string in strings
+function Strings.add(string, data) end
+
+---Adds multiple strings at once to the end of current strings buffer.
+---@param strings string # A multiline string which will be broken by linebreaks.
+function Strings.addText(strings) end
+
+---Deletes a string from the list.
+---@param index integer
+function Strings.delete(index) end
+
+---@return string # All the strings as one big string.
+function Strings.getText() end
+
+---Sets the strings of the given strings object to the given text (can be multiline).
+---@param string string # A potentially multiline string which will be broken by linebreaks.
+function Strings.setText(string) end
+
+---@param string string
+---@return integer # The index of the specified string, -1 if not found.
+function Strings.indexOf(string) end
+
+---Inserts a string at a specific spot, moving the items after it back.
+---@param index integer
+---@param string string
+function Strings.insert(index, string) end
+
+---@return integer # The number of strings in the strings buffer.
+function Strings.getCount() end
+
+---Removes the given string from the list.
+---@param string string
+function Strings.remove(string) end
+
+---Load the strings from a textfile. 
+---@param fileName path
+---@param ignoreEncoding? boolean # If false then the file will be loaded with the best encoding the loader can guess. Defaults to true
+function Strings.loadFromFile(fileName, ignoreEncoding) end
+
+---Save the strings to a textfile.
+---@param fileName path
+function Strings.saveToFile(fileName) end
+
+---Gets the string at the given index.
+---@param index integer
+---@return string
+function Strings.getString(index) end
+
+---Replaces the string at the given index.
+---@param index integer
+---@param string string
+function Strings.setString(index, string) end
+
+
+---@param index integer
+---@return integer # the integer value stored alongside the string at index
+function Strings.getData(index) end
+
+---Sets the integer value stored alongside the string at the given index.
+---@param index integer
+---@param data integer
+function Strings.setData(index, data) end
+
+---Stops updates from triggering other events (prevents flashing)
+function Strings.beginUpdate() end
+
+---Call after beginUpdate
+function Strings.endUpdate() end
 
 
 
@@ -34,9 +92,23 @@
 ---@field Sorted boolean # Determines if the list should be sorted
 ---@field Duplicates DuplicatesTypes # Determines how duplicates should be handled when the list is sorted
 ---@field CaseSensitive boolean # Determines if the list is case sensitive or not.
----@field getDuplicates fun(): DuplicatesTypes # Returns the duplicates property
----@field setDuplicates fun(duplicates: DuplicatesTypes) # Sets the duplicates property
----@field getSorted fun(): boolean # Returns true if the list has the sorted property
----@field setSorted fun(sorted: boolean) # Sets the sorted property
----@field getCaseSensitive fun(): boolean # Returns true if the case sensitive property is set
----@field setCaseSensitive fun(caseSensitive: boolean) # Sets the case sensitive property
+local Stringlist = {}
+
+---@return DuplicatesTypes # how duplicates should be handled if the list is sorted.
+function Stringlist.getDuplicates() end
+
+---Sets the duplicates property.
+---@param duplicates DuplicatesTypes
+function Stringlist.setDuplicates(duplicates) end
+
+---@return boolean # Whether the list should be sorted
+function Stringlist.getSorted() end
+
+---@param sorted boolean # Whether the list should be sorted
+function Stringlist.setSorted(sorted) end
+
+---@return boolean # Whether the list should be case sensitive.
+function Stringlist.getCaseSensitive() end
+
+---@param caseSensitive boolean # Whether the list should be case sensitive.
+function Stringlist.setCaseSensitive(caseSensitive) end

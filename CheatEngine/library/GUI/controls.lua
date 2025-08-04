@@ -1,6 +1,4 @@
----@meta
-
-
+---@meta _
 
 
 ---Inherits from Component (Control->Component->Object)
@@ -18,47 +16,168 @@
 ---@field Color Colors # The color of the object. Does not affect the caption
 ---@field RGBColor string # The color of the object in RGB formatting
 ---@field Parent WinControl # The owner of this control
----@field PopupMenu PopupMenu # The popup menu that shows when rightclicking the control
+---@field PopupMenu PopupMenu # The popup menu that shows when right clicking the control
 ---@field Font Font # The font class associated with the control
----@field OnClick fun(sender: any) # The function to call when a button is pressed
----@field OnChangeBounds fun(sender: any) # Called when the size or position of the control changes
----@field getLeft fun(): integer #
----@field setLeft fun(left: integer) #
----@field getTop fun(): integer #
----@field setTop fun(top: integer) #
----@field getWidth fun(): integer #
----@field setWidth fun(width: integer) #
----@field getHeight fun() #
----@field setHeight fun(height: integer) #
----@field setCaption fun(caption: string) # Sets the text on a control. All the GUI objects fall in this category
----@field getCaption fun(): string # Returns the text of the control
----@field setPosition fun(x: integer, y: integer) # Sets the x and y position of the object base don the top left position (relative to the client array of the owner object)
----@field getPosition fun(): integer, integer # Returns the x and y position of the object (relative to the client array of the owner object)
----@field setSize fun(width: integer, height: integer) # Sets the width and height of the control
----@field getSize fun(): integer, integer # Gets the size of the control
----@field setAlign fun(option: CAlignmentType) # Sets the alignment of the control
----@field getAlign fun(): CAlignmentType # Gets the alignment of the control
----@field getEnabled fun(): boolean # Gets the enabled state of the control
----@field setEnabled fun(enabled: boolean) # Sets the enabled state of the control
----@field getVisible fun(): boolean # Gets the visible state of the control
----@field setVisible fun(visible: boolean) # Sets the visible state of the control
----@field getColor fun(): Colors # Gets the color
----@field setColor fun(color: Colors) # Sets the color
----@field getParent fun(): WinControl | nil # Returns nil or an object that inherits from the WinControl class
----@field setParent fun(parent: WinControl) # Sets the parent for this control
----@field getPopupMenu fun(): PopupMenu # Gets the popup menu for this control
----@field setPopupMenu fun(menu: PopupMenu) # Sets the popup menu for this control
----@field getFont fun(): Font # Returns the Font object of this object
----@field setFont fun(font: Font) # Assigns a new font object. (Not recommended to use. Change the font object that's already there if you wish to change fonts)
----@field repaint fun() # Invalidates the graphical area of the control and forces and update
----@field update fun() # Only updates the invalidated areas
----@field setOnClick fun(f: function | string) # Sets the OnClick routine to a function, either by name or directly
----@field getOnClick fun(): function # Gets the OnClick function
----@field doClick fun() # Executes the current function under OnClick
----@field bringToFront fun() # Changes the z-order of the control so it'd at the top
----@field sendToBack fun() # Changes the z-order of the control so it'd at the back
----@field screenToClient fun(x: integer, y: integer) # Converts screen x,y coordinates to x,y coordinates on the control
----@field clientToScreen fun(x: integer, y: integer) # Converts control x,y coordinates to screen coordinates
+local Control = {}
+
+---The function to call when a button is pressed.
+---@param sender any
+function Control.OnClick(sender) end
+
+---Called when the size or position of the control changes.
+---@param sender any
+function Control.OnChangeBounds(sender) end
+
+---@return integer
+function Control.getLeft() end
+
+---@param left integer
+function Control.setLeft(left) end
+
+---@return integer
+function Control.getTop() end
+
+---@param top integer
+function Control.setTop(top) end
+
+---@return integer
+function Control.getWidth() end
+
+---@param width integer
+function Control.setWidth(width) end
+
+---@return integer
+function Control.getHeight() end
+
+---@param height integer
+function Control.setHeight(height) end
+
+---@return string # The text of the control
+function Control.getCaption() end
+
+---Sets the text on a control. All the GUI objects fall in this category.
+---@param caption string
+function Control.setCaption(caption) end
+
+---@return integer # The x position of the object (relative to the client array of the owner object)
+---@return integer # The y position of the object (relative to the client array of the owner object)
+function Control.getPosition() end
+
+---Sets the x and y position of the object based on the top left position (relative to the client array of the owner object).
+---@param x integer # x position
+---@param y integer # y position
+function Control.setPosition(x, y) end
+
+
+---Gets the size of the control.
+---@return integer # The width position of the object (relative to the client array of the owner object)
+---@return integer # The height position of the object (relative to the client array of the owner object)
+function Control.getSize() end
+
+---Sets the width and height of the control
+---@param width integer # width of the control.
+---@param height integer # height of the control.
+function Control.setSize(width, height) end
+
+---Gets the alignment of the control.
+---@return CAlignmentType
+function Control.getAlign() end
+
+---Sets the alignment of the control.
+---@param option CAlignmentType
+function Control.setAlign(option) end
+
+---Gets the enabled state of the control.
+---@return boolean
+function Control.getEnabled() end
+
+---Sets the alignment of the control.
+---@param enabled boolean
+function Control.setEnabled(enabled) end
+
+---Gets the visible state of the control.
+---@return boolean
+function Control.getVisible() end
+
+---Sets the visible state of the control.
+---@param visible boolean
+function Control.setVisible(visible) end
+
+---Gets the color.
+---@return Colors
+function Control.getColor() end
+
+---Sets the color.
+---@param color Colors
+function Control.setColor(color) end
+
+---Gets the color.
+---@generic T: WinControl
+---@return T | nil # A parent object that inherits from the WinControl class or nil
+function Control.getParent() end
+
+---Sets the parent for this control.
+---@generic T: WinControl
+---@param parent T
+function Control.setParent(parent) end
+
+---Gets the popup menu for this control.
+---@generic T: PopupMenu
+---@return T # The popup menu for this control.
+function Control.getPopupMenu() end
+
+---Sets the popup menu for this control.
+---@generic T: PopupMenu
+---@param menu T
+function Control.setPopupMenu(menu) end
+
+---Gets the popup menu for this control.
+---@generic T: Font
+---@return T # the Font object of this control.
+function Control.getFont() end
+
+---Sets the popup menu for this control.
+---@generic T: PopupMenu
+---@param font T # Assigns a new font object. (Not recommended to use. Change the font object that's already there if you wish to change fonts)
+function Control.setFont(font) end
+
+---@return function # The OnClick function
+function Control.getOnClick() end
+
+---Sets the OnClick routine to a function directly.
+---@param onClick string | function # The OnClick function to set, or the OnClick function's name, set by reflection fetching the function with this name.
+function Control.setOnClick(onClick) end
+
+
+---Invalidates the graphical area of the control and forces and update.
+function Control.repaint() end
+
+---Only updates the invalidated areas.
+function Control.update() end
+
+
+---Executes the current function under OnClick.
+function Control.doClick() end
+
+---Changes the z-order of the control so it's at the top.
+function Control.bringToFront() end
+
+---Changes the z-order of the control so it's at the back.
+function Control.sendToBack() end
+
+---Converts screen x, y coordinates to x, y coordinates on the control.
+---@param x integer # Screen x coordinate to convert.
+---@param y integer # Screen y coordinate to convert.
+---@return integer x # Converted control x coordinate.
+---@return integer y # Converted control y coordinate.
+function Control.screenToClient(x, y) end
+
+---Converts control x, y coordinates to screen coordinates.
+---@param x integer # Control x coordinate to convert to screen coordinates.
+---@param y integer # Control y coordinate to convert to screen coordinates.
+---@return integer x # Converted screen x coordinate.
+---@return integer y # Converted screen y coordinate.
+function Control.clientToScreen(x, y) end
 
 
 
@@ -70,25 +189,78 @@
 ---@field Control Control[] # Array to access a child control
 ---@field OnEnter function # Function to be called when the WinControl gains focus
 ---@field OnExit function # Function to be called when the WinControl loses focus
----@field getControlCount fun(): integer # Returns the number of Controls attached to this class
----@field getControl fun(index: integer): Control # Returns a WinControl class object
----@field getControlAtPos fun(x: integer, y: integer): Control # Gets the control at the given x,y position relative to the wincontrol's position
----@field canFocus fun(): boolean # Returns true if the object can be focused
----@field focused fun(): boolean # Returns boolean true when focused
----@field setFocus fun(focus: boolean) # Tries to set keyboard focus the object
----@field setShape fun(shape: Region | Bitmap) # Sets the region or bitmap object as the new shape for this wincontrol
----@field setOnEnter fun(onEnter: function) # Sets an onEnter event. (Triggered on focus enter)
----@field getOnEnter fun(): function #
----@field setOnExit fun(onExit: function) # Sets an onExit event. (Triggered on lost focus)
----@field getOnExit fun(): function #
----@field setLayeredAttributes fun(key, alpha, flags) # Sets the layered state for the control if possible (Only Forms are supported in windows 7 and earlier). Flags can be a combination of LWA_ALPHA and/or LWA_COLORKEY. See msdn/SetLayeredWindowAttributes for more information     
+local WinControl = {}
+
+---@return integer # The number of Controls attached to this class.
+function WinControl.getControlCount() end
+
+---@param index integer
+---@return Control # A WinControl class object
+function WinControl.getControl(index) end
+
+---@param x integer # x position relative to this wincontrol
+---@param y integer # y position relative to this wincontrol
+---@return Control | nil # The child control at the given x, y position relative to this wincontrol's position
+function WinControl.getControlAtPos(x, y) end
+
+---@return boolean # Whether the object can be focused
+function WinControl.canFocus() end
+
+---@return boolean # Whether the object is currently focused
+function WinControl.focused() end
+
+---Tries to set keyboard focus the object.
+---@param focus boolean # Whether the object should be considered currently focused.
+function WinControl.setFocus(focus) end
+
+
+---Sets the region or bitmap object as the new shape for this wincontrol.
+---@param shape Region | Bitmap # The region or bitmap object to use to set a new shape for this wincontrol.
+function WinControl.setShape(shape) end
+
+---@return function
+function WinControl.getOnEnter() end
+
+---Sets an onEnter event. (Triggered on focus enter).
+---@param onEnter function
+function WinControl.setOnEnter(onEnter) end
+
+
+---@return function #
+function WinControl.getOnExit() end
+
+---Sets an onExit event. (Triggered on lost focus)
+---@param onExit function
+function WinControl.setOnExit(onExit) end
+
+---When specifying an explicit RGB color, the COLORREF value has the following hexadecimal form:
+---> 0x00bbggrr
+---
+---The low-order byte contains a value for the relative intensity of red; 
+---the second byte contains a value for green; 
+---and the third byte contains a value for blue. 
+---The high-order byte must be zero. 
+---The maximum value for a single byte is 0xFF.
+---@alias COLORREF integer
+
+---Sets the layered state for the control if possible (Only Forms are supported in windows 7 and earlier).
+---See [msdn/SetLayeredWindowAttributes](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setlayeredwindowattributes) for more information.
+---@param key COLORREF
+---@param alpha byte # Alpha value used to describe the opacity of the layered window. Similar to the SourceConstantAlpha member of the BLENDFUNCTION structure. When alpha is 0, the window is completely transparent. When alpha is 255, the window is opaque.
+---@param flags dword # Flags can be a combination of LWA_ALPHA (0x2) and/or LWA_COLORKEY (0x1).
+function WinControl.setLayeredAttributes(key, alpha, flags) end
 
 
 ---Inherits from WinControl (CustomControl->WinControl->Control->Component->Object)
 ---@class CustomControl: WinControl
 ---@field Canvas Canvas # The canvas object for drawing on the control (READONLY)
----@field OnPaint fun() # An OnPaint event you can assign to do some extra painting
----@field getCanvas fun(): Canvas # Returns the Canvas object for the given object that has inherited from CustomControl
+local CustomControl = {}
+
+---An OnPaint event you can assign to do some extra painting.
+function CustomControl.OnPaint() end
+
+---@return Canvas # The Canvas object for the given object that has inherited from CustomControl.
+function CustomControl.getCanvas() end
 
 
 ---Inherits from CustomControl (ScrollingWinControl->CustomControl->WinControl->Control->Component->Object)
@@ -105,16 +277,39 @@
 ---@field BevelOuter PanelBevel #
 ---@field BevelWidth integer #
 ---@field FullRepaint boolean #
----@field getAlignment fun(): CAlignmentType # Gets the alignment property
----@field setAlignment fun(alignment: CAlignmentType) # Sets the alignment property
----@field getBevelInner fun(): PanelBevel #
----@field setBevelInner fun(bevel: PanelBevel) #
----@field getBevelOuter fun(): PanelBevel #
----@field setBevelOuter fun(bevel: PanelBevel) #
----@field getBevelWidth fun(): integer #
----@field setBevelWidth fun(width: integer) #
----@field getFullRepaint fun(): boolean #
----@field setFullRepaint fun(fullRepaint: boolean) #
+local Panel = {}
+
+---Gets the alignment property.
+---@return CAlignmentType
+function Panel.getAlignment() end
+
+---Sets the alignment property.
+---@param alignment CAlignmentType
+function Panel.setAlignment(alignment) end
+
+---@return PanelBevel
+function Panel.getBevelInner() end
+
+---@param bevel PanelBevel
+function Panel.setBevelInner(bevel) end
+
+---@return PanelBevel
+function Panel.getBevelOuter() end
+
+---@param bevel PanelBevel
+function Panel.setBevelOuter(bevel) end
+
+---@return integer
+function Panel.getBevelWidth() end
+
+---@param width integer
+function Panel.setBevelWidth(width) end
+
+---@return boolean
+function Panel.getFullRepaint() end
+
+---@param fullRepaint boolean
+function Panel.setFullRepaint(fullRepaint) end
 
 
 ---Inherits from CustomControl (Splitter->CustomControl->WinControl->Control->Component->Object)
@@ -128,9 +323,13 @@
 ---Inherits from ButtonControl (Button->ButtonControl->WinControl->Control->Component->Object)
 ---@class Button: ButtonControl
 ---@field ModalResult integer # The result this button will give the modal form when clicked
----@field getModalResult fun(): integer #
----@field setModalResult fun(modalResult: integer) #
+local Button = {}
 
+---@return integer
+function Button.getModalResult() end
+
+---@param modalResult integer
+function Button.getModalResult(modalResult) end
 
 
 ---Inherits from ButtonControl (CheckBox->ButtonControl->WinControl->Control->Component->Object)
@@ -139,11 +338,23 @@
 ---@field AllowGrayed boolean # True if it can have 3 states. True/False/None
 ---@field State CheckBoxState # The check box state
 ---@field OnChange function # Function to call when the state is changed
----@field getAllowGrayed fun(): boolean #
----@field setAllowGrayed fun(allowGrayed: boolean) #
----@field getState fun(): CheckBoxState # Returns a state for the checkbox.
----@field setState fun(state: CheckBoxState | boolean) # Sets the state of the checkbox
----@field onChange fun(onChange: function) #
+local CheckBox = {}
+
+---@return boolean
+function CheckBox.getAllowGrayed() end
+
+---@param allowGrayed boolean
+function CheckBox.setAllowGrayed(allowGrayed) end
+
+---@return CheckBoxState # A state for the checkbox.
+function CheckBox.getState() end
+
+---Sets the state of the checkbox.
+---@param state CheckBoxState | boolean # A state enum if you need to set a grayed out checkbox, or boolean for checked or unchecked
+function CheckBox.setState(state) end
+
+---@param onChange function
+function CheckBox.onChange(onChange) end
 
 ---Inherits from CheckBox (ToggleBox->CheckBox->ButtonControl->WinControl->Control->Component->Object)
 ---@class ToggleBox: CheckBox
@@ -153,18 +364,38 @@
 
 ---Inherits from GroupBox (RadioGroup->GroupBox->WinControl->Control->Component->Object)
 ---@class RadioGroup: GroupBox
----@field Items Strings # Strings derived object containings all the items in the list
+---@field Items Strings # Strings derived object containing all the items in the list
 ---@field Columns integer # The number of columns to split the items into
 ---@field ItemIndex integer # The currently selected item
----@field OnClick function # Called when the control is clicked
----@field getRows fun(): integer # Returns the number of rows
----@field getItems fun(): Strings # Returns a Strings object
----@field getColumns fun(): integer # Returns the nuber of columns
----@field setColumns fun(columns: integer) #
----@field getItemIndex fun(): integer #
----@field setItemIndex fun(index: integer) #
----@field setOnClick fun(onClick: function) #
----@field getOnClick fun(): function #
+local RadioGroup = {}
+
+---Called when the control is clicked
+function RadioGroup.OnClick() end
+
+---@return integer # the number of rows
+function RadioGroup.getRows() end
+
+---@return Strings # A Strings object
+function RadioGroup.getItems() end
+
+---@return integer # The number of columns
+function RadioGroup.getColumns() end
+
+---@param columns integer
+function RadioGroup.setColumns(columns) end
+
+---@return integer
+function RadioGroup.getItemIndex() end
+
+---@param index integer
+function RadioGroup.setItemIndex(index) end
+
+---@return function
+function RadioGroup.getOnClick() end
+
+---@param onClick function
+function RadioGroup.setOnClick(onClick) end
+
 
 
 ---Inherits from WinControl (ListBox->WinControl->Control->Component->Object)
@@ -174,21 +405,41 @@
 ---@field Selected boolean[] # Returns true if the given line is selected. Use Items.Count-1 to find out the max index
 ---@field ItemIndex integer # Get selected index. -1 is nothing selected
 ---@field Canvas Canvas # The canvas object used to render on the object
----@field clear fun() #
----@field clearSelection fun() # Deselects all items in the list
----@field selectAll fun() # Selects all items in the list
----@field getItems fun(): Strings # Returns a strings object
----@field setItems fun(items: Strings) # Sets a strings object to the listbox
----@field getItemIndex fun(): integer #
----@field setItemIndex fun(index: integer) #
----@field getCanvas fun(): Canvas #
+local ListBox = {}
+
+function ListBox.clear() end
+
+---Deselects all items in the list
+function ListBox.clearSelection() end
+
+---Selects all items in the list
+function ListBox.clearSelection() end
+
+---@return Strings # A strings object
+function ListBox.getItems() end
+
+---Sets a strings object to the listbox
+---@param items Strings
+function ListBox.setItems(items) end
+
+---@return integer
+function ListBox.getItemIndex() end
+
+---@param index integer
+function ListBox.setItemIndex(index) end
+
+---@return Canvas
+function ListBox.getCanvas() end
 
 
 ---Inherits from WinControl (Calendar->WinControl->Control->Component->Object)
 ---@class Calendar: WinControl
 ---@field Date string # Current date of the Calendar, format: yyyy-mm-dd
 ---@field DateTime number # Days since December 30, 1899
----@field getDateLocalFormat fun(): string # Returns current date of the Calendar, format: ShortDateFormat from OS local settings
+local Calendar = {}
+
+---@return string # Current date of the Calendar, format: ShortDateFormat from OS local settings
+function Calendar.getDateLocalFormat() end
 
 
 ---Inherits from WinControl (ComboBox->WinControl->Control->Component->Object)
@@ -196,13 +447,27 @@
 ---@field Items Strings # Strings derived object containings all the items in the list
 ---@field ItemIndex integer # Get selected index. -1 is nothing selected
 ---@field Canvas Canvas # The canvas object used to render on the object
----@field clear fun() #
----@field getItems fun(): Strings #
----@field setItems fun(items: Strings) #
----@field getItemIndex fun(): integer #
----@field setItemIndex fun(index: integer) #
----@field getCanvas fun(): Canvas #
----@field getExtraWidth fun(): integer # Returns the number of pixels not part of the text of the combobox (think about borders, thumb button, etc...)
+local ComboBox = {}
+
+function ComboBox.clear() end
+
+---@return Strings
+function ComboBox.getItems() end
+
+---@param items Strings
+function ComboBox.setItems(items) end
+
+---@return integer #
+function ComboBox.getItemIndex() end
+
+---@param index integer
+function ComboBox.setItemIndex(index) end
+
+---@return Canvas
+function ComboBox.getCanvas() end
+
+---@return integer # The number of pixels not part of the text of the combobox (think about borders, thumb button, etc...)
+function ComboBox.getExtraWidth() end
 
 
 ---ComboBox like component where you can pick a color-
@@ -217,15 +482,39 @@
 ---@field Max integer # The maximum position value the progress bar can have (default 100
 ---@field Position integer # The position of the progress bar
 ---@field Step integer # The stepsize to step by when stepIt() is called
----@field stepIt fun() # Increase position with "Step" size
----@field stepBy fun(step: integer) # Increase the position by the given integer value
----@field getMax fun(): integer # Returns the Max property
----@field setMax fun(max: integer) # Sets the max property
----@field getMin fun(): integer # Returns the min property
----@field setMin fun(min: integer) # Sets the min property
----@field getPosition fun(): integer # Returns the current position
----@field setPosition fun(position: integer) # Sets the current position
----@field setPosition2 fun(position: integer) # Sets the current position. Without slow progress animation on Win7 and later
+local ProgressBar = {}
+
+---Increase position with "Step" size
+function ProgressBar.stepIt() end
+
+---Increase the position of the ProgressBar by the given integer value
+---@param step integer
+function ProgressBar.stepBy(step) end
+
+---@return integer # The max property
+function ProgressBar.getMax() end
+
+---Sets the max property
+---@param max integer
+function ProgressBar.setMax(max) end
+
+---@return integer # The min property
+function ProgressBar.getMin() end
+
+---Sets the min property
+---@param min integer
+function ProgressBar.setMin(min) end
+
+---@return integer # The current position
+function ProgressBar.getPosition() end
+
+---Sets the current position
+---@param position integer
+function ProgressBar.setPosition(position) end
+
+---Sets the current position. Without slow progress animation on Win7 and later.
+---@param position integer
+function ProgressBar.setPosition2(position) end
 
 
 ---Inherits from WinControl (Inheritance: TrackBar->WinControl->Control->Component->Object)
@@ -234,14 +523,31 @@
 ---@field Max integer # Maximum value for the trackbar
 ---@field Position integer # The current position
 ---@field OnChange function # Function to call when trackbar position changes
----@field getMax fun(): integer #
----@field setMax fun(max: integer) #
----@field getMin fun(): integer #
----@field setMin fun(min: integer) #
----@field getPosition fun(): integer #
----@field setPosition fun(position: integer) #
----@field getOnChange fun(): function #
----@field setOnChange fun(onChange: function) #
+local TrackBar = {}
+
+---@return integer #
+function TrackBar.getMax() end
+
+---@param max integer 
+function TrackBar.setMax(max) end
+
+---@return integer
+function TrackBar.getMin() end
+
+---@param min integer 
+function TrackBar.setMin(min) end
+
+---@return integer
+function TrackBar.getPosition() end
+
+---@param position integer 
+function TrackBar.setPosition(position) end
+
+---@return function
+function TrackBar.getOnChange() end
+
+---@param onChange function 
+function TrackBar.setOnChange(onChange) end
 
 
 ---The cheatcomponent class is the component used in Cheat Engine 5.x trainers.
@@ -285,19 +591,62 @@
 ---@field LargeImages ImageList #
 ---@field SmallImages ImageList #
 ---@field StateImages ImageList #
----@field OnData fun(sender: any, item: ListItem) # Called when a listview with OwnerData true renders a line
----@field OnCustomDraw fun(sender: any, rect: Rectangle, default?: DefaultDraw): DefaultDraw #
----@field OnCustomDrawItem fun(sender: any, item: ListItem, settings: CustomDrawSettingTable, default?: DefaultDraw): DefaultDraw #
----@field OnCustomDrawSubItem fun(sender: any, item: ListItem, subItemIndex: integer, settings: CustomDrawSettingTable, default?: DefaultDraw): DefaultDraw #
----@field clear fun() #
----@field getColumns fun(): ListColumns # Returns a ListColumns object
----@field getItemAt fun(x: integer, y: integer): ListItem # Returns the ListItem at the given coordinate (x * column size * y). nil if nothing
----@field getItems fun(): ListItems # Returns a ListItems object
----@field getItemIndex fun(): integer # Returns the currently selected index in the Items object
----@field setItemIndex fun(index: integer) # Sets the current itemindex
----@field getCanvas fun(): Canvas # Returns the canvas object used to render the list view
----@field beginUpdate fun() # Tells the list view to stop updating while you're busy
----@field endUpdate fun() # Applies all updates between beginUpdate and endUpdate
+local Listview = {}
+
+---Called when a listview who's owned (with OwnerData true) renders a line.
+---@param sender any
+---@param item ListItem
+function Listview.OnData(sender, item) end
+
+---@param sender any
+---@param rect Rectangle
+---@param default? DefaultDraw
+---@return DefaultDraw
+function Listview.OnCustomDraw(sender, rect, default) end
+
+---@param sender any
+---@param item ListItem
+---@param settings CustomDrawSettingTable
+---@param default? DefaultDraw
+---@return DefaultDraw
+function Listview.OnCustomDrawItem(sender, item, settings, default) end
+
+---@param sender any
+---@param item ListItem
+---@param subItemIndex integer
+---@param settings CustomDrawSettingTable
+---@param default? DefaultDraw
+---@return DefaultDraw
+function Listview.OnCustomDrawSubItem(sender, item, subItemIndex, settings, default) end
+
+function Listview.clear() end
+
+---@return ListColumns # A ListColumns object
+function Listview.getColumns() end
+
+---@param x integer # x row
+---@param y integer # y column
+---@return ListItem | nil # the ListItem at the given coordinate (x * column size * y). nil if no list item is there.
+function Listview.getItemAt(x, y) end
+
+---@return ListItems # A ListItems object
+function Listview.getItems() end
+
+---@return integer # The currently selected index in the Items object.
+function Listview.getItemIndex() end
+
+---Sets the current item index.
+---@param index integer
+function Listview.setItemIndex(index) end
+
+---@return Canvas # The canvas object used to render the list view.
+function Listview.getCanvas() end
+
+---Tells the list view to stop updating while you're busy
+function Listview.beginUpdate() end
+
+---Applies all updates between beginUpdate and endUpdate
+function Listview.endUpdate() end
 
 
 ---This is an object that can hold multiple pages.
@@ -309,8 +658,16 @@
 ---@field ActivePage TabSheet # Returns the current tabsheet.
 ---@field PageCount integer # Gets the number of pages
 ---@field Page TabSheet[] # Get a specific page (TabSheet)
----@field addTab fun(): TabSheet # Creates a new TabSheet
----@field tabRect fun(index: integer): Rectangle # Returns a rect table describing the position of the specific tab
+local PageControl = {}
+
+---Creates a new TabSheet.
+---@return TabSheet
+function PageControl.addTab() end
+
+---@param index integer
+---@return Rectangle # A rectangle table describing the position of the specific tab
+function PageControl.tabRect(index) end
+
 
 ---Part of a page control. This object can contain other objects.
 ---
@@ -342,15 +699,48 @@
 ---@field AllowUserToChangeAttachPoints boolean # If true(default) will allow the user to move move the point where a line connects to the block by dragging it
 ---@field ScrollX integer # The horizontal scroll
 ---@field ScrollY integer # The vertical scroll
----@field Zoom float # The zoom level to use 
----@field createBlock fun(): DiagramBlock # Creates a new uninitialized block
----@field addConnection fun(source: DiagramBlock, destination: DiagramBlock): DiagramLink | fun(source: BlockSideDescriptorTable, destination: BlockSideDescriptorTable): DiagramLink # Creates a link between the two blocks or using the BlockSideDescritorTable table definition
----@field saveAsImage fun(fileNamePNG: path) # Saves the current display as an PNG image
----@field saveToFile fun(fileName: path) # Saves the state of the diagram to a file
----@field loadFromFile fun(fileName: path) # loads the state of the diagram from a file
----@field saveToStream fun(stream: Stream) # Saves the state of the diagram to a stream
----@field loadFromStream fun(stream: Stream) # loads the state of the diagram from a stream
----@field getObjectAt fun(pos: Locations2D): Object # Returns the object at this position. nil if nothing
+---@field Zoom float # The zoom level to use
+local Diagram = {}
+
+---@return DiagramBlock # Creates a new uninitialized block.
+function Diagram.createBlock() end
+
+---Creates a link between the two blocks.
+---@param source DiagramBlock
+---@param destination DiagramBlock
+---@return DiagramLink
+function Diagram.addConnection(source, destination) end
+
+---Creates a link between the two blocks using the BlockSideDescritorTable table definition.
+---@param source BlockSideDescriptorTable
+---@param destination BlockSideDescriptorTable
+---@return DiagramLink
+function Diagram.addConnection(source, destination) end
+
+
+---Saves the current display as an PNG image
+---@param fileNamePNG path
+function Diagram.saveAsImage(fileNamePNG) end
+
+---Saves the state of the diagram to a file.
+---@param fileName path
+function Diagram.saveToFile(fileName) end
+
+---Loads the state of the diagram from a file.
+---@param fileName path
+function Diagram.loadFromFile(fileName) end
+
+---Saves the state of the diagram to a stream.
+---@param stream Stream
+function Diagram.saveToStream(stream) end
+
+---Loads the state of the diagram from a stream
+---@param stream Stream
+function Diagram.loadFromStream(stream) end
+
+---@param pos Locations2D
+---@return Object | nil # The object at this position or nil if nothing.
+function Diagram.getObjectAt(pos) end
 
 
 ---A more customizable button instead of the windows themed button, and lets you repaint it from scratch as well.
@@ -373,8 +763,13 @@
 ---@field CustomDrawn boolean # Do your own drawing in the OnPaint property of the button
 ---@field FramesPerSecond integer # If animation is used this will determine how often per second the OnPaint gets called
 ---@field ButtonAnimationSpeed integer # If not custom drawn, this determnines how long the animations for enter/leave take
----@field startAnimatorTimer fun() # Starts the animator timer which will trigger an OnPaint with the speed of the current framesPerSecond property
----@field stopAnimatorTimer fun() # Stops the animator timer
+local CECustomButton = {}
+
+---Starts the animator timer which will trigger an OnPaint with the speed of the current framesPerSecond property.
+function CECustomButton.startAnimatorTimer() end
+
+---Stops the animator timer.
+function CECustomButton.stopAnimatorTimer() end
 
 
 ---Creates a PaintBox class object which belongs to the given owner.

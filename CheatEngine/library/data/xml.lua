@@ -1,8 +1,13 @@
----@meta
+---@meta _
 
 ---@class DOMNode
----@field writeToFile fun(fileName: path) #
----@field writeToStream fun(stream: Stream) #
+local DOMNode = {}
+
+---@param fileName path
+function DOMNode.writeToFile(fileName) end
+
+---@param stream Stream
+function DOMNode.writeToStream(stream) end
 
 ---Inherits from DOMNode (DOMNodeWithChildren->DOMNode)
 ---@class DOMNodeWithChildren: DOMNode
@@ -14,7 +19,6 @@
 
 ---Inherits from DOMNodeTopLevel (DOMDocument->DOMNodeTopLevel->DOMNodeWithChildren->DOMNode)
 ---@class DOMDocument: DOMNodeTopLevel
-
 
 
 ---Inherits from DOMDocument (XMLDocument->DOMDocument->DOMNodeTopLevel->DOMNodeWithChildren->DOMNode)
